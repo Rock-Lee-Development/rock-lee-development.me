@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,700,500);
-
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 body {
   padding-top: 90px;
   background:#F7F7F7;
@@ -15,6 +15,26 @@ body{
   background-size: 600% 100%;#B6A16B
   -webkit-animation: HeroBG 20s ease infinite;
           animation: HeroBG 20s ease infinite;
+}
+label{
+	position: relative;
+	cursor: pointer;
+	color: #666;
+}
+
+input[type="checkbox"], input[type="radio"]{
+	position: absolute;
+  label{
+	position: relative;
+	cursor: pointer;
+	color: #666;
+	font-size: 30px;
+}
+}
+
+input[type="checkbox"], input[type="radio"]{
+	position: absolute;
+	right: 9000px;
 }
 
 @-webkit-keyframes HeroBG {
@@ -225,72 +245,49 @@ label {
   background-color: #2D3B55;
 }
 
-/*Radio box*/
-
-input[type="radio"] + .label-text:before{
-	content: "\f10c";
-	font-family: "FontAwesome";
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing:antialiased;
-	width: 1em;
-	display: inline-block;
-	margin-right: 5px;
+.material-switch > input[type="checkbox"] {
+    display: none;
 }
-
-input[type="radio"]:checked + .label-text:before{
-	content: "\f192";
-	color: #8e44ad;
-	animation: effect 250ms ease-in;
+.custom-checkbox {
+  min-height: 1rem;
+  padding-left: 0;
+  margin-right: 0;
+  cursor: pointer;
 }
-
-input[type="radio"]:disabled + .label-text{
-	color: #aaa;
-}
-
-input[type="radio"]:disabled + .label-text:before{
-	content: "\f111";
-	color: #ccc;
-}
-
-/*Radio Toggle*/
-
-.toggle input[type="radio"] + .label-text:before{
-	content: "\f204";
-	font-family: "FontAwesome";
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing:antialiased;
-	width: 1em;
-	display: inline-block;
-	margin-right: 10px;
-}
-
-.toggle input[type="radio"]:checked + .label-text:before{
-	content: "\f205";
-	color: #16a085;
-	animation: effect 250ms ease-in;
-}
-
-.toggle input[type="radio"]:disabled + .label-text{
-	color: #aaa;
-}
-
-.toggle input[type="radio"]:disabled + .label-text:before{
-	content: "\f204";
-	color: #ccc;
-}
-
-@keyframes effect{
-	0%{transform: scale(0);}
-	25%{transform: scale(1.3);}
-	75%{transform: scale(1.4);}
-	100%{transform: scale(1);}
+  .custom-checkbox .custom-control-indicator {
+    content: "";
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 10px;
+    background-color: #818181;
+    border-radius: 15px;
+    margin-right: 10px;
+    -webkit-transition: background .3s ease;
+    transition: background .3s ease;
+    vertical-align: middle;
+    margin: 0 16px;
+    box-shadow: none;
+  }
+    .custom-checkbox .custom-control-indicator:after {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background-color: #f1f1f1;
+      border-radius: 21px;
+      box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
+      left: -2px;
+      top: -4px;
+      -webkit-transition: left .3s ease, background .3s ease, box-shadow .1s ease;
+      transition: left .3s ease, background .3s ease, box-shadow .1s ease;
+    }
+  .custom-checkbox .custom-control-input:checked ~ .custom-control-indicator {
+    background-color: #84c7c1;
+    background-image: none;
+    box-shadow: none !important;
+  }
+    .custom-checkbox .custom-control-input:checked ~ .custom-control-indicator:after {
+      background-color: #84c7c1;
+      left: 15px;
