@@ -45,11 +45,11 @@
                   <div class="col-xs-6 form-group pull-left checkbox">
                     <div class="row">
                     <div class="col">
-                    <input id="checkbox1" type="checkbox" name="remember">
-                    <label for="checkbox1">Remember Me</label>
+                    <input id="checkbox1" type="checkbox" class="form-check-input" name="remember">
+                    <label class="form-check-label" for="checkbox1">Remember Me</label>
                   </div>
                   <div class="col">
-                      <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalEnrollForm">Forgot Username/Password</a>
+                      <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#forgotmodal" data-whatever="@mdo">Forgot Username/Password</a>
                   </div>
                   </div>
                 </div>
@@ -119,69 +119,65 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-              <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
-          </div>
+          <div class="modal-body mx-3">
+              <div class="md-form">
+                  <i class="fa fa-user prefix grey-text"></i>
+                  <input type="text" id="emailForm" class="form-control validate" placeholder="Email" value="">
 
-          <div class="form-group">
-              <div class="row">
-                  <div class="col-sm-6 col-sm-offset-3">
-                      <input type="submit" name="forgot-submit" id="forgot-submit" tabindex="4" class="form-control btn btn-register" value="Submit">
-                  </div>
               </div>
-          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Submit</button>
         </div>
       </div>
    </div>
 </div>
 <footer id="myFooter">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
-                <h2 class="logo"><a href="#"> LOGO </a></h2>
-            </div>
-            <div class="col-sm-2">
-                <h5>Get started</h5>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Sign up</a></li>
-                    <li><a href="#">Downloads</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-2">
-                <h5>About us</h5>
-                <ul>
-                    <li><a href="#">Company Information</a></li>
-                    <li><a href="#">Contact us</a></li>
-                    <li><a href="#">Reviews</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-2">
-                <h5>Support</h5>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Help desk</a></li>
-                    <li><a href="#">Forums</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <div class="social-networks">
-                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                    <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
-                </div>
-                <button type="button" class="btn btn-default">Contact us</button>
-            </div>
-        </div>
-    </div>
-    <div class="footer-copyright">
-        <p>© 2016 Copyright Text </p>
-    </div>
+
+
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-3">
+                  <h2 class="logo"><a href="#"> LOGO </a></h2>
+              </div>
+              <div class="col-sm-2">
+                  <h5>Get started</h5>
+                  <ul>
+                      <li><a href="#">Homse</a></li>
+                      <li><a href="#">Sign up</a></li>
+                      <li><a href="#">Downloads</a></li>
+                  </ul>
+              </div>
+              <div class="col-sm-2">
+                  <h5>About us</h5>
+                  <ul>
+                      <li><a href="#">Company Information</a></li>
+                      <li><a href="#">Contact us</a></li>
+                      <li><a href="#">Reviews</a></li>
+                  </ul>
+              </div>
+              <div class="col-sm-2">
+                  <h5>Support</h5>
+                  <ul>
+                      <li><a href="#">FAQ</a></li>
+                      <li><a href="#">Help desk</a></li>
+                      <li><a href="#">Forums</a></li>
+                  </ul>
+              </div>
+              <div class="col-sm-3">
+                  <div class="social-networks">
+                      <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                      <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                      <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                  </div>
+                  <button type="button" class="btn btn-default">Contact us</button>
+              </div>
+          </div>
+      </div>
+      <div class="footer-copyright">
+          <p>© 2016 Copyright Text </p>
+      </div>
+
 </footer>
 <!--/.Footer-->
 
