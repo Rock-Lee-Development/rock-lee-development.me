@@ -119,18 +119,12 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-              <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
-          </div>
-
-          <div class="form-group">
-              <div class="row">
-                  <div class="col-sm-6 col-sm-offset-3">
-                      <input type="submit" name="forgot-submit" id="forgot-submit" tabindex="4" class="form-control btn btn-register" value="Submit">
-                  </div>
+          <div class="modal-body mx-3">
+              <div class="md-form">
+                  <i class="fa fa-user prefix grey-text"></i>
+                  <input type="text" id="form1" class="form-control validate">
+                  <label data-error="wrong" data-success="right" for="form1">Email</label>
               </div>
-          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
