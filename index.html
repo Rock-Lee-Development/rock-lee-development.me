@@ -20,6 +20,8 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap.min.css.map" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link href="css/Footer-with-button-logo.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -47,7 +49,7 @@
                     <label for="checkbox1">Remember Me</label>
                   </div>
                   <div class="col">
-                      <a href="forgotpage.html" style="color: #333;">Forgot password</a>
+                      <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalEnrollForm">Forgot Username/Password</a>
                   </div>
                   </div>
                 </div>
@@ -107,16 +109,87 @@
     </div>
   </div>
 </div>
-<footer>
+<!-- Modal -->
+<div class="modal fade" id="forgotmodal" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Enter the Email Address Associated With Your Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+          </div>
 
+          <div class="form-group">
+              <div class="row">
+                  <div class="col-sm-6 col-sm-offset-3">
+                      <input type="submit" name="forgot-submit" id="forgot-submit" tabindex="4" class="form-control btn btn-register" value="Submit">
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+   </div>
+</div>
+<footer id="myFooter">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <h2 class="logo"><a href="#"> LOGO </a></h2>
+            </div>
+            <div class="col-sm-2">
+                <h5>Get started</h5>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Sign up</a></li>
+                    <li><a href="#">Downloads</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-2">
+                <h5>About us</h5>
+                <ul>
+                    <li><a href="#">Company Information</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-2">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Help desk</a></li>
+                    <li><a href="#">Forums</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <div class="social-networks">
+                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                </div>
+                <button type="button" class="btn btn-default">Contact us</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <p>© 2016 Copyright Text </p>
+    </div>
 </footer>
+<!--/.Footer-->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/loginV2.js"></script>
-
-  </body>
 </body>
 </html>
