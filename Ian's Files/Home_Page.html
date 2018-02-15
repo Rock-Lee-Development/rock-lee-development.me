@@ -11,6 +11,11 @@
 	<!-- Custom styles for this template -->
     <link href="css/custom.css" rel="stylesheet">
 
+    <link href="css/createtournament.css" rel="stylesheet">
+    <link href = "css/bootstrap-datetimepicker.min.css" rel = "stylesheet">
+    <link href = "css/bootstrap-timepicker.min.css" rel = "stylesheet">
+    <link href = "css/glyphicons.css" rel = "stylesheet">
+
     <title>RockLeeDev</title>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -22,22 +27,25 @@
 		<div class="navbar-nav">
 
 		  <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalEnrollForm">Join Tournament</a>
-		  <a class="nav-item nav-link" href="#">Create Tournament</a>
+		  <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#createTournament">Create Tournament</a>
 		  <a class="nav-item nav-link" href="#">Records</a>
 		  <a class="nav-item nav-link" href="#">Support</a>
 		</div>
 	  </div>
 	</nav>
 
-	<ul class="nav sticky-top nav-tabs nav-fill navbar-dark bg-dark" id="myTab" role="tablist">
+  <ul class="nav sticky-top nav-tabs nav-fill navbar-dark bg-dark" id="myTab" role="tablist">
 	  <li class="nav-item">
 		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
 	  </li>
 	  <li class="nav-item">
-		<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Agenda</a>
+		<a class="nav-link" id="agenda-tab" data-toggle="tab" href="#agenda" role="tab" aria-controls="agenda" aria-selected="false">Agenda</a>
 	  </li>
 	  <li class="nav-item">
 		<a class="nav-link" id="records-tab" data-toggle="tab" href="#records" role="tab" aria-controls="records" aria-selected="false">Records</a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
 	  </li>
 	</ul>
   </head>
@@ -81,7 +89,7 @@
 		  </div>
 		</div>
 	  </div>
-	  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+	  <div class="tab-pane fade" id="agenda" role="tabpanel" aria-labelledby="agenda-tab">
 		<h3>UPCOMING MATCHES</h3>
 			<div class="container">
 				<p class="lead">Below are your upcoming matches!</p>
@@ -187,11 +195,11 @@
 		<div class="card-header" style="font-weight: bold">Card Header</div>
 		  <img class="card-img-top" src="img/bracket.svg" alt="Card image cap">
 		  <div class="card-body">
-			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			<p class="card-text">Some quidck exddample text to build on the card title and make up the bulk of the card's content.</p>
 		  </div>
 		</div>
 	  </div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 		<h3>Profile</h3>
     <div class="page-wrapper">
         <!-- ============================================================== -->
@@ -325,11 +333,167 @@
     </div>
 </div>
 <!--End Modals-->
+<!-- create tournament modal -->
+<!-- Modal -->
+<div class="modal fade" id="createTournament" tabindex="-1" role="dialog" aria-labelledby="createTournament" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header light-blue darken-3 white-text">
+             <h4 class="title col-sm-9" id="createTournament">Create Tournament</h4>
+             <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+             </button>
+             </div>
+
+            <!--Body-->
+          <div class="modal-body mb-0 mx-3">
+
+              <div class="md-form form-sm row">
+                    <label for="firstname" class="col-sm-3 control-label left-align">First Name</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name" required>
+                    </div>
+                    <br />
+               </div>
+
+              <div class="md-form form-sm row">
+                <!-- last name -->
+                  <label for="lastname" class="col-sm-3 control-label left-align">Last Name</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name" required>
+                  </div>
+                  <br />
+              </div>
+
+              <div class="md-form form-sm row">
+                <label for="emailid" class="col-sm-3 control-label left-align">Email</label>
+                  <div class="col-sm-9">
+                        <input type="email" class="form-control" id="emailid" name="emailid" placeholder="Enter Email" required>
+                  </div>
+                  <br />
+              </div>
+
+              <div class="md-form form-sm row">
+                <label class="col-md-3 control-label left-align" for="eventType" >Type</label>
+                  <div class="col-sm-9">
+                    <select id="eventType" name="eventType" class="form-control">
+                        <option value="individual">Individual</option>
+                        <option value="team">Team</option>
+                    </select>
+                </div>
+                <br />
+              </div>
+
+              <div class="md-form form-sm row">
+                <label for="datePicker" class="col-md-3 control-label left-align">Date Pick</label>
+                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="datePicker" data-link-format="yyyy-mm-dd">
+                   <input class="form-control" size="12" type="text" placeholder="DD/MM/YYYY" value="" readonly>
+                   <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-calendar" style="font-size:20px;"></span></span>
+                </div>
+               <input type="hidden" id="datePicker" name="datePicker" value="" /><br/>
+              </div>
+
+              <div class="md-form form-sm row">
+                <label for="startTime" class="col-md-3 control-label left-align">Start Time</label>
+                <div class="input-group input-append bootstrap-timepicker-component col-md-5">
+                  <input type="text" size="12" class=" form-control from_time input-small " />
+                    <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-time" style="font-size:20px;"></span></span>
+              </div>
+              <input type="hidden" id="startTime" name="startTime" value="" /><br/>
+              <br />
+              </div>
+
+              <div class="md-form form-sm row">
+                <label for="closeTime" class="col-md-3 control-label left-align">End Time</label>
+                <div class=" input-group input-append bootstrap-timepicker-component col-md-5">
+                  <input type="text" size="12" class=" form-control to_time input-small " />
+                  <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-time" style="font-size:20px;"></span></span>
+              </div>
+              <input type="hidden" id="closeTime" name="closeTime" value="" /><br/>
+              <br />
+              </div>
+
+
+              <div class="md-form form-sm row">
+                <label for="description" class="col-sm-3 control-label left-align">Description</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" id="description" name="description" rows="12" required></textarea>
+                </div>
+                <br />
+              </div>
+
+              <div class="text-center mt-1-half">
+                <br />
+                  <button type="button" class="btn btn-secondary" >Create</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+<!-- end modal -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"> </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/bootstrap-timepicker.min.js"></script>
+
+
+    <script type="text/javascript">
+
+    $( document ).ready(function() {
+      $('.form_date').datetimepicker({
+            weekStart: 1,
+            todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        pickerPosition: "bottom-left",
+        startDate: new Date()
+
+
+
+        });
+
+        $('.from_time,.to_time').timepicker({
+          autoclose: true,
+          defaultTime: 'current',
+          disableFocus: true,
+          disableMousewheel: false,
+          isOpen: false,
+          minuteStep: 15,
+          modalBackdrop: false,
+          orientation: { x: 'auto', y: 'auto'},
+          secondStep: 15,
+          snapToStep: false,
+          showSeconds: false,
+          showInputs: true,
+          showMeridian: true,
+          template: 'dropdown',
+          appendWidgetTo: 'body',
+          showWidgetOnAddonClick: true,
+          icons: {
+            up: 'glyphicon glyphicon-chevron-up',
+            down: 'glyphicon glyphicon-chevron-down'
+            },
+            maxHours: 24,
+            explicitMode: false
+          });
+
+
+    });
+
+    </script>
   </body>
 </html>
