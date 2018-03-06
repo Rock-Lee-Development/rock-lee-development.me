@@ -61,7 +61,7 @@
                   </div>
                 </div>
                   <div class="col-xs-6 form-group">
-                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In" onclick="validateLogin()">
                   </div>
               </form>
               <form id="register-form" action="#" method="post" role="form" style="display: none;">
@@ -94,7 +94,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
-                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" onclick="validateRegister()">
                       </div>
                     </div>
                   </div>
@@ -167,5 +167,55 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/loginV2.js"></script>
+
+<script type=text/javascript>
+    function validateLogin() {
+        var x = document.forms["login-form"]["username"].value;
+        var y = document.forms["login-form"]["password"].value;
+        if (x == "") {
+            alert("Username must be filled out");
+            return false;
+          }
+        if (y == "") {
+            alert("Password must be filled out");
+            return false;
+       }
+       window.alert("Username:" + x +"  Password: " + y);
+    }
+
+    function validateRegister() {
+        var x = document.forms["register-form"]["firstName"].value;
+        var y = document.forms["register-form"]["lastName"].value;
+        var z = document.forms["register-form"]["username"].value;
+        var a = document.forms["register-form"]["studentID"].value;
+        var b = document.forms["register-form"]["password"].value;
+        var c = document.forms["register-form"]["confirm-password"].value;
+        if (x == "") {
+            alert("First Name must be filled out");
+            return false;
+          }
+        if (y == "") {
+            alert("Last Name must be filled out");
+            return false;
+       }
+       if (z == "") {
+           alert("Username must be filled out");
+           return false;
+      }
+      if (a == "") {
+          alert("studentID must be filled out");
+          return false;
+     }
+     if (b == "") {
+         alert("Password must be filled out");
+         return false;
+    }
+    if (c == "") {
+        alert("You must confirm your password");
+        return false;
+   }
+       window.alert(x + y + z + a + b + c);
+  }
+  </script>
 </body>
 </html>
