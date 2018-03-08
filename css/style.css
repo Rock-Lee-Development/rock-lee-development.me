@@ -10,8 +10,7 @@ body {
 
 body{
   width: 100%;
-  background: -webkit-linear-gradient(left, #333, #B6A16B, #333, #B6A16B);
-  background: linear-gradient(to right, #333, #B6A16B, #333, #B6A16B);
+  background: #B6A16B;
   background-size: 600% 100%;#B6A16B
   -webkit-animation: HeroBG 20s ease infinite;
           animation: HeroBG 20s ease infinite;
