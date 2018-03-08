@@ -19,6 +19,21 @@
 </head>
 
 <body>
+  <?php
+      $servername = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
+      $username = "rocklee";
+      $password = "lindenwood";
+
+
+      $conn = new mysqli($servername, $username, $password);
+      echo "connection";
+
+
+      if (!$conn) {
+          die("Connection failed: " . mysqli_connect_error());
+      }
+      echo "Connection Successful";
+  ?>
 <div class="container">
   <div class ="row justify-content-sm-center">
     <div class="col-sm-2">
@@ -215,5 +230,6 @@
        window.alert(x + y + z + a + b + c);
   }
   </script>
+
 </body>
 </html>
