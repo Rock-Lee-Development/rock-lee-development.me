@@ -66,7 +66,14 @@
 	<?php } ?>
 	<?php if(!empty($error_message)) { ?>
 	<div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
-	<?php } ?>
+  <?php } ?>
+  
+
+
+
+
+
+  
 <div class="container">
   <div class ="row justify-content-center">
     <div class="col col-md-2">
