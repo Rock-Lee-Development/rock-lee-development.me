@@ -27,7 +27,7 @@ if(!isset($message)) {
 
   if($count==0) {
     $query = "INSERT INTO registered_user (user_name, first_name, last_name, password, email) VALUES
-    ('" . $_POST["userName"] . "', '" . $_POST["firstName"] . "', '" . $_POST["lastName"] . "', '" . md5($_POST["newPassword"]) . "', '" . $_POST["email"] . "')";
+    ('" . $_POST["newUsername"] . "', '" . $_POST["firstName"] . "', '" . $_POST["lastName"] . "', '" . md5($_POST["newPassword"]) . "', '" . $_POST["email"] . "')";
     $current_id = $db_handle->insertQuery($query);
     if(!empty($current_id)) {
       $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."activate.php?id=" . $current_id;
