@@ -1,4 +1,63 @@
+
 <?php
+class DBController {
+	private $host = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
+	private $user = "rocklee";
+	private $password = "lindenwood";
+	private $database = "rocklee";
+	private $conn;
+
+	function __construct() {
+		$this->conn = $this->connectDB();
+	}
+
+	function connectDB() {
+		$conn = mysqli_connect($this->host,$this->user,$this->password,$this->database);
+		return $conn;
+	}
+
+	function runQuery($query) {
+		$result = mysqli_query($this->conn,$query);
+		while($row=mysqli_fetch_assoc($result)) {
+			$resultset[] = $row;
+		}
+		if(!empty($resultset))
+			return $resultset;
+	}
+
+	function numRows($query) {
+		$result  = mysqli_query($this->conn,$query);
+		$rowcount = mysqli_num_rows($result);
+		return $rowcount;
+	}
+
+	function updateQuery($query) {
+		$result = mysqli_query($this->conn,$query);
+		if (!$result) {
+			die('Invalid query: ' . mysql_error());
+		} else {
+			return $result;
+		}
+	}
+
+	function insertQuery($query) {
+		$result = mysqli_query($this->conn,$query);
+		if (!$result) {
+			die('Invalid query: ' . mysql_error());
+		} else {
+			return $result;
+		}
+	}
+
+	function deleteQuery($query) {
+		$result = mysqli_query($this->conn,$query);
+		if (!$result) {
+			die('Invalid query: ' . mysql_error());
+		} else {
+			return $result;
+		}
+	}
+}
 	if(!empty($_POST["register-user"])) {
 		/* Form Required Field Validation */
 		foreach($_POST as $key=>$value) {
@@ -49,12 +108,12 @@ if(!isset($message)) {
 }
 
 if(!empty($success_message)) {
-    if(isset($success_message)) echo $success_message; 
-} 
+    if(isset($success_message)) echo $success_message;
+}
 
 if(!empty($error_message)) {
-    if(isset($error_message)) echo $error_message; 
-} 
+    if(isset($error_message)) echo $error_message;
+}
 
 
 
@@ -63,7 +122,6 @@ if(!empty($error_message)) {
 	<?php } ?>
 	<?php if(!empty($error_message)) { ?>
 	<div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
-	<?php } ?>  */ 
+	<?php } ?>  */
 
 ?>
-
