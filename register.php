@@ -48,8 +48,8 @@ if(!isset($message)) {
 }
 }
 
-if(!empty($success_message)) {
-    if(isset($success_message)) echo $success_message;
+if(!empty($message)) {
+    if(isset($message)) echo $message;
 }
 
 if(!empty($error_message)) {
@@ -64,5 +64,6 @@ if(!empty($error_message)) {
 	<?php if(!empty($error_message)) { ?>
 	<div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
 	<?php } ?>  */
-
+header('Location: http://'. $_SERVER['HTTP_HOST'].'/public/my_site/GitHub/rock-lee-development.me', true,303);
+exit;
 ?>
