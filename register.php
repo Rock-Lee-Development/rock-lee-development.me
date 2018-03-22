@@ -48,12 +48,12 @@ if(!isset($message)) {
 }
 }
 
-if(!empty($success_message)) {
-    if(isset($success_message)) echo $success_message;
+if(!empty($message)) {
+    if(isset($message)) echo $message;
 }
 
-if(!empty($error_message)) {
-    if(isset($error_message)) echo $error_message;
+if(!empty($message)) {
+    if(isset($message)) echo $message;
 }
 
 
