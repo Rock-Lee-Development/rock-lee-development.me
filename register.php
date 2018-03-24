@@ -22,7 +22,7 @@ if(!isset($error_message)) {
 if(!isset($message)) {
   require_once("DBController.php");
   $db_handle = new DBController();
-  $query = "SELECT * FROM registered_user where email = '" . $_POST["email"] . "'";
+  $query = "SELECT * FROM registered_user WHERE (user_name= '" . $_POST["newUsername"] . "' or email='" . $_POST["email"] . "')";
   $count = $db_handle->numRows($query);
 
   if($count==0) {
@@ -44,7 +44,8 @@ if(!isset($message)) {
       $message = "Problem in registration. Try Again!";
     }
   } else {
-    $message = "User Email is already in use.";
+		header("Location: http://localhost/public/my_site/GitHub/rock-lee-development.me/redirect_email.html", true,303);
+		exit;
   }
 }
 }
