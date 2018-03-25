@@ -33,7 +33,7 @@ class DBController {
 	function updateQuery($query) {
 		$result = mysqli_query($this->conn,$query);
 		if (!$result) {
-			die('Invalid query: ' . mysql_error());
+			die('Invalid query: ' . mysqli_error());
 		} else {
 			return $result;
 		}
@@ -42,7 +42,7 @@ class DBController {
 	function insertQuery($query) {
 		$result = mysqli_query($this->conn,$query);
 		if (!$result) {
-			die('Invalid query: ' . mysql_error());
+			die('Invalid query: ' . mysqli_error());
 		} else {
 			return $result;
 		}
@@ -51,7 +51,7 @@ class DBController {
 	function deleteQuery($query) {
 		$result = mysqli_query($this->conn,$query);
 		if (!$result) {
-			die('Invalid query: ' . mysql_error());
+			die('Invalid query: ' . mysqli_error());
 		} else {
 			return $result;
 		}

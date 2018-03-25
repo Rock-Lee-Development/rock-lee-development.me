@@ -38,13 +38,13 @@
               <div class="col-lg-12">
 
                 <!-- *************************** Form 1 ***************************************************** -->
-                <form id="login-form" action="login.php" method="post" role="form" style="display: block;">
+                <form id="login-form" action="php/login.php" method="post" role="form" style="display: block;">
                   <h2>LOGIN</h2>
                   <div class="form-group">
-                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" required>
+                    <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
                   </div>
                   <div class="form-group">
-                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required>
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                   </div>
                   <div class="col-xs-6 form-group">
                     <div class="row">
@@ -70,34 +70,33 @@
 
                 <!-- *************************** Form 2 ***************************************************** -->
 
-                <form id="register-form" action="register.php" method="post" role="form" style="display: none;">
+                <form id="register-form" action="php/register.php" method="post" role="form" style="display: none;">
                   <h2>REGISTER</h2>
                   <div class="form-group">
                     <div class="row">
                       <div class="col">
-                        <input type="text" name="firstName" id="firstName" tabindex="1" class="form-control" placeholder="First Name" value="" required>
+                        <input type="text" name="firstName" id="firstName" tabindex="1" required="required" class="form-control" placeholder="First Name" value="">
                       </div>
                       <div class="col">
-                        <input type="text" name="lastName" id="lastName" tabindex="1" class="form-control" placeholder="Last Name" value="" required>
+                        <input type="text" name="lastName" id="lastName" tabindex="1" required="required" class="form-control" placeholder="Last Name" value="">
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
-                    <input type="text" name="newUsername" id="newUsername" tabindex="1" class="form-control" placeholder="New Username" value="" required>
+                    <input type="email" name="newEmail" id="newEmail" tabindex="1" required="required" class="form-control" placeholder="Lindenwood Email Address" value="">
                   </div>
                   <div class="form-group">
-                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="" required>
+                    <input type="password" name="newPassword" id="newPassword" required="required" tabindex="2" class="form-control" placeholder="New Password">
                   </div>
                   <div class="form-group">
-                    <input type="password" name="newPassword" id="newPassword" tabindex="2" class="form-control" placeholder="New Password" required>
-                  </div>
-                  <div class="form-group">
-                    <input type="password" name="confirm_password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" required>
+                    <input type="password" name="confirm_password" id="confirm-password" tabindex="2" required="required" class="form-control"
+                    oninput="checkPasswords(this)" placeholder="Confirm Password">
                   </div>
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
-                        <input type="submit" name="register-user" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" >
+                        <input type="submit" name="register-user" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now"
+                          onclick="">
                       </div>
                     </div>
                   </div>
@@ -115,8 +114,8 @@
                   <div class="login">LOGIN</div>
                 </a>
               </div>
-              <div class="col-xs-6 tabs" style="width: 50%">
-                <a href="#" id="register-form-link">
+              <div class="col-xs-6 tabs" style="width:50%">
+                <a  href="#" id="register-form-link">
                   <div class="register">REGISTER</div>
                 </a>
               </div>
@@ -127,8 +126,28 @@
     </div>
   </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="forgotmodal" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Enter the Email Address Associated With Your Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mx-3">
+          <div class="md-form">
+            <input type="text" id="emailForm" class="form-control validate" placeholder="Email" value="">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<!-- footer -->
 
   <footer id="footer">
     <div class="footer-top">
@@ -142,12 +161,6 @@
         <strong>ROCK LEE DEVELOPEMENT</strong>.ALL RIGHTS RESERVED.
       </div>
       <div class="credits">
-        <!--
-        All the links in the footer should remain intact.
-        You can delete the links only if you purchased the pro version.
-        Licensing information: https://bootstrapmade.com/license/
-        Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Regna
-      -->
 
       </div>
     </div>
@@ -160,8 +173,7 @@
   <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/loginV2.js"></script>
-
+  <script src="js/index.js"></script>
 
 </body>
 
