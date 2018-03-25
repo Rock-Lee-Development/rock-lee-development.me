@@ -33,14 +33,16 @@ if (!$conn) {
                 die("There was a database error: " . mysqli_error($conn));
                 header('Location: ../error.html');
             } else {
-                $row = mysqli_fetch_assoc($result);
+                $row = mysqli_fetch_assoc($result2);
                 $hashed_password = $row["PasswordHash"];
 
                 if (password_verify($password, $hashed_password)) {
                     header('Location: ../Home_Page.html');
                 } else {
-                    echo "<script> alert('The password you entered does not match the associated user account');
-                  window.location.href='../index.html'; </script>";
+                   // echo "<script> alert('The password you entered does not match the associated user account');
+                 // window.location.href='../index.html'; </script>";
+
+                 die("Error BITCH: " . mysqli_error($conn));
                 }
             }
         }
