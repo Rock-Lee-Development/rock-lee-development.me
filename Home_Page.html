@@ -349,60 +349,43 @@
 
             <!--Body-->
           <div class="modal-body mb-0 mx-3">
-
+          <form action = "php/createTM.php" method = "POST"">
               <div class="md-form form-sm row">
-                    <label for="firstname" class="col-sm-3 control-label left-align">First Name</label>
+                    <label for="tmname" class="col-sm-3 control-label left-align">Tournament Name</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name" required>
+                    <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
                     </div>
                     <br />
                </div>
 
-              <div class="md-form form-sm row">
-                <!-- last name -->
-                  <label for="lastname" class="col-sm-3 control-label left-align">Last Name</label>
-                  <div class="col-sm-9">
-                      <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name" required>
-                  </div>
-                  <br />
-              </div>
 
               <div class="md-form form-sm row">
-                <label for="emailid" class="col-sm-3 control-label left-align">Email</label>
-                  <div class="col-sm-9">
-                        <input type="email" class="form-control" id="emailid" name="emailid" placeholder="Enter Email" required>
-                  </div>
-                  <br />
-              </div>
-
-              <div class="md-form form-sm row">
-                <label class="col-md-3 control-label left-align" for="eventType" >Type</label>
-                  <div class="col-sm-9">
-                    <select id="eventType" name="eventType" class="form-control">
-                        <option value="individual">Individual</option>
-                        <option value="team">Team</option>
-                    </select>
-                </div>
-                <br />
-              </div>
-
-              <div class="md-form form-sm row">
-                <label for="datePicker" class="col-md-3 control-label left-align">Date Pick</label>
-                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="datePicker" data-link-format="yyyy-mm-dd">
-                   <input class="form-control" size="12" type="text" placeholder="DD/MM/YYYY" value="" readonly>
+                <label for="startDate" class="col-md-3 control-label left-align">Start Date</label>
+                <div class="input-group date start_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="startDate" data-link-format="yyyy-mm-dd">
+                   <input class="form-control" size="12" type="text" placeholder="YYYY-MM-DD" value="" readonly>
                    <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-calendar" style="font-size:20px;"></span></span>
                 </div>
-               <input type="hidden" id="datePicker" name="datePicker" value="" /><br/>
+               <input type="hidden" id="startDate" name="startDate" value="" /><br/>
+              </div>
+
+
+              <div class="md-form form-sm row">
+                  <label for="startTime" class="col-md-3 control-label left-align">End Time</label>
+                  <div class=" input-group input-append bootstrap-timepicker-component col-md-5">
+                      <input type="text" size="12" class=" form-control from_time input-small " />
+                      <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-time" style="font-size:20px;"></span></span>
+                  </div>
+                  <input type="hidden" id="startTime" name="startTime" value="" /><br/>
+                  <br />
               </div>
 
               <div class="md-form form-sm row">
-                <label for="startTime" class="col-md-3 control-label left-align">Start Time</label>
-                <div class="input-group input-append bootstrap-timepicker-component col-md-5">
-                  <input type="text" size="12" class=" form-control from_time input-small " />
-                    <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-time" style="font-size:20px;"></span></span>
-              </div>
-              <input type="hidden" id="startTime" name="startTime" value="" /><br/>
-              <br />
+                  <label for="endDate" class="col-md-3 control-label left-align">End Date</label>
+                  <div class="input-group date end_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="endDate" data-link-format="yyyy-mm-dd">
+                      <input class="form-control" size="12" type="text" placeholder="YYYY-MM-DD" value="" readonly>
+                      <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-calendar" style="font-size:20px;"></span></span>
+                  </div>
+                  <input type="hidden" id="endDate" name="endDate" value="" /><br/>
               </div>
 
               <div class="md-form form-sm row">
@@ -424,11 +407,14 @@
                 <br />
               </div>
 
+
+
               <div class="text-center mt-1-half">
                 <br />
-                  <button type="button" class="btn btn-secondary" >Create</button>
+                  <button type="submit" class="btn btn-secondary" id="submit" name="done" >Create</button>
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
               </div>
+            </form>
           </div>
         </div>
     </div>
@@ -451,45 +437,45 @@
     <script type="text/javascript">
 
     $( document ).ready(function() {
-      $('.form_date').datetimepicker({
+        $('.start_date,.end_date').datetimepicker({
+            language: 'en',
             weekStart: 1,
             todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0,
-        pickerPosition: "bottom-left",
-        startDate: new Date()
-
-
-
-        });
-
-        $('.from_time,.to_time').timepicker({
-          autoclose: true,
-          defaultTime: 'current',
-          disableFocus: true,
-          disableMousewheel: false,
-          isOpen: false,
-          minuteStep: 15,
-          modalBackdrop: false,
-          orientation: { x: 'auto', y: 'auto'},
-          secondStep: 15,
-          snapToStep: false,
-          showSeconds: false,
-          showInputs: true,
-          showMeridian: true,
-          template: 'dropdown',
-          appendWidgetTo: 'body',
-          showWidgetOnAddonClick: true,
-          icons: {
-            up: 'glyphicon glyphicon-chevron-up',
-            down: 'glyphicon glyphicon-chevron-down'
-            },
-            maxHours: 24,
-            explicitMode: false
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            pickerPosition: "bottom-left",
+            startDate: new Date()
           });
+  
+  
+          $('.from_time,.to_time').timepicker({
+              use24hours: true,
+            autoclose: true,
+            defaultTime: 'current',
+            disableFocus: true,
+            disableMousewheel: false,
+            isOpen: false,
+            minuteStep: 15,
+            modalBackdrop: false,
+            orientation: { x: 'auto', y: 'auto'},
+            secondStep: 15,
+            snapToStep: false,
+            showSeconds: false,
+            showInputs: true,
+            showMeridian: false,
+            template: 'dropdown',
+            appendWidgetTo: 'body',
+            showWidgetOnAddonClick: true,
+            icons: {
+              up: 'glyphicon glyphicon-chevron-up',
+              down: 'glyphicon glyphicon-chevron-down'
+              },
+              maxHours: 24,
+              explicitMode: false
+            });
 
 
     });

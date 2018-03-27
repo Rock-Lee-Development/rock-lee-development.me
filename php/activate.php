@@ -1,8 +1,8 @@
 <?php
 	require_once("DBController.php");
 	$db_handle = new DBController();
-	if(!empty($_GET["id"])) {
-	$query = "UPDATE registered_user set status = 'active' WHERE id='" . $_GET["id"]. "'";
+	if(!empty($_GET["UserID"])) {
+	$query = "UPDATE User set status = '1' WHERE UserID='" . $_GET["UserID"]. "'";
 	$result = $db_handle->updateQuery($query);
 		if(!empty($result)) {
 			$message = "Your account is activated.";
