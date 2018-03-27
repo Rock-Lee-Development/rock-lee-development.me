@@ -14,7 +14,7 @@ $error_message = 'Passwords should be same<br>';
 
 /* Email Validation */
 if(!isset($error_message)) {
-	if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+	if (!filter_var($_POST["newEmail"], FILTER_VALIDATE_EMAIL)) {
 	$error_message = "Invalid Email Address";
 	}
 }
@@ -30,8 +30,8 @@ if(!isset($message)) {
     ('" . $_POST["firstName"] . "', '" . $_POST["lastName"] . "', '" . password_hash( $_POST["newPassword"], PASSWORD_DEFAULT) . "', '" . $_POST["newEmail"] . "')";
     $current_id = $db_handle->insertQuery($query);
     if(!empty($current_id)) {
-      $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."activate.php?id=" . $current_id;
-      $toEmail = $_POST["email"];
+      $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/"."activate.php?UserID=" . $current_id;
+      $toEmail = $_POST["newEmail"];
       $subject = "User Registration Activation Email";
       $content = "Click this link to activate your account. <a href='" . $actual_link . "'>" . $actual_link . "</a>";
       $mailHeaders = "From: Admin\r\n";
