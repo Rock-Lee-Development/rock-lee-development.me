@@ -39,10 +39,9 @@ if (!$conn) {
                 if (password_verify($password, $hashed_password)) {
                     header('Location: ../Home_Page.html');
                 } else {
-                   // echo "<script> alert('The password you entered does not match the associated user account');
-                 // window.location.href='../index.html'; </script>";
+                   echo "<script> alert('The password you entered does not match the associated user account');
+                 window.location.href='../index.html'; </script>";
 
-                 die("Error BITCH: " . mysqli_error($conn));
                 }
             }
         }

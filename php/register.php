@@ -34,7 +34,7 @@ if(!isset($message)) {
       $toEmail = $_POST["newEmail"];
       $subject = "User Registration Activation Email";
       $content = "Click this link to activate your account. <a href='" . $actual_link . "'>" . $actual_link . "</a>";
-      $mailHeaders = "From: Admin\r\n";
+      $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
       if(mail($toEmail, $subject, $content, $mailHeaders)) {
         echo "<script> alert('Your account has been registered and is pending approval.');
         window.location.href='../index.html'; </script>";
