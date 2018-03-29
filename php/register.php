@@ -33,10 +33,10 @@ if(!isset($message)) {
       $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/"."activate.php?UserID=" . $current_id;
       $toEmail = $_POST["newEmail"];
       $subject = "User Registration Activation Email";
-      $content = "Click this link to activate your account. <a href='" . $actual_link . "'>" . $actual_link . "</a>";
+      $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";
       $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
       if(mail($toEmail, $subject, $content, $mailHeaders)) {
-        echo "<script> alert('Your account has been registered and is pending approval.');
+        echo "<script> alert('Your account has been registere. An activation link has been sent to your email.');
         window.location.href='../index.html'; </script>";
 				exit;
       }

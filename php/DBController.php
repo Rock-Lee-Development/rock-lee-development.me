@@ -42,9 +42,9 @@ class DBController {
 	function insertQuery($query) {
 		$result = mysqli_query($this->conn,$query);
 		if (!$result) {
-			die('Invalid query: ' . mysqli_error());
+			die('Invalid query: ' . mysqli_error($this->conn));
 		} else {
-			return $result;
+			return mysqli_insert_id($this->conn);
 		}
 	}
 
