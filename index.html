@@ -70,8 +70,9 @@
 
                 <!-- *************************** Form 2 ***************************************************** -->
 
-                <form id="register-form" action="php/register.php" method="post" role="form" style="display: none;">
+                <form  name= "myForm" id="register-form" action="php/register.php" method="post" role="form" onsubmit="return validatemyForm();"  style="display: none;">
                   <h2>REGISTER</h2>
+
                   <div class="form-group">
                     <div class="row">
                       <div class="col">
@@ -95,8 +96,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
-                        <input type="submit" name="register-user" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now"
-                          onclick="">
+                        <input type="submit" name="register-user" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" >
                       </div>
                     </div>
                   </div>
@@ -165,6 +165,7 @@
   <script src="js/bootstrap.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/index.js"></script>
+  <script src="js/registration.js"></script>
 
 </body>
 
