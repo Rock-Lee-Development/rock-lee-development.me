@@ -12,9 +12,9 @@
     <link href="css/custom.css" rel="stylesheet">
 
     <link href="css/createtournament.css" rel="stylesheet">
-    <link href = "css/bootstrap-datetimepicker.min.css" rel = "stylesheet">
-    <link href = "css/bootstrap-timepicker.min.css" rel = "stylesheet">
-    <link href = "css/glyphicons.css" rel = "stylesheet">
+      <link href = "css/glyphicons.css" rel = "stylesheet">
+      <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
+      <link href = "css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
 
     <title>RockLeeDev</title>
 
@@ -334,90 +334,103 @@
 <!--End Modals-->
 <!-- create tournament modal -->
 <!-- Modal -->
-<div class="modal fade" id="createTournament" tabindex="-1" role="dialog" aria-labelledby="createTournament" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal fade" id="createTournament" tabindex="-1" role="dialog" aria-labelledby="createTournament" aria-hidden="true">
+        <div class="modal-dialog" role="document">
 
-        <div class="modal-content">
+            <div class="modal-content">
 
-            <div class="modal-header light-blue darken-3 white-text">
-             <h4 class="title col-sm-9" id="createTournament">Create Tournament</h4>
-             <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-             </button>
-             </div>
+                <div class="modal-header light-blue darken-3 white-text">
+                    <h4 class="title col-sm-9" id="createTournament">Create Tournament</h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-            <!--Body-->
-          <div class="modal-body mb-0 mx-3">
-          <form action = "php/createTM.php" method = "POST"">
-              <div class="md-form form-sm row">
-                    <label for="tmname" class="col-sm-3 control-label left-align">Tournament Name</label>
-                    <div class="col-sm-9">
-                    <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
+                <!--Body-->
+                <div class="modal-body mb-0 mx-3">
+                    <form action = "createTM.php" method = "POST"">
+                    <div class="md-form form-sm row">
+                        <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
+                        </div>
+                        <br />
                     </div>
-                    <br />
-               </div>
 
 
-              <div class="md-form form-sm row">
-                <label for="startDate" class="col-md-3 control-label left-align">Start Date</label>
-                <div class="input-group date start_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="startDate" data-link-format="yyyy-mm-dd">
-                   <input class="form-control" size="12" type="text" placeholder="YYYY-MM-DD" value="" readonly>
-                   <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-calendar" style="font-size:20px;"></span></span>
+                    <div class="md-form form-sm row">
+                        <label for="StartDate" class="col-sm-4 control-label right-align">Start Date</label>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="input-group date" id="StartDate"  data-target-input="nearest">
+                                    <input type="text" name = "StartDate" class="form-control datetimepicker-input" data-target="#StartDate" />
+                                    <div class="input-group-append" data-target="#StartDate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md-form form-sm row">
+                        <label for="EndDate" class="col-sm-4 control-label right-align">End Date</label>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="input-group date" id="EndDate"data-target-input="nearest">
+                                    <input type="text" name = "EndDate"  class="form-control datetimepicker-input" data-target="#EndDate" />
+                                    <div class="input-group-append" data-target="#EndDate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md-form form-sm row">
+                        <label for="gType" class="col-sm-4 control-label">Game Type</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="gType">
+                                <option value = "Individual">Individual</option>
+                                <option value = "Team">Team</option>
+                                <br />
+                            </select>
+
+                            <div calss ="teamType">
+                                <div id="selectteam" style="display:none">
+                                    <div class="md-form form-sm row">
+                                        <label for="teamNumber" class="col-sm-6 control-label right-align">Team Size</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" min="0" step="1" class="form-control" id="teamNumber" name="teamNumber" required>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="md-form form-sm row">
+                        <label for="description" class="col-sm-4 control-label right-align">Description</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="description" name="description" rows="12" required></textarea>
+                        </div>
+                        <span class ="offset-md-8" id="spnCharLeft"></span>
+                        <br />
+                    </div>
+
+
+                    <div class="text-center mt-1-half">
+                        <br />
+                        <button type="submit" class="btn btn-secondary" id="submit" name="done" >Create</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                    </div>
+                    </form>
                 </div>
-               <input type="hidden" id="startDate" name="startDate" value="" /><br/>
-              </div>
-
-
-              <div class="md-form form-sm row">
-                  <label for="startTime" class="col-md-3 control-label left-align">End Time</label>
-                  <div class=" input-group input-append bootstrap-timepicker-component col-md-5">
-                      <input type="text" size="12" class=" form-control from_time input-small " />
-                      <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-time" style="font-size:20px;"></span></span>
-                  </div>
-                  <input type="hidden" id="startTime" name="startTime" value="" /><br/>
-                  <br />
-              </div>
-
-              <div class="md-form form-sm row">
-                  <label for="endDate" class="col-md-3 control-label left-align">End Date</label>
-                  <div class="input-group date end_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="endDate" data-link-format="yyyy-mm-dd">
-                      <input class="form-control" size="12" type="text" placeholder="YYYY-MM-DD" value="" readonly>
-                      <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-calendar" style="font-size:20px;"></span></span>
-                  </div>
-                  <input type="hidden" id="endDate" name="endDate" value="" /><br/>
-              </div>
-
-              <div class="md-form form-sm row">
-                <label for="closeTime" class="col-md-3 control-label left-align">End Time</label>
-                <div class=" input-group input-append bootstrap-timepicker-component col-md-5">
-                  <input type="text" size="12" class=" form-control to_time input-small " />
-                  <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-time" style="font-size:20px;"></span></span>
-              </div>
-              <input type="hidden" id="closeTime" name="closeTime" value="" /><br/>
-              <br />
-              </div>
-
-
-              <div class="md-form form-sm row">
-                <label for="description" class="col-sm-3 control-label left-align">Description</label>
-                <div class="col-sm-9">
-                    <textarea class="form-control" id="description" name="description" rows="12" required></textarea>
-                </div>
-                <br />
-              </div>
-
-
-
-              <div class="text-center mt-1-half">
-                <br />
-                  <button type="submit" class="btn btn-secondary" id="submit" name="done" >Create</button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
     </div>
-</div>
 <!-- end modal -->
 
     <!-- Optional JavaScript -->
@@ -429,55 +442,62 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 
-    <script src="js/bootstrap-datetimepicker.min.js"></script>
-    <script src="js/bootstrap-timepicker.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src = "js/tempusdominus-bootstrap-4.min.js"></script>
 
 
     <script type="text/javascript">
 
-    $( document ).ready(function() {
-        $('.start_date,.end_date').datetimepicker({
-            language: 'en',
-            weekStart: 1,
-            todayBtn:  1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            minView: 2,
-            forceParse: 0,
-            pickerPosition: "bottom-left",
-            startDate: new Date()
-          });
-  
-  
-          $('.from_time,.to_time').timepicker({
-              use24hours: true,
-            autoclose: true,
-            defaultTime: 'current',
-            disableFocus: true,
-            disableMousewheel: false,
-            isOpen: false,
-            minuteStep: 15,
-            modalBackdrop: false,
-            orientation: { x: 'auto', y: 'auto'},
-            secondStep: 15,
-            snapToStep: false,
-            showSeconds: false,
-            showInputs: true,
-            showMeridian: false,
-            template: 'dropdown',
-            appendWidgetTo: 'body',
-            showWidgetOnAddonClick: true,
-            icons: {
-              up: 'glyphicon glyphicon-chevron-up',
-              down: 'glyphicon glyphicon-chevron-down'
-              },
-              maxHours: 24,
-              explicitMode: false
+        $(function () {
+            $('#StartDate').datetimepicker(
+                {
+                    useCurrent: false,
+                    minDate: moment(),
+                    allowInputToggle: true,
+                }
+            );
+
+            $('#EndDate').datetimepicker(
+                {
+                    useCurrent: false,
+                    minDate: moment(),
+                    allowInputToggle: true,
+                    startDate:  new Date(),
+                }
+            );
+
+        });
+
+        $(document).ready(function(){
+            $('#gType').on('change', function() {
+                if ( this.value == 'Team')
+                {
+                    $("#selectteam").show();
+                }
+                else
+                {
+                    $("#selectteam").hide();
+                }
             });
+        });
 
+        $('#spnCharLeft').css('display', 'none');
+        var maxLimit = 150;
+        $(document).ready(function () {
+            $('#description').keyup(function () {
+                var lengthCount = this.value.length;
+                if (lengthCount > maxLimit) {
+                    this.value = this.value.substring(0, maxLimit);
+                    var charactersLeft = maxLimit - lengthCount + 1;
+                }
+                else {
+                    var charactersLeft = maxLimit - lengthCount;
+                }
+                $('#spnCharLeft').css('display', 'block');
+                $('#spnCharLeft').text(charactersLeft + ' Characters left');
+            });
+        });
 
-    });
 
     </script>
   </body>
