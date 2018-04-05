@@ -48,6 +48,21 @@ class DBController {
 		}
 	}
 
+	function addTokenQuery($query)
+	{ 
+		$result = mysqli_query($this->conn, $query); 
+
+		if(!$result)
+		{ 
+			die('Invalid query: ' .  mysqli_error($this->conn)); 
+			return $result; 
+		}
+		else
+		{ 
+            return $result; 
+		}
+	}
+
 	function deleteQuery($query) {
 		$result = mysqli_query($this->conn,$query);
 		if (!$result) {

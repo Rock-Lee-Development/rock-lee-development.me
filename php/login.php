@@ -26,6 +26,8 @@ if (!$conn) {
               window.location.href='../index.html'; </script>";
         } else if (mysqli_num_rows($result) == 1) {
 
+           // $check_status_query = "DD"; 
+
             $get_password_query = "select PasswordHash from User where Email = \"$email\"";
             $result2 = mysqli_query($conn, $get_password_query);
 
@@ -53,12 +55,6 @@ if (!$conn) {
         // header('Location: ../Home_Page.html');
     }
 
-    // if(password_verify($password, $hashed_password))
-    {
-        // If the password inputs matched the hashed password in the database
-        // Do something, you know... log them in.
-    }
 
-    //  $hashed_password = password_hash( $_POST["password"], PASSWORD_DEFAULT); This needs to be done at registration.
 
 }
