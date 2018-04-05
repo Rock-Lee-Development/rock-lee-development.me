@@ -71,6 +71,10 @@ if(!empty($error_message)) {
     if(isset($error_message)) echo $error_message;
 }
 
+<<<<<<< HEAD
 
 
+=======
+*/ 
+>>>>>>> 6e39c30360389638e9f665da2121dfde129bb519
 ?>

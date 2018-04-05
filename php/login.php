@@ -1,10 +1,19 @@
 <?php
 
+// to get data stored in a session, you must let the browser know to start a session
+session_start();
+
 $servername = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
 $databaseName = "rocklee";
 $databasePassword = "lindenwood";
 
 $conn = mysqli_connect($servername, $databaseName, $databasePassword, $databaseName);
+
+// Sesion variables for database information. 
+$_SESSION["servername"] = $servername;
+$_SESSION["databasename"] = $databaseName ;
+$_SESSION["password"] = $password;
+
 
 if (!$conn) {
     die("Connection to server failed. Contact system adminstrator: " . mysqli_connect_error());
@@ -39,6 +48,11 @@ if (!$conn) {
                 $hashed_password = $row["PasswordHash"];
 
                 if (password_verify($password, $hashed_password)) {
+
+                    // Session variable for Email Address; 
+                    $_SESSION["email"] = $email; 
+
+                    //Redirect. 
                     header('Location: ../Home_Page.html');
                 } else {
                    echo "<script> alert('The password you entered does not match the associated user account');
@@ -47,12 +61,8 @@ if (!$conn) {
                 }
             }
         }
-        // while($row = mysqli_fetch_assoc($result))
-        // {
-        //    echo $row["Email"];
-        // }
-
-        // header('Location: ../Home_Page.html');
+   
+    
     }
 
 
