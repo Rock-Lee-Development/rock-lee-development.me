@@ -5,10 +5,12 @@
  * Date: 4/4/2018
  * Time: 5:59 PM
  */
+session_start();
 $servername = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
 $username = "rocklee";
 $password = "lindenwood";
 $dbname = "rocklee";
+$email = $_SESSION["email"];
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -17,25 +19,24 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT FirstName, LastName, Email FROM User";
+//Below is the retrieval of user info.
+$sql = "SELECT FirstName, LastName, Email FROM User WHERE Email = \"$email\"";
 $result = $conn->query($sql);
-$helloWorld = array();
+$userArray = array();
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $helloWorld[$row["Email"]] = implode(" ",array($row["FirstName"],$row["LastName"]));
-        echo "Email: " . $row["Email"]. " - Name: " . $row["FirstName"]. " " . $row["LastName"]. "<br>";
+        //
+        $userArray = array("email" => $row["Email"], "first" => $row["FirstName"], "last" => $row["LastName"]);
     }
 } else {
     echo "0 results";
 }
 
-foreach ($helloWorld as $key => $value) {
+foreach ($userArray as $key => $value) {
     echo "Key: $key; Value: $value\n";
 }
-
-$conn->close();
 ?>
 
 <html lang="en">
@@ -43,6 +44,7 @@ $conn->close();
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="../images/Logo.svg">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -92,40 +94,29 @@ $conn->close();
 <div class="tab-content text-center" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <h3>HOME</h3>
-        <div class="card top-buffer mx-auto" style="width: 55vmax;">
-            <div class="card-body">
-                <h5 class="card-title">League of Legends Tournament</h5>
-                <h6 class="card-subtitle mb-2 text-muted">August 26th, 2018</h6>
-                <p class="card-text">A 5V5 draft pick tournament, snacks will be provided! #LOL@LU</p>
-            </div>
-        </div>
-        <div class="card top-buffer mx-auto" style="width: 55vmax;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
-        </div>
-        <div class="card top-buffer mx-auto" style="width: 55vmax;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
-        </div>
-        <div class="card top-buffer mx-auto" style="width: 55vmax;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
-        </div>
+        <?php
+        $sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo
+                    "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
+                    "<div class=\"card-body\">".
+                    "<h5 class=\"card-title\">".$row["Name"]."</h5>".
+                    "<h6 class=\"card-subtitle mb-2 text-muted\">".$row["StartDate"]."</h6>".
+                    "<p class=\"card-text\">".$row["Descripton"]."</p>".
+                    "<a href=\"#\" class=\"card-link\">A link</a>".
+                    "<a href=\"#\" class=\"card-link\">Another link</a>".
+                    "</div>".
+                    "</div>";
+            }
+        } else {
+            echo "0 results";
+        }
+
+
+        ?>
     </div>
     <div class="tab-pane fade" id="agenda" role="tabpanel" aria-labelledby="agenda-tab">
         <h3>UPCOMING MATCHES</h3>
@@ -256,8 +247,8 @@ $conn->close();
                         <div class="card">
                             <div class="card-body">
                                 <!-- <center class="m-t-30"> <img src="images/5.jpg" class="img-circle" width="150" /> -->
-                                <h4 class="card-title m-t-10">Hanna Gover</h4>
-                                <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
+                                <h4 class="card-title m-t-10"><?php echo $userArray["first"]." ".$userArray["last"]; ?></h4>
+                                <h6 class="card-subtitle"><?php echo $userArray["email"]; ?></h6>
                                 <div class="row text-center justify-content-md-center">
                                     <!--<div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
                                     <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>-->
@@ -275,13 +266,13 @@ $conn->close();
                                     <div class="form-group">
                                         <label class="col-md-12">First Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                                            <input type="text" placeholder=<?php echo $userArray["first"]; ?> class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Last Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                                            <input type="text" placeholder=<?php echo $userArray["last"]; ?> class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -607,10 +598,12 @@ $conn->close();
 </script>
 </body>
 
-<footer class="footer">
+<footer class="footer text-center">
     <div class="container">
-        <span class="text-muted">&copy; Rock Lee Development @ Lindenwood Library Services: Media Library</span>
+        <span class="text-muted" style="font-size: .6rem;">&copy; Rock Lee Development @ Lindenwood Library Services: Media Library</span>
     </div>
 </footer>
 
 </html>
+
+<?php $conn->close(); ?>
