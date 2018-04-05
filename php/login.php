@@ -53,7 +53,7 @@ if (!$conn) {
                     $_SESSION["email"] = $email; 
 
                     //Redirect. 
-                    header('Location: account_page.php');
+                    header('Location: pull_user_info.php');
                 } else {
                    echo "<script> alert('The password you entered does not match the associated user account');
                  window.location.href='../index.html'; </script>";

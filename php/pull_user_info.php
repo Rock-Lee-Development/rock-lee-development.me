@@ -33,10 +33,12 @@ if ($result->num_rows > 0) {
 } else {
     echo "0 results";
 }
-
-foreach ($userArray as $key => $value) {
-    echo "Key: $key; Value: $value\n";
-}
+/*
+ * If you need to check who is logged in the code below will print at the top of the page
+ * the current users email and full name. Simply remove from the comment block to use.
+ *
+ * foreach ($userArray as $key => $value) { echo "Key: $key; Value: $value\n"; }
+ */
 ?>
 
 <html lang="en">
