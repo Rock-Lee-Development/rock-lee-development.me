@@ -24,11 +24,28 @@ if(!isset($message)) {
   $db_handle = new DBController();
   $query = "SELECT * FROM User WHERE email='" . $_POST["newEmail"] . "'";
   $count = $db_handle->numRows($query);
+  $token = $db_handle->generateNewString(); 
 
   if($count==0) {
     $query = "INSERT INTO User (FirstName, LastName, PasswordHash, Email) VALUES
     ('" . $_POST["firstName"] . "', '" . $_POST["lastName"] . "', '" . password_hash( $_POST["newPassword"], PASSWORD_DEFAULT) . "', '" . $_POST["newEmail"] . "')";
     $current_id = $db_handle->insertQuery($query);
+     
+
+     $add_token_query = "INSERT INTO UserToken (UserID, Token) VALUES('$current_id', '$token')"; 
+     $tokenresult = mysqli_query($conn, $add_token_query); 
+
+     if(!tokenresult)
+     { 
+      die("There was a database error: " . mysqli_error($conn));   
+     } 
+     else
+     {  
+        echo "Came in here";  
+     }
+
+/*
+
     if(!empty($current_id)) {
       $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/"."activate.php?UserID=" . $current_id;
       $toEmail = $_POST["newEmail"];
@@ -60,4 +77,5 @@ if(!empty($error_message)) {
     if(isset($error_message)) echo $error_message;
 }
 
+*/ 
 ?>
