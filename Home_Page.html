@@ -359,7 +359,7 @@
 
                 <!--Body-->
                 <div class="modal-body mb-0 mx-3">
-                    <form action = "createTM.php" method = "POST"">
+                    <form action = "php/createTM.php" method = "POST"">
                     <div class="md-form form-sm row">
                         <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label>
                         <div class="col-sm-8">
@@ -412,6 +412,16 @@
                                         <label for="teamNumber" class="col-sm-6 control-label right-align">Team Size</label>
                                         <div class="col-sm-6">
                                             <input type="number" min="0" step="1" class="form-control" id="teamNumber" name="teamNumber" required>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+
+                                <div id="numteam" style="display:none">
+                                    <div class="md-form form-sm row">
+                                        <label for="teamNumber" class="col-sm-6 control-label right-align">Numbers of Team</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" min="2" step="1" class="form-control" id="teamNumber" name="teamNumber">
                                         </div>
                                         <br />
                                     </div>
@@ -539,10 +549,12 @@
                 if ( this.value == 'Team')
                 {
                     $("#selectteam").show();
+                    $("#numteam").show();
                 }
                 else
                 {
                     $("#selectteam").hide();
+                    $("#numteam").hide();
                 }
             });
         });
