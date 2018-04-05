@@ -1,7 +1,10 @@
 <?php
 	require_once("DBController.php");
+
 	$db_handle = new DBController();
-	if(!empty($_GET["UserID"])) {
+
+	if(!empty($_GET["UserID"]) && !empty($_GET["Token"])) 
+	{
 	$query = "UPDATE User set status = '1' WHERE UserID='" . $_GET["UserID"]. "'";
 	$result = $db_handle->updateQuery($query);
 		if(!empty($result)) {
@@ -20,4 +23,5 @@
 <?php if(isset($message)) { ?>
 <div class="message"><?php echo $message; ?></div>
 <?php } ?>
-</body></html>
+</body>
+</html>

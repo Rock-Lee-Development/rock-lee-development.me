@@ -29,25 +29,14 @@ if(!isset($message)) {
   if($count==0) {
     $query = "INSERT INTO User (FirstName, LastName, PasswordHash, Email) VALUES
     ('" . $_POST["firstName"] . "', '" . $_POST["lastName"] . "', '" . password_hash( $_POST["newPassword"], PASSWORD_DEFAULT) . "', '" . $_POST["newEmail"] . "')";
-    $current_id = $db_handle->insertQuery($query);
-     
-
-     $add_token_query = "INSERT INTO UserToken (UserID, Token) VALUES('$current_id', '$token')"; 
-     $tokenresult = mysqli_query($conn, $add_token_query); 
-
-     if(!tokenresult)
-     { 
-      die("There was a database error: " . mysqli_error($conn));   
-     } 
-     else
-     {  
-        echo "Came in here";  
-     }
-
-/*
-
+    
+     $current_id = $db_handle->insertQuery($query);
+     $add_token_query = "INSERT INTO UserToken (UserID, Token) VALUES(\"$current_id\", \"$token\")"; 
+     $tokenresult = $db_handle->addTokenQuery($add_token_query); 
+      
+   
     if(!empty($current_id)) {
-      $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/"."activate.php?UserID=" . $current_id;
+      $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/"."activate.php?UserID=$current_id Token=$token";
       $toEmail = $_POST["newEmail"];
       $subject = "User Registration Activation Email";
       $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";
@@ -61,7 +50,12 @@ if(!isset($message)) {
     } else {
       $message = "Problem in registration. Try Again!";
     }
-  } else {
+    
+
+
+  }
+   else 
+   {
     echo "<script> alert('The email address you entered is already associated with a user account');
     window.location.href='../index.html'; </script>";
 		exit;
@@ -77,5 +71,10 @@ if(!empty($error_message)) {
     if(isset($error_message)) echo $error_message;
 }
 
+<<<<<<< HEAD
+
+
+=======
 */ 
+>>>>>>> 6e39c30360389638e9f665da2121dfde129bb519
 ?>

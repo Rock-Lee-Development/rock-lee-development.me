@@ -1,95 +1,68 @@
-
-
 <?php
-$servername = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
-$username = "rocklee";
-$password = "lindenwood";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password);
+if(!isset($message)){
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-echo "<h1>Connected successfully</h1>";
+    //connect DB
+require_once("DBController.php");
+$db_handle = new DBController();
 
-$tmname = $_POST["tmname"];
-$sdate = $_POST["startDate"];
-$stime = $_POST["startTime"];
-$originalsDate = $sdate.' '.$stime;
-$startDate = date("Y-m-d H:i:s", strtotime($originalsDate));
+        //get tournament info
+    $tmname = $_POST["tmname"];
+    $sdate = $_POST["StartDate"];
+    $edate = $_POST["EndDate"];
 
-$edate = $_POST["endDate"];
-$etime = $_POST["closeTime"];
-$originaleDate = $edate.' '.$etime;
-$endDate = date("Y-m-d H:i:s", strtotime($originaleDate));
+    $startDate = date("Y-m-d H:i:s", strtotime($sdate));
+    $endDate = date("Y-m-d H:i:s", strtotime($edate));
 
-$des = $_POST['description'];
-//$ii=$splitTime[1];
+        //get team info
+    $teamSize =  $_POST["teamSize"];
+    $teamNum =  $_POST["teamNum"];
 
-//echo "<br >";
-    //echo $tmname;
-   // echo "<br >";
-   // echo $startDate;
-//echo "<br >";
-//echo $endDate;
-//echo "<br >";
-//echo $des;
-//echo $ii;
-//$con = $sdate." ".$stime;
+    $type = $_POST["gType"];
+    if ($type == 'Team') {
+        $type = 1;
 
+    } else if($type == 'Individual')  {
+        $type = 0;
+        $teamNum = 0;
+        $teamSize = 0;
+    }
 
+    $des = $_POST['description'];
 
-$result = mysqli_query($conn,"USE rocklee");
+//insert into team table
+    
+//insert into tounrnament table
 
-$conn->query($result);
-
-$result = "INSERT INTO Tournament (Name, Descripton,StartDate,EndDate,Approved)
-VALUES ('$tmname', '$des','$startDate', '$endDate',0)";
-
-if ($conn->query($result) === TRUE) {
-    echo "<br >";
-    echo "New record created successfully";
-    echo "<br >";
-} else {
-    echo "Error: " . $result . "<br>" . $conn->error;
-}
-
-$result = mysqli_query($conn,"SELECT * FROM Tournament");
-
-echo "<table border='1'>
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Description</th>
-<th>StartDate</th>
-<th>EndDate</th>
-<th>Prove Status</th>
-</tr>";
+    $query = "insert into Tournament (Name, Descripton,StartDate,EndDate,Approved,isTeamBased)
+values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
 
 
-if($result === FALSE) {
-    die(mysqli_error($conn));
+    $current_id = $db_handle->insertQuery($query);
+
+    if (!empty($current_id)) {
+        $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/" . "approved.php?TournamentID=" . $current_id;
+        $toEmail = '373008794@qq.com';
+        $subject = "New Tournament need chack status";
+        $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";
+        $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
+        if (mail($toEmail, $subject, $content, $mailHeaders)) {
+            echo "<script> alert('Your tounrmanet is sent. An activation link has been sent to your email.');
+        window.location.href='../index.html'; </script>";
+            exit;
+        }
+        unset($_POST);
+    } else {
+        $message = "Problem in registration. Try Again!";
+    }
 }
 
-while($row = mysqli_fetch_array($result))
-{
-    echo "<tr>";
-    echo "<td>" . $row['TournamentID'] . "</td>";
-    echo "<td>" . $row['Name'] . "</td>";
-    echo "<td>" . $row['Descripton'] . "</td>";
-    echo "<td>" . $row['StartDate'] . "</td>";
-    echo "<td>" . $row['EndDate'] . "</td>";
-    echo "<td>" . $row['Approved'] . "</td>";
-    echo "</tr>";
-    echo  "<br >";
+if(!empty($message)) {
+    if(isset($message)) echo $message;
 }
-echo "</table>";
 
-
-mysqli_close($conn);
-
-
+if(!empty($error_message)) {
+    if(isset($error_message)) echo $error_message;
+}
 
 ?>
