@@ -35,7 +35,7 @@ if(!isset($message)) {
 
 
     if(!empty($current_id)) {
-      $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/"."activate.php?UserID=$current_id Token=$token";
+      $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/activate.php?UserID=$current_id &Token=$toke";
       $toEmail = $_POST["newEmail"];
       $subject = "User Registration Activation Email";
       $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";
