@@ -2,26 +2,19 @@
 	require_once("DBController.php");
 
 	$db_handle = new DBController();
-
-	if(!empty($_GET["UserID"]) && !empty($_GET["Token"])) 
-	{
+	$id = $_GET['UserID'];
+	$token = $_GET['Token'];
+	$query1 = "SELECT * FROM UserToken WHERE UserID='$id' AND Token = '$token'";
+	$count = $db_handle->numRows($query1);
+	if($count>0) {
 	$query = "UPDATE User set status = '1' WHERE UserID='" . $_GET["UserID"]. "'";
 	$result = $db_handle->updateQuery($query);
 		if(!empty($result)) {
-			$message = "Your account is activated.";
+			echo "<script> alert('your account is activate');
+	    window.location.href='../index.html'; </script>";
 		} else {
-			$message = "Problem in account activation.";
+			echo "<script> alert('problem registration');
+			window.location.href='../index.html'; </script>";
 		}
 	}
 ?>
-<html>
-<head>
-<title>PHP User Registration Form</title>
-<link href="css/style.css" type="text/css" rel="stylesheet" />
-</head>
-<body>
-<?php if(isset($message)) { ?>
-<div class="message"><?php echo $message; ?></div>
-<?php } ?>
-</body>
-</html>
