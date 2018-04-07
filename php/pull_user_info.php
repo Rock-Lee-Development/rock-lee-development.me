@@ -438,18 +438,27 @@ if ($result->num_rows > 0) {
                             <br />
                         </select>
 
-                        <div calss ="teamType">
+                         <div calss ="teamType">
                             <div id="selectteam" style="display:none">
+                                <div class="md-form form-sm row">
+                                    <label for="teamSize" class="col-sm-6 control-label right-align">Team Size</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" min="0" step="1" class="form-control" id="teamSize" name="teamSize">
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+
+                            <div id="numteam" style="display:none">
                                 <div class="md-form form-sm row">
                                     <label for="teamNumber" class="col-sm-6 control-label right-align">Team Size</label>
                                     <div class="col-sm-6">
-                                        <input type="number" min="0" step="1" class="form-control" id="teamNumber" name="teamNumber" required>
+                                        <input type="number" min="0" step="1" class="form-control" id="teamNumber" name="teamNumber">
                                     </div>
                                     <br />
                                 </div>
                             </div>
                         </div>
-
                         <br />
                     </div>
                 </div>
@@ -571,10 +580,12 @@ if ($result->num_rows > 0) {
             if ( this.value == 'Team')
             {
                 $("#selectteam").show();
+                $("#numteam").show();
             }
             else
             {
                 $("#selectteam").hide();
+                $("#numteam").hide();
             }
         });
     });
