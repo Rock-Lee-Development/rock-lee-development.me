@@ -443,7 +443,7 @@ if ($result->num_rows > 0) {
                                 <div class="md-form form-sm row">
                                     <label for="teamSize" class="col-sm-6 control-label right-align">Team Size</label>
                                     <div class="col-sm-6">
-                                        <input type="number" min="0" step="1" class="form-control" id="teamSize" name="teamSize">
+                                        <input type="number" min="2" step="1" class="form-control" id="teamSize" name="teamSize">
                                     </div>
                                     <br />
                                 </div>
@@ -453,7 +453,7 @@ if ($result->num_rows > 0) {
                                 <div class="md-form form-sm row">
                                     <label for="teamNumber" class="col-sm-6 control-label right-align">Team Size</label>
                                     <div class="col-sm-6">
-                                        <input type="number" min="0" step="1" class="form-control" id="teamNumber" name="teamNumber">
+                                        <input type="number" min="2" step="1" class="form-control" id="teamNumber" name="teamNumber">
                                     </div>
                                     <br />
                                 </div>
