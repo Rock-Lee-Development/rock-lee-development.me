@@ -1,10 +1,11 @@
 <?php
 
 if(!isset($message)){
-
+    session_start();
     //connect DB
 require_once("DBController.php");
 $db_handle = new DBController();
+    $email = $_SESSION["email"];
 
         //get tournament info
     $tmname = $_POST["tmname"];
@@ -16,7 +17,7 @@ $db_handle = new DBController();
 
         //get team info
     $teamSize =  $_POST["teamSize"];
-    $teamNum =  $_POST["teamNum"];
+    $teamNum =  $_POST["teamNumber"];
 
     $type = $_POST["gType"];
     if ($type == 'Team') {
@@ -41,20 +42,31 @@ values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
     $current_id = $db_handle->insertQuery($query);
 
     if (!empty($current_id)) {
-        $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/" . "approved.php?TournamentID=" . $current_id;
-        $toEmail = '373008794@qq.com';
+        $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/" . "approved.php?TournamentID=" . $current_id. "email=".$email;
+        $toEmail = 'ccjumpper@gmail.com';
         $subject = "New Tournament need chack status";
         $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";
         $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
         if (mail($toEmail, $subject, $content, $mailHeaders)) {
             echo "<script> alert('Your tounrmanet is sent. An activation link has been sent to your email.');
-        window.location.href='../index.html'; </script>";
-            exit;
+        window.location.href='../pull_user_info.php'; </script>";
+              //send eamil to creator
+              $toEmail = $email;
+              $subject = "Tournament status";
+              $content = "Your tournament is pending to be checked.";
+              $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
+              if (mail($toEmail, $subject, $content, $mailHeaders)){
+                  echo "<script> alert('Your tournament is sent. pending');
+          window.location.href='../pull_user_info.php'; </script>";
+                  exit;
+              }
         }
         unset($_POST);
     } else {
         $message = "Problem in registration. Try Again!";
     }
+
+
 }
 
 if(!empty($message)) {

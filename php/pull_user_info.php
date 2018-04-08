@@ -354,15 +354,23 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="modal-body mx-3">
-                <form>
+            <form>
                     <div class="form-group">
-                        <label for="tournamentID">Tournament Id</label>
-                        <input type="email" class="form-control" id="tournamentID" aria-describedby="idHelp" placeholder="Enter Tournament Id">
-                        <small id="idHelp" class="form-text text-muted">You should be provided this by the tournament's host.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="tournamentKey">Tournament Key</label>
-                        <input type="password" class="form-control" id="tournamentKey" placeholder="Tournament Key">
+                        <label for = "TMname"> Select A Tournament</label>
+                        <select name = "TMname" id = "TMname" onchange="fetch_team(this.value);">
+                            <?php
+                            $result = $conn->query("select TournamentID,Name from Tournament");
+                            while ($row = $result->fetch_assoc()) {
+                                $teamID = $row["TournamentID"];
+                                $name = $row['Name'];
+                                echo '<option value="'.$teamID.'">'.$name.'</option>';
+                            }
+                            ?>
+                        </select>
+
+                        <div id="new_select">
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -432,24 +440,33 @@ if ($result->num_rows > 0) {
                 <div class="md-form form-sm row">
                     <label for="gType" class="col-sm-4 control-label">Game Type</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="gType">
+                        <select class="form-control" id="gType" name="gType">
                             <option value = "Individual">Individual</option>
                             <option value = "Team">Team</option>
                             <br />
                         </select>
 
-                        <div calss ="teamType">
+                         <div calss ="teamType">
                             <div id="selectteam" style="display:none">
+                                <div class="md-form form-sm row">
+                                    <label for="teamSize" class="col-sm-6 control-label right-align">Team Size</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" min="2" step="1" class="form-control" id="teamSize" name="teamSize">
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+
+                            <div id="numteam" style="display:none">
                                 <div class="md-form form-sm row">
                                     <label for="teamNumber" class="col-sm-6 control-label right-align">Team Size</label>
                                     <div class="col-sm-6">
-                                        <input type="number" min="0" step="1" class="form-control" id="teamNumber" name="teamNumber" required>
+                                        <input type="number" min="2" step="1" class="form-control" id="teamNumber" name="teamNumber">
                                     </div>
                                     <br />
                                 </div>
                             </div>
                         </div>
-
                         <br />
                     </div>
                 </div>
@@ -530,7 +547,7 @@ if ($result->num_rows > 0) {
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"> </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -571,10 +588,12 @@ if ($result->num_rows > 0) {
             if ( this.value == 'Team')
             {
                 $("#selectteam").show();
+                $("#numteam").show();
             }
             else
             {
                 $("#selectteam").hide();
+                $("#numteam").hide();
             }
         });
     });
@@ -596,6 +615,18 @@ if ($result->num_rows > 0) {
         });
     });
 
+    function fetch_team(val){
+            $.ajax({
+                type: 'post',
+                url: 'php/fetch_team.php',
+                data: {
+                    get_option:val
+                },
+                success: function (response) {
+                document.getElementById("new_select").innerHTML=response;
+           }
+        });
+    }
 
 </script>
 </body>
