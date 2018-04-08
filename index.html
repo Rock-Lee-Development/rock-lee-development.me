@@ -126,27 +126,43 @@
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="forgotmodal" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="myModalLabel">Enter the Email Address Associated With Your Account</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  <!-- create tournament modal -->
+  <!--Begin Modal-->
+    <div class="modal fade" id="forgotmodal" tabindex="-1" role="dialog" aria-labelledby="createTournament" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header light-blue darken-3 white-text">
+                    <h4 class="title col-sm-9" id="createTournament">Create Tournament</h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body mb-0 mx-3">
+                    <form action = "php/forgot_password.php" method = "POST">
+                    <div class="md-form form-sm row">
+                        <label for="tmname" class="col-sm-4 control-label right-align">Enter email</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="emailForm" name="emailForm" placeholder="email" required>
+                        </div>
+                        <br />
+                    </div>
+
+                    <div class="text-center mt-1-half">
+                        <br />
+                        <input type="submit" class="btn btn-secondary" id="submit" name="done" >Create</button>
+                        
+                    </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="modal-body mx-3">
-          <div class="md-form">
-            <input type="text" id="emailForm" class="form-control validate" placeholder="Email" value="">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Submit</button>
-        </div>
-      </div>
     </div>
-  </div>
+  <!-- End Modal -->
+
   <div class ="footer">
     <div class="container">
         &copy; 2018
