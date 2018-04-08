@@ -1,43 +1,26 @@
 <?php
-	if(!empty($_POST["register-user"])) {
-		/* Form Required Field Validation */
-		foreach($_POST as $key=>$value) {
-			if(empty($_POST[$key])) {
-			$error_message = "All Fields are required";
-			break;
-			}
-		}
-    /* Password Matching Validation */
-if($_POST['newPassword'] != $_POST['confirm_password']){
-$error_message = 'Passwords should be same<br>';
-}
-
-/* Email Validation */
-if(!isset($error_message)) {
-	if (!filter_var($_POST["newEmail"], FILTER_VALIDATE_EMAIL)) {
-	$error_message = "Invalid Email Address";
-	}
-}
 
 if(!isset($message)) {
   require_once("DBController.php");
   $db_handle = new DBController();
-  $query = "SELECT * FROM User WHERE email='" . $_POST["emailForm"] . "'";
+	$current_email = $_POST["emailForm"];
+	$select_idquery= "SELECT UserID FROM User WHERE email='$current_email'";
+	$current_id = $db_handle->getUserID($select_idquery);
+  $query = "SELECT * FROM User WHERE email='$current_email'";
   $count = $db_handle->numRows($query);
   $token = $db_handle->generateNewString();
 
   if($count>0) {
-    $updateToken= "UPDATE UserToken set Token = '$token' WHERE email='" .$_POST["emailForm"] . "'";
+    $updateToken= "UPDATE UserToken set Token = '$token' WHERE UserID='$current_id'";
     $result2 = $db_handle->updateQuery($updateToken);
-    $current_email = $_POST["emailForm"];
     if(!empty($current_id)) {
       $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/activate.php?UserID=$current_id &Token=$token";
-      $toEmail = $_POST["newEmail"];
+      $toEmail = $current_email;
       $subject = "User Registration Activation Email";
       $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";
       $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
       if(mail($toEmail, $subject, $content, $mailHeaders)) {
-        echo "<script> alert('Your account has been registere. An activation link has been sent to your email.');
+        echo "<script> alert('A link has been sent to your email adress.');
         window.location.href='../index.html'; </script>";
 				exit;
       }
@@ -45,9 +28,6 @@ if(!isset($message)) {
     } else {
       $message = "Problem in registration. Try Again!";
     }
-
-
-
   }
    else
    {
@@ -55,7 +35,7 @@ if(!isset($message)) {
     window.location.href='../index.html'; </script>";
 		exit;
   }
-}
+
 }
 
 if(!empty($message)) {
