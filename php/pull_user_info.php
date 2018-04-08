@@ -116,8 +116,6 @@ if ($result->num_rows > 0) {
         } else {
             echo "0 results";
         }
-
-
         ?>
     </div>
     <div class="tab-pane fade" id="agenda" role="tabpanel" aria-labelledby="agenda-tab">
@@ -138,6 +136,33 @@ if ($result->num_rows > 0) {
                         </tr>
                         </thead>
                         <tbody>
+                        <?php
+                        $sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                                $string = $row["StartDate"];
+                                $timestamp = strtotime($string);
+                                echo
+                                    "<tr>".
+                                        "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">".
+                                            "<div class=\"dayofmonth\">".date("d", $timestamp)."</div>".
+                                            "<div class=\"dayofweek\">".date("D", $timestamp)."</div>".
+                                            "<div class=\"shortdate text-muted\">".date("F", $timestamp).",".date("Y", $timestamp)."</div>".
+                                        "</td>".
+                                        "<td class=\"agenda-time\">".date("h", $timestamp)."</td>".
+                                        "<td class=\"agenda-events\">".
+                                            "<div class=\"agenda-event\"> ".
+                                                $row["Name"]." ".$row["Descripton"].
+                                            "</div>".
+                                        "</td>".
+                                    "</tr>";
+                            }
+                        } else {
+                            echo "0 results";
+                        }
+                        ?>
                         <!-- Single event in a single day -->
                         <tr>
                             <td class="agenda-date" class="active" rowspan="1">
@@ -151,43 +176,6 @@ if ($result->num_rows > 0) {
                             <td class="agenda-events">
                                 <div class="agenda-event"> 
                                     League of Legends 5V5 draft pick match
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Multiple events in a single day (note the rowspan) -->
-                        <tr>
-                            <td class="agenda-date" class="active" rowspan="3">
-                                <div class="dayofmonth">24</div>
-                                <div class="dayofweek">Thursday</div>
-                                <div class="shortdate text-muted">July, 2014</div>
-                            </td>
-                            <td class="agenda-time">
-                                8:00 - 9:00 AM
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Doctor's Appointment
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="agenda-time">
-                                10:15 AM - 12:00 PM
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Meeting with executives
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="agenda-time">
-                                7:00 - 9:00 PM
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Aria's dance recital
                                 </div>
                             </td>
                         </tr>
@@ -506,7 +494,7 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="modal-body mx-3">
-                <form method="post" name="myemailform" action="php/form-to-email.php">
+                <form method="post" name="myemailform" action="form-to-email.php">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" name="name "placeholder="Enter Your Name">
