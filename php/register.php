@@ -33,23 +33,29 @@ if(!isset($message)) {
     $add_token_query = "INSERT INTO UserToken (UserID, Token) VALUES(\"$current_id\", \"$token\")";
    	$tokenresult = $db_handle->addTokenQuery($add_token_query);
 
-
-    if(!empty($current_id)) {
-      $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/activate.php?UserID=$current_id &Token=$token";
+     if(!empty($current_id)) {
+      $actual_link = "http://ec2-34-229-212-55.compute-1.amazonaws.com/php/activate.php?UserID=$current_id&Token=$token";
       $toEmail = $_POST["newEmail"];
-      $subject = "User Registration Activation Email";
-      $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";
-      $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
-      if(mail($toEmail, $subject, $content, $mailHeaders)) {
-        echo "<script> alert('Your account has been registere. An activation link has been sent to your email.');
-        window.location.href='../index.html'; </script>";
-				exit;
-      }
+      $subject = "Gamer Tree User Account Activation Email";
+      $content = "Thank you for registering with Lindenwood University's Gamer Tree tournament management system \n
+      Please click this link to activate your Gamer Tree User Account.\n $actual_link";
+      $mailHeaders = "From: noreply@gamertree.com\r\n";
+
+     $returnval = mail($toEmail, $subject, $content, $mailHeaders);
+
+     if($returnval){
+       echo "<script> alert('Your user account has been succesfully registered. Please check your Lindenwood email address for an activation email.');
+                window.location.href='../index.html'; </script>";
+         exit;
+     }else {
+      $message = "Problem in registration. Try Again!";
+     }
       unset($_POST);
-    } else {
+    }
+     else 
+    {
       $message = "Problem in registration. Try Again!";
     }
-
 
 
   }

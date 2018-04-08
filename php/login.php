@@ -23,7 +23,8 @@ if (!$conn) {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $check_email_query = "select Email from User where Email = \"$email\"";
+    $check_email_query = "select Email from User where Email = \"$email\" and Status = 1";
+   
     $result = mysqli_query($conn, $check_email_query);
 
     if (!$result) {
@@ -31,7 +32,7 @@ if (!$conn) {
         header('Location: ../error.html');
     } else {
         if (mysqli_num_rows($result) == 0) {
-            echo "<script> alert('Your email address was not found in the Tournament System. Please register as a new user');
+            echo "<script> alert('Your Lindenwood email address is not currrently in our system, or it has not been activated. If you have registered please check your email for a User Account activation link. Otherwise, please register as a new user.');
               window.location.href='../index.html'; </script>";
         } else if (mysqli_num_rows($result) == 1) {
 
