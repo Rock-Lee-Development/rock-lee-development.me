@@ -4,7 +4,7 @@ $('#register-submit').on('click', function validatemyForm() {
       var atpos = x.indexOf("@lindenwood");
       var dotpos = x.lastIndexOf(".edu");
       if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
-          alert("must be a valid lindenwood email motherfucka!!");
+          alert("This service is provided to students of Lindenwood Univerity, and as such you must provide a valid Lindenwood Email address in order to register");
           return false;
       }
   });
