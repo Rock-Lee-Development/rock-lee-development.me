@@ -110,8 +110,7 @@ if ($result->num_rows > 0) {
                     "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                     "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
                     "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                    "<a href=\"#\" class=\"card-link\">A link</a>".
-                    "<a href=\"#\" class=\"card-link\">Another link</a>".
+                    "<button type=\"button\" class=\"btn btn-primary\">Delete Tournament</button>".
                     "</div>".
                     "</div>";
             }
@@ -165,6 +164,8 @@ if ($result->num_rows > 0) {
                             echo "0 results";
                         }
                         ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -489,29 +490,13 @@ if ($result->num_rows > 0) {
                         <input type="text" class="form-control input-lg" id="modalContactForm" placeholder="Enter a Description of Issue">
                         -->
                         <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn btn-primary btn-lg btn-dark" type="submit">Send</button>
+                            <input class="btn btn-primary btn-lg btn-dark" type="submit">
                             <button class="btn btn-primary btn-lg btn-dark" type="reset">Reset</button>
                         </div>
                     </div>
+                    <input class="btn btn-primary btn-lg btn-dark" type="submit">
                 </form>
             </div>
-
-            <!--
-            <form method="post" name="myemailform" action="php/form-to-email.php">
-                <p>
-                    <label for='name'>Enter Name: </label><br>
-                    <input type="text" name="name">
-                </p>
-                <p>
-                    <label for='email'>Enter Email Address:</label><br>
-                    <input type="text" name="email">
-                </p>
-                <p>
-                <input type="submit" value="Send Form"><br>
-                </p>
-            </form>
-            -->
-
         </div>
     </div>
 </div>

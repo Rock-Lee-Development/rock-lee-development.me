@@ -14,10 +14,6 @@ $name = $_POST['name'];
 $visitor_email = $_POST['email'];
 $message = $_POST['message'];
 
-$name = 'Ian';
-$visitor_email = 'timberland.wolves@gmail.com';
-$message = 'test test test!';
-
 //Validate first
 if(empty($name)||empty($visitor_email))
 {
@@ -25,18 +21,18 @@ if(empty($name)||empty($visitor_email))
 	exit;
 }
 
-$email_from = 'ibf453@localhost';// <==Put your email address here
+$email_from = 'noreply@gamertree.com';// <==Put your email address here
 $email_subject = "New Form submission";
 $email_body = "You have received a new message from the user $name.\n".
 	"email address: $visitor_email\n".
 	"Here is the message:\n $message".
 	
-$to = "ibf453@localhost";// <==Put your email address here
-$headers = "From: $email_from \r\n";
+$to = $visitor_email;// <==Put your email address here
+$headers = "From: $email_from\r\n";
 
 //Send the email!
 mail($to,$email_subject,$email_body,$headers);
 //Done. Redirect to thank-you page.
 $url='../thank_you_page.html';
-echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
+//echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 ?>
