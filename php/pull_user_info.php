@@ -490,10 +490,11 @@ if ($result->num_rows > 0) {
                         <input type="text" class="form-control input-lg" id="modalContactForm" placeholder="Enter a Description of Issue">
                         -->
                         <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn btn-primary btn-lg btn-dark" type="submit">Send</button>
+                            <input class="btn btn-primary btn-lg btn-dark" type="submit">
                             <button class="btn btn-primary btn-lg btn-dark" type="reset">Reset</button>
                         </div>
                     </div>
+                    <input class="btn btn-primary btn-lg btn-dark" type="submit">
                 </form>
             </div>
         </div>
