@@ -102,11 +102,13 @@ if ($result->num_rows > 0) {
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
+                $string = $row["StartDate"];
+                $timestamp = strtotime($string);
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                     "<div class=\"card-body\">".
                     "<h5 class=\"card-title\">".$row["Name"]."</h5>".
-                    "<h6 class=\"card-subtitle mb-2 text-muted\">".$row["StartDate"]."</h6>".
+                    "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
                     "<p class=\"card-text\">".$row["Descripton"]."</p>".
                     "<a href=\"#\" class=\"card-link\">A link</a>".
                     "<a href=\"#\" class=\"card-link\">Another link</a>".
@@ -151,7 +153,7 @@ if ($result->num_rows > 0) {
                                             "<div class=\"dayofweek\">".date("D", $timestamp)."</div>".
                                             "<div class=\"shortdate text-muted\">".date("F", $timestamp).",".date("Y", $timestamp)."</div>".
                                         "</td>".
-                                        "<td class=\"agenda-time\">".date("h", $timestamp)."</td>".
+                                        "<td class=\"agenda-time\">".date("h:i A", $timestamp)."</td>".
                                         "<td class=\"agenda-events\">".
                                             "<div class=\"agenda-event\"> ".
                                                 $row["Name"]." ".$row["Descripton"].
@@ -163,24 +165,6 @@ if ($result->num_rows > 0) {
                             echo "0 results";
                         }
                         ?>
-                        <!-- Single event in a single day -->
-                        <tr>
-                            <td class="agenda-date" class="active" rowspan="1">
-                                <div class="dayofmonth">26</div>
-                                <div class="dayofweek">Saturday</div>
-                                <div class="shortdate text-muted">August, 2018</div>
-                            </td>
-                            <td class="agenda-time">
-                                5:30 PM
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event"> 
-                                    League of Legends 5V5 draft pick match
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
