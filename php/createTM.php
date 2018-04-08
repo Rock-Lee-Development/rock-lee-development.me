@@ -50,7 +50,16 @@ values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
         if (mail($toEmail, $subject, $content, $mailHeaders)) {
             echo "<script> alert('Your tounrmanet is sent. An activation link has been sent to your email.');
         window.location.href='../pull_user_info.php'; </script>";
-            exit;
+              //send eamil to creator
+              $toEmail = $email;
+              $subject = "Tournament status";
+              $content = "Your tournament is pending to be checked.";
+              $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
+              if (mail($toEmail, $subject, $content, $mailHeaders)){
+                  echo "<script> alert('Your tournament is sent. pending');
+          window.location.href='../pull_user_info.php'; </script>";
+                  exit;
+              }
         }
         unset($_POST);
     } else {

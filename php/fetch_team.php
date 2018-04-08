@@ -13,7 +13,7 @@ if(isset($_POST['get_option']))
     }
 
     $tmID = $_POST['get_option'];
-    $result = $conn->query( "SELECT * FROM Tournament WHERE TournamentID = '$tmID' AND isTeamBased = '1'");
+    $result = $conn->query( "SELECT * FROM Tournament WHERE TournamentID = '$tmID' AND Approved = '1' AND isTeamBased = '1'");
     $row = $result->fetch_assoc();
     if($row){
 
