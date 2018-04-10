@@ -15,6 +15,13 @@
     <link href = "css/bootstrap-datetimepicker.min.css" rel = "stylesheet">
     <link href = "css/bootstrap-timepicker.min.css" rel = "stylesheet">
     <link href = "css/glyphicons.css" rel = "stylesheet">
+    <link href = "css/bracketgenerator.css" rel = "stylesheet">
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  	<script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/bracketgenerator.js"></script>
 
     <title>RockLeeDev</title>
 
@@ -42,7 +49,7 @@
 		<a class="nav-link" id="agenda-tab" data-toggle="tab" href="#agenda" role="tab" aria-controls="agenda" aria-selected="false">Agenda</a>
 	  </li>
 	  <li class="nav-item">
-		<a class="nav-link" id="records-tab" data-toggle="tab" href="#records" role="tab" aria-controls="records" aria-selected="false">Records</a>
+		<a class="nav-link" onclick="ilovecandy()" id="records-tab" data-toggle="tab" href="#records" role="tab" aria-controls="records" aria-selected="false">Records</a>
 	  </li>
 	  <li class="nav-item">
 		<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
@@ -172,9 +179,10 @@
 		<h3>RECORDS</h3>
 		<div class="card top-buffer mx-auto" style="width: 55vmax;">
 		 <div class="card-header" style="font-weight: bold">League of Legends</div>
-		  <img class="card-img-top" src="images/bracket.svg" alt="Card image cap">
 		  <div class="card-body">
-			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <div id="add" class="metroBtn">Add Bracket</div>
+   		  <div class="brackets" id="brackets">
+          <?php include 'bracketgenerator.php';?>
 		  </div>
 		</div>
 		<div class="card top-buffer mx-auto" style="width: 55vmax;">
@@ -432,6 +440,7 @@
 
     <script src="js/bootstrap-datetimepicker.min.js"></script>
     <script src="js/bootstrap-timepicker.min.js"></script>
+    <script src="js/bracketgenerator.js"></script>
 
 
     <script type="text/javascript">
@@ -449,8 +458,8 @@
             pickerPosition: "bottom-left",
             startDate: new Date()
           });
-  
-  
+
+
           $('.from_time,.to_time').timepicker({
               use24hours: true,
             autoclose: true,
@@ -476,7 +485,6 @@
               maxHours: 24,
               explicitMode: false
             });
-
 
     });
 
