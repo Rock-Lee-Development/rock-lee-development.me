@@ -43,7 +43,7 @@ if(!isset($message)) {
 }
 }
 }else{
-  echo "<script> alert('your account is activate');
+  echo "<script> alert('link has expired');
   window.location.href='../scscs.html'; </script>";
 }
  ?>
