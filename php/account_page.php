@@ -27,18 +27,50 @@ $userArray = array();
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        //
         $userArray = array("email" => $row["Email"], "first" => $row["FirstName"], "last" => $row["LastName"]);
     }
 } else {
     echo "0 results";
 }
-/*
- * If you need to check who is logged in the code below will print at the top of the page
- * the current users email and full name. Simply remove from the comment block to use.
- *
- * foreach ($userArray as $key => $value) { echo "Key: $key; Value: $value\n"; }
- */
+
+foreach ($userArray as $key => $value) {
+    echo "Key: $key; Value: $value\n";
+}
+
+//Below is the retrieval of all current/upcoming tournaments user is apart of.
+$sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
+$result = $conn->query($sql);
+$tournamentsArray = array();
+
+if ($result->num_rows > 0) {
+    //$tempArray = array();
+    $num = 0;
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        //$tempArray = array("name" => $row["Name"], "descripton" => $row["Descripton"], "startDate" => $row["StartDate"], "startDate" => $row["EndDate"]);
+        $tournamentsArray = array($num => array("name" => $row["Name"], "descripton" => $row["Descripton"], "startDate" => $row["StartDate"], "startDate" => $row["EndDate"]));
+        echo "<br>".$tournamentsArray[$num]["name"];
+        echo " ".$tournamentsArray[$num]["descripton"]."<br>";
+        //$temp = array($num => array("name" => $row["Name"], "descripton" => $row["Descripton"], "startDate" => $row["StartDate"], "startDate" => $row["EndDate"]));
+        //echo $temp[$num]["name"];
+        //echo $temp[$num]["descripton"];
+        $num = $num + 1;
+        //echo $num;
+    }
+} else {
+    echo "0 results";
+}
+echo gettype($num).": ".$num;
+
+echo $tournamentsArray[2]["name"];
+echo $tournamentsArray[2]["descripton"];
+//foreach ($tournamentsArray as $key) {
+//   echo "Key: $key";
+//    foreach ($tournamentsArray as $key => $value) {
+//        echo "Key: $key; Value: $value\n";
+//    }
+//}
+$conn->close();
 ?>
 
 <html lang="en">
@@ -97,27 +129,24 @@ if ($result->num_rows > 0) {
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <h3>HOME</h3>
         <?php
-        $sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
-        $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $string = $row["StartDate"];
-                $timestamp = strtotime($string);
-                echo
-                    "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
-                    "<div class=\"card-body\">".
-                    "<h5 class=\"card-title\">".$row["Name"]."</h5>".
-                    "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
-                    "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                    "<button type=\"button\" class=\"btn btn-primary\">Delete Tournament</button>".
-                    "</div>".
-                    "</div>";
-            }
-        } else {
-            echo "0 results";
-        }
         ?>
+        <div class="card top-buffer mx-auto" style="width: 55vmax;">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo $tournamentsArray[2]["name"];?></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><?php echo $tournamentsArray[2]["startDate"];?></h6>
+                <p class="card-text"><?php echo $tournamentsArray[2]["descripton"];?></p>
+            </div>
+        </div>
+        <div class="card top-buffer mx-auto" style="width: 55vmax;">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
     </div>
     <div class="tab-pane fade" id="agenda" role="tabpanel" aria-labelledby="agenda-tab">
         <h3>UPCOMING MATCHES</h3>
@@ -137,33 +166,59 @@ if ($result->num_rows > 0) {
                         </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        $sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
-                        $result = $conn->query($sql);
+                        <!-- Single event in a single day -->
+                        <tr>
+                            <td class="agenda-date" class="active" rowspan="1">
+                                <div class="dayofmonth">26</div>
+                                <div class="dayofweek">Saturday</div>
+                                <div class="shortdate text-muted">August, 2018</div>
+                            </td>
+                            <td class="agenda-time">
+                                5:30 PM
+                            </td>
+                            <td class="agenda-events">
+                                <div class="agenda-event"> 
+                                    League of Legends 5V5 draft pick match
+                                </div>
+                            </td>
+                        </tr>
 
-                        if ($result->num_rows > 0) {
-                            while($row = $result->fetch_assoc()) {
-                                $string = $row["StartDate"];
-                                $timestamp = strtotime($string);
-                                echo
-                                    "<tr>".
-                                        "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">".
-                                            "<div class=\"dayofmonth\">".date("d", $timestamp)."</div>".
-                                            "<div class=\"dayofweek\">".date("D", $timestamp)."</div>".
-                                            "<div class=\"shortdate text-muted\">".date("F", $timestamp).",".date("Y", $timestamp)."</div>".
-                                        "</td>".
-                                        "<td class=\"agenda-time\">".date("h:i A", $timestamp)."</td>".
-                                        "<td class=\"agenda-events\">".
-                                            "<div class=\"agenda-event\"> ".
-                                                $row["Name"]." ".$row["Descripton"].
-                                            "</div>".
-                                        "</td>".
-                                    "</tr>";
-                            }
-                        } else {
-                            echo "0 results";
-                        }
-                        ?>
+                        <!-- Multiple events in a single day (note the rowspan) -->
+                        <tr>
+                            <td class="agenda-date" class="active" rowspan="3">
+                                <div class="dayofmonth">24</div>
+                                <div class="dayofweek">Thursday</div>
+                                <div class="shortdate text-muted">July, 2014</div>
+                            </td>
+                            <td class="agenda-time">
+                                8:00 - 9:00 AM
+                            </td>
+                            <td class="agenda-events">
+                                <div class="agenda-event">
+                                    Doctor's Appointment
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="agenda-time">
+                                10:15 AM - 12:00 PM
+                            </td>
+                            <td class="agenda-events">
+                                <div class="agenda-event">
+                                    Meeting with executives
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="agenda-time">
+                                7:00 - 9:00 PM
+                            </td>
+                            <td class="agenda-events">
+                                <div class="agenda-event">
+                                    Aria's dance recital
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -268,6 +323,27 @@ if ($result->num_rows > 0) {
                                             <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
                                         </div>
                                     </div>
+                                    <!-- Will most likely be removed EDITED BY: Ian -->
+                                    <!--
+                                    <div class="form-group">
+                                        <label class="col-md-12">Message</label>
+                                        <div class="col-md-12">
+                                            <textarea rows="5" class="form-control form-control-line"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12">Select Country</label>
+                                        <div class="col-sm-12">
+                                            <select class="form-control form-control-line">
+                                                <option>London</option>
+                                                <option>India</option>
+                                                <option>Usa</option>
+                                                <option>Canada</option>
+                                                <option>Thailand</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    -->
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <button class="btn btn-success">Update Profile</button>
@@ -306,23 +382,15 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="modal-body mx-3">
-            <form>
+                <form>
                     <div class="form-group">
-                        <label for = "TMname"> Select A Tournament</label>
-                        <select name = "TMname" id = "TMname" onchange="fetch_team(this.value);">
-                            <?php
-                            $result = $conn->query("select TournamentID,Name from Tournament");
-                            while ($row = $result->fetch_assoc()) {
-                                $teamID = $row["TournamentID"];
-                                $name = $row['Name'];
-                                echo '<option value="'.$teamID.'">'.$name.'</option>';
-                            }
-                            ?>
-                        </select>
-
-                        <div id="new_select">
-                        </div>
-
+                        <label for="tournamentID">Tournament Id</label>
+                        <input type="email" class="form-control" id="tournamentID" aria-describedby="idHelp" placeholder="Enter Tournament Id">
+                        <small id="idHelp" class="form-text text-muted">You should be provided this by the tournament's host.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="tournamentKey">Tournament Key</label>
+                        <input type="password" class="form-control" id="tournamentKey" placeholder="Tournament Key">
                     </div>
                 </form>
             </div>
@@ -392,33 +460,24 @@ if ($result->num_rows > 0) {
                 <div class="md-form form-sm row">
                     <label for="gType" class="col-sm-4 control-label">Game Type</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="gType" name="gType">
+                        <select class="form-control" id="gType">
                             <option value = "Individual">Individual</option>
                             <option value = "Team">Team</option>
                             <br />
                         </select>
 
-                         <div calss ="teamType">
+                        <div calss ="teamType">
                             <div id="selectteam" style="display:none">
-                                <div class="md-form form-sm row">
-                                    <label for="teamSize" class="col-sm-6 control-label right-align">Team Size</label>
-                                    <div class="col-sm-6">
-                                        <input type="number" min="2" step="1" class="form-control" id="teamSize" name="teamSize">
-                                    </div>
-                                    <br />
-                                </div>
-                            </div>
-
-                            <div id="numteam" style="display:none">
                                 <div class="md-form form-sm row">
                                     <label for="teamNumber" class="col-sm-6 control-label right-align">Team Size</label>
                                     <div class="col-sm-6">
-                                        <input type="number" min="2" step="1" class="form-control" id="teamNumber" name="teamNumber">
+                                        <input type="number" min="0" step="1" class="form-control" id="teamNumber" name="teamNumber" required>
                                     </div>
                                     <br />
                                 </div>
                             </div>
                         </div>
+
                         <br />
                     </div>
                 </div>
@@ -458,7 +517,7 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="modal-body mx-3">
-                <form method="post" name="myemailform" action="form-to-email.php">
+                <form method="post" name="myemailform" action="php/form-to-email.php">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" name="name "placeholder="Enter Your Name">
@@ -469,13 +528,29 @@ if ($result->num_rows > 0) {
                         <input type="text" class="form-control input-lg" id="modalContactForm" placeholder="Enter a Description of Issue">
                         -->
                         <div class="modal-footer d-flex justify-content-center">
-                            <input class="btn btn-primary btn-lg btn-dark" type="submit">
+                            <button class="btn btn-primary btn-lg btn-dark" type="submit">Send</button>
                             <button class="btn btn-primary btn-lg btn-dark" type="reset">Reset</button>
                         </div>
                     </div>
-                    <input class="btn btn-primary btn-lg btn-dark" type="submit">
                 </form>
             </div>
+
+            <!--
+            <form method="post" name="myemailform" action="php/form-to-email.php">
+                <p>
+                    <label for='name'>Enter Name: </label><br>
+                    <input type="text" name="name">
+                </p>
+                <p>
+                    <label for='email'>Enter Email Address:</label><br>
+                    <input type="text" name="email">
+                </p>
+                <p>
+                <input type="submit" value="Send Form"><br>
+                </p>
+            </form>
+            -->
+
         </div>
     </div>
 </div>
@@ -483,7 +558,7 @@ if ($result->num_rows > 0) {
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"> </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -524,12 +599,10 @@ if ($result->num_rows > 0) {
             if ( this.value == 'Team')
             {
                 $("#selectteam").show();
-                $("#numteam").show();
             }
             else
             {
                 $("#selectteam").hide();
-                $("#numteam").hide();
             }
         });
     });
@@ -551,18 +624,6 @@ if ($result->num_rows > 0) {
         });
     });
 
-    function fetch_team(val){
-            $.ajax({
-                type: 'post',
-                url: 'php/fetch_team.php',
-                data: {
-                    get_option:val
-                },
-                success: function (response) {
-                document.getElementById("new_select").innerHTML=response;
-           }
-        });
-    }
 
 </script>
 </body>
@@ -574,5 +635,3 @@ if ($result->num_rows > 0) {
 </footer>
 
 </html>
-
-<?php $conn->close(); ?>
