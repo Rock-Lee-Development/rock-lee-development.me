@@ -17,7 +17,7 @@ if(isset($_POST['get_option']))
     $row = $result->fetch_assoc();
     if($row){
 
-            $find = $conn->query("select TeamName from Team");
+        $find = $conn->query("select TeamName from Team where TournamentID = '$tmID'");
 
             echo "Select A Team";
 

@@ -31,18 +31,22 @@ $db_handle = new DBController();
 
     $des = $_POST['description'];
 
-//insert into team table
-    
-//insert into tounrnament table
-
-    $query = "insert into Tournament (Name, Descripton,StartDate,EndDate,Approved,isTeamBased)
+//insert into tounament id
+$query = "insert into Tournament (Name, Descripton,StartDate,EndDate,Approved,isTeamBased)
 values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
+    $current_id = $db_handle->insertQuery($query); //get current tournament id
 
+   for($x =1;$x<=$teamNum;$x++) {
+       $teamName = "Team ".$x;
+       //insert into team table
+       $add_token_query = "INSERT INTO Team (TeamName, TeamLimit,TournamentID) VALUES(\"$teamName\",\"$teamSize\",\"$current_id\")";
+       $tokenresult = $db_handle->addTokenQuery($add_token_query);
+   }
 
-    $current_id = $db_handle->insertQuery($query);
+    //$current_id = $db_handle->insertQuery($query);
 
     if (!empty($current_id)) {
-        $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/" . "approved.php?TournamentID=" . $current_id. "email=".$email;
+        $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/approved.php?TournamentID= $current_id&email=$email";
         $toEmail = 'ccjumpper@gmail.com';
         $subject = "New Tournament need chack status";
         $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";

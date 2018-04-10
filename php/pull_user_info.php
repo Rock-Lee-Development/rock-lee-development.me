@@ -413,7 +413,7 @@ if ($result->num_rows > 0) {
 
                             <div id="numteam" style="display:none">
                                 <div class="md-form form-sm row">
-                                    <label for="teamNumber" class="col-sm-6 control-label right-align">Team Size</label>
+                                    <label for="teamNumber" class="col-sm-6 control-label right-align">Team Number</label>
                                     <div class="col-sm-6">
                                         <input type="number" min="2" step="1" class="form-control" id="teamNumber" name="teamNumber">
                                     </div>
