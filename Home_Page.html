@@ -12,6 +12,7 @@
     <link href="css/custom.css" rel="stylesheet">
 
     <link href="css/createtournament.css" rel="stylesheet">
+<<<<<<< HEAD
     <link href = "css/bootstrap-datetimepicker.min.css" rel = "stylesheet">
     <link href = "css/bootstrap-timepicker.min.css" rel = "stylesheet">
     <link href = "css/glyphicons.css" rel = "stylesheet">
@@ -22,6 +23,11 @@
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   	<script src="http://underscorejs.org/underscore-min.js"></script>
     <script src="js/bracketgenerator.js"></script>
+=======
+      <link href = "css/glyphicons.css" rel = "stylesheet">
+      <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
+      <link href = "css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
+>>>>>>> 585fd6d256211ccf6c851c7806da384b83e31aa6
 
     <title>RockLeeDev</title>
 
@@ -35,8 +41,7 @@
 
 		  <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalEnrollForm">Join Tournament</a>
 		  <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#createTournament">Create Tournament</a>
-		  <a class="nav-item nav-link" href="#">Records</a>
-		  <a class="nav-item nav-link" href="#">Support</a>
+		  <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalContactForm">Support</a>
 		</div>
 	  </div>
 	</nav>
@@ -243,7 +248,13 @@
                         <div class="card-body">
                             <form class="form-horizontal form-material">
                                 <div class="form-group">
-                                    <label class="col-md-12">Full Name</label>
+                                    <label class="col-md-12">First Name</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                                    </div>
+                                </div>
+								<div class="form-group">
+                                    <label class="col-md-12">Last Name</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
                                     </div>
@@ -266,6 +277,8 @@
                                         <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
                                     </div>
                                 </div>
+								<!-- Will most likely be removed EDITED BY: Ian -->
+								<!--
                                 <div class="form-group">
                                     <label class="col-md-12">Message</label>
                                     <div class="col-md-12">
@@ -284,6 +297,7 @@
                                         </select>
                                     </div>
                                 </div>
+								-->
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <button class="btn btn-success">Update Profile</button>
@@ -305,129 +319,206 @@
         <!-- ============================================================== -->
         <!-- ============================================================== -->
 
-    </div>
+		</div>
 	  </div>
 	</div>
+	
+	<!--Join Tournament Modal-->
+	<!--Begin Modal-->
+	<div class="modal fade" id="modalEnrollForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header text-center" style="background-color:#b6a16b;">
+					<h4 class="modal-title w-100 font-bold">Enroll</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
 
-<!--Begin Modals-->
-<div class="modal fade" id="modalEnrollForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header text-center" style="background-color:#b6a16b;">
-                <h4 class="modal-title w-100 font-bold">Enroll</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+				<div class="modal-body mx-3">
+					<form>
+					  <div class="form-group">
+						<label for="tournamentID">Tournament Id</label>
+						<input type="email" class="form-control" id="tournamentID" aria-describedby="idHelp" placeholder="Enter Tournament Id">
+						<small id="idHelp" class="form-text text-muted">You should be provided this by the tournament's host.</small>
+					  </div>
+					  <div class="form-group">
+						<label for="tournamentKey">Tournament Key</label>
+						<input type="password" class="form-control" id="tournamentKey" placeholder="Tournament Key">
+					  </div>
+					</form>
+				</div>
 
-            <div class="modal-body mx-3">
-				<form>
-				  <div class="form-group">
-					<label for="tournamentID">Tournament Id</label>
-					<input type="email" class="form-control" id="tournamentID" aria-describedby="idHelp" placeholder="Enter Tournament Id">
-					<small id="idHelp" class="form-text text-muted">You should be provided this by the tournament's host.</small>
-				  </div>
-				  <div class="form-group">
-					<label for="tournamentKey">Tournament Key</label>
-					<input type="password" class="form-control" id="tournamentKey" placeholder="Tournament Key">
-				  </div>
-				</form>
-            </div>
+				<div class="modal-footer d-flex justify-content-center">
+					<button class="btn btn-primary btn-lg btn-dark" type="submit">Join</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal-->
 
-            <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-primary btn-lg btn-dark" type="submit">Join</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--End Modals-->
-<!-- create tournament modal -->
-<!-- Modal -->
-<div class="modal fade" id="createTournament" tabindex="-1" role="dialog" aria-labelledby="createTournament" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+	<!-- create tournament modal -->
+	<!--Begin Modal-->
+    <div class="modal fade" id="createTournament" tabindex="-1" role="dialog" aria-labelledby="createTournament" aria-hidden="true">
+        <div class="modal-dialog" role="document">
 
-        <div class="modal-content">
+            <div class="modal-content">
 
-            <div class="modal-header light-blue darken-3 white-text">
-             <h4 class="title col-sm-9" id="createTournament">Create Tournament</h4>
-             <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-             </button>
-             </div>
+                <div class="modal-header light-blue darken-3 white-text">
+                    <h4 class="title col-sm-9" id="createTournament">Create Tournament</h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-            <!--Body-->
-          <div class="modal-body mb-0 mx-3">
-          <form action = "php/createTM.php" method = "POST"">
-              <div class="md-form form-sm row">
-                    <label for="tmname" class="col-sm-3 control-label left-align">Tournament Name</label>
-                    <div class="col-sm-9">
-                    <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
+                <!--Body-->
+                <div class="modal-body mb-0 mx-3">
+                    <form action = "php/createTM.php" method = "POST"">
+                    <div class="md-form form-sm row">
+                        <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
+                        </div>
+                        <br />
                     </div>
-                    <br />
-               </div>
 
 
-              <div class="md-form form-sm row">
-                <label for="startDate" class="col-md-3 control-label left-align">Start Date</label>
-                <div class="input-group date start_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="startDate" data-link-format="yyyy-mm-dd">
-                   <input class="form-control" size="12" type="text" placeholder="YYYY-MM-DD" value="" readonly>
-                   <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-calendar" style="font-size:20px;"></span></span>
+                    <div class="md-form form-sm row">
+                        <label for="StartDate" class="col-sm-4 control-label right-align">Start Date</label>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="input-group date" id="StartDate"  data-target-input="nearest">
+                                    <input type="text" name = "StartDate" class="form-control datetimepicker-input" data-target="#StartDate" />
+                                    <div class="input-group-append" data-target="#StartDate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md-form form-sm row">
+                        <label for="EndDate" class="col-sm-4 control-label right-align">End Date</label>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="input-group date" id="EndDate"data-target-input="nearest">
+                                    <input type="text" name = "EndDate"  class="form-control datetimepicker-input" data-target="#EndDate" />
+                                    <div class="input-group-append" data-target="#EndDate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md-form form-sm row">
+                        <label for="gType" class="col-sm-4 control-label">Game Type</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="gType">
+                                <option value = "Individual">Individual</option>
+                                <option value = "Team">Team</option>
+                                <br />
+                            </select>
+
+                            <div calss ="teamType">
+                                <div id="selectteam" style="display:none">
+                                    <div class="md-form form-sm row">
+                                        <label for="teamNumber" class="col-sm-6 control-label right-align">Team Size</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" min="0" step="1" class="form-control" id="teamNumber" name="teamNumber" required>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+
+                                <div id="numteam" style="display:none">
+                                    <div class="md-form form-sm row">
+                                        <label for="teamNumber" class="col-sm-6 control-label right-align">Numbers of Team</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" min="2" step="1" class="form-control" id="teamNumber" name="teamNumber">
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="md-form form-sm row">
+                        <label for="description" class="col-sm-4 control-label right-align">Description</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="description" name="description" rows="12" required></textarea>
+                        </div>
+                        <span class ="offset-md-8" id="spnCharLeft"></span>
+                        <br />
+                    </div>
+
+
+                    <div class="text-center mt-1-half">
+                        <br />
+                        <button type="submit" class="btn btn-secondary" id="submit" name="done" >Create</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                    </div>
+                    </form>
                 </div>
-               <input type="hidden" id="startDate" name="startDate" value="" /><br/>
-              </div>
-
-
-              <div class="md-form form-sm row">
-                  <label for="startTime" class="col-md-3 control-label left-align">End Time</label>
-                  <div class=" input-group input-append bootstrap-timepicker-component col-md-5">
-                      <input type="text" size="12" class=" form-control from_time input-small " />
-                      <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-time" style="font-size:20px;"></span></span>
-                  </div>
-                  <input type="hidden" id="startTime" name="startTime" value="" /><br/>
-                  <br />
-              </div>
-
-              <div class="md-form form-sm row">
-                  <label for="endDate" class="col-md-3 control-label left-align">End Date</label>
-                  <div class="input-group date end_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="endDate" data-link-format="yyyy-mm-dd">
-                      <input class="form-control" size="12" type="text" placeholder="YYYY-MM-DD" value="" readonly>
-                      <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-calendar" style="font-size:20px;"></span></span>
-                  </div>
-                  <input type="hidden" id="endDate" name="endDate" value="" /><br/>
-              </div>
-
-              <div class="md-form form-sm row">
-                <label for="closeTime" class="col-md-3 control-label left-align">End Time</label>
-                <div class=" input-group input-append bootstrap-timepicker-component col-md-5">
-                  <input type="text" size="12" class=" form-control to_time input-small " />
-                  <span class="input-group-addon bg-white"><span class="glyphicon glyphicon-time" style="font-size:20px;"></span></span>
-              </div>
-              <input type="hidden" id="closeTime" name="closeTime" value="" /><br/>
-              <br />
-              </div>
-
-
-              <div class="md-form form-sm row">
-                <label for="description" class="col-sm-3 control-label left-align">Description</label>
-                <div class="col-sm-9">
-                    <textarea class="form-control" id="description" name="description" rows="12" required></textarea>
-                </div>
-                <br />
-              </div>
-
-
-
-              <div class="text-center mt-1-half">
-                <br />
-                  <button type="submit" class="btn btn-secondary" id="submit" name="done" >Create</button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
     </div>
-</div>
-<!-- end modal -->
+	<!-- End Modal -->
+	
+	<!--Contact Support Modal-->
+	<!--Begin Modal-->
+	<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="contactSupportModal" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header text-center" style="background-color:#b6a16b;">
+					<h4 class="modal-title w-100 font-bold">Contact Support</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body mx-3">
+					<form method="post" name="myemailform" action="php/form-to-email.php">
+					  <div class="form-group">
+						<label for="name">Name</label>
+						<input type="text" class="form-control" name="name "placeholder="Enter Your Name">
+						<label for="email">Email</label>
+						<input type="text" class="form-control" name="email" placeholder="Enter Your Email">
+						<!--
+						<label for="contactSupportModal">Description</label>
+						<input type="text" class="form-control input-lg" id="modalContactForm" placeholder="Enter a Description of Issue">
+						-->
+						<div class="modal-footer d-flex justify-content-center">
+							<button class="btn btn-primary btn-lg btn-dark" type="submit">Send</button>
+							<button class="btn btn-primary btn-lg btn-dark" type="reset">Reset</button>
+						</div>
+					  </div>
+					</form>
+				</div>
+				
+				<!--
+				<form method="post" name="myemailform" action="php/form-to-email.php">
+					<p>
+						<label for='name'>Enter Name: </label><br>
+						<input type="text" name="name">
+					</p>
+					<p>
+						<label for='email'>Enter Email Address:</label><br>
+						<input type="text" name="email">
+					</p>
+					<p>
+					<input type="submit" value="Send Form"><br>
+					</p>
+				</form>
+				-->
+				
+			</div>
+		</div>
+	</div>
+	<!--End Modal-->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -438,12 +529,19 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 
+<<<<<<< HEAD
     <script src="js/bootstrap-datetimepicker.min.js"></script>
     <script src="js/bootstrap-timepicker.min.js"></script>
     <script src="js/bracketgenerator.js"></script>
 
+=======
+    <script src="js/moment.min.js"></script>
+    <script src = "js/tempusdominus-bootstrap-4.min.js"></script>
+>>>>>>> 585fd6d256211ccf6c851c7806da384b83e31aa6
 
+	<!--Create Tournament Script-->
     <script type="text/javascript">
+<<<<<<< HEAD
 
     $( document ).ready(function() {
         $('.start_date,.end_date').datetimepicker({
@@ -484,16 +582,75 @@
               },
               maxHours: 24,
               explicitMode: false
-            });
+=======
+        $(function () {
+            $('#StartDate').datetimepicker(
+                {
+                    useCurrent: false,
+                    minDate: moment(),
+                    allowInputToggle: true,
+                    widgetPositioning:{
+                        horizontal: 'auto',
+                        vertical: 'bottom'
+                    }
+                }
+            );
 
+            $('#EndDate').datetimepicker(
+                {
+                    useCurrent: false,
+                    minDate: moment(),
+                    allowInputToggle: true,
+                    startDate:  new Date(),
+                }
+            );
+
+        });
+
+        $(document).ready(function(){
+            $('#gType').on('change', function() {
+                if ( this.value == 'Team')
+                {
+                    $("#selectteam").show();
+                    $("#numteam").show();
+                }
+                else
+                {
+                    $("#selectteam").hide();
+                    $("#numteam").hide();
+                }
+>>>>>>> 585fd6d256211ccf6c851c7806da384b83e31aa6
+            });
+        });
+
+        $('#spnCharLeft').css('display', 'none');
+        var maxLimit = 150;
+        $(document).ready(function () {
+            $('#description').keyup(function () {
+                var lengthCount = this.value.length;
+                if (lengthCount > maxLimit) {
+                    this.value = this.value.substring(0, maxLimit);
+                    var charactersLeft = maxLimit - lengthCount + 1;
+                }
+                else {
+                    var charactersLeft = maxLimit - lengthCount;
+                }
+                $('#spnCharLeft').css('display', 'block');
+                $('#spnCharLeft').text(charactersLeft + ' Characters left');
+            });
+        });
+
+<<<<<<< HEAD
     });
+=======
+>>>>>>> 585fd6d256211ccf6c851c7806da384b83e31aa6
 
     </script>
   </body>
 
   <footer class="footer">
       <div class="container">
-          <span class="text-muted">Place sticky footer content here.</span>
+          <span class="text-muted">&copy; Rock Lee Development @ Lindenwood Library Services: Media Library</span>
       </div>
   </footer>
 

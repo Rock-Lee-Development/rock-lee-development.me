@@ -24,27 +24,43 @@ if(!isset($message)) {
   $db_handle = new DBController();
   $query = "SELECT * FROM User WHERE email='" . $_POST["newEmail"] . "'";
   $count = $db_handle->numRows($query);
+  $token = $db_handle->generateNewString();
 
   if($count==0) {
     $query = "INSERT INTO User (FirstName, LastName, PasswordHash, Email) VALUES
     ('" . $_POST["firstName"] . "', '" . $_POST["lastName"] . "', '" . password_hash( $_POST["newPassword"], PASSWORD_DEFAULT) . "', '" . $_POST["newEmail"] . "')";
     $current_id = $db_handle->insertQuery($query);
-    if(!empty($current_id)) {
-      $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/"."activate.php?UserID=" . $current_id;
+    $add_token_query = "INSERT INTO UserToken (UserID, Token) VALUES(\"$current_id\", \"$token\")";
+   	$tokenresult = $db_handle->addTokenQuery($add_token_query);
+
+     if(!empty($current_id)) {
+      $actual_link = "http://ec2-34-229-212-55.compute-1.amazonaws.com/php/activate.php?UserID=$current_id&Token=$token";
       $toEmail = $_POST["newEmail"];
-      $subject = "User Registration Activation Email";
-      $content = "Click this link to activate your account. <a href='" . $actual_link . "'>" . $actual_link . "</a>";
-      $mailHeaders = "From: Admin\r\n";
-      if(mail($toEmail, $subject, $content, $mailHeaders)) {
-        echo "<script> alert('Your account has been registered and is pending approval.');
-        window.location.href='../index.html'; </script>";
-				exit;
-      }
+      $subject = "Gamer Tree User Account Activation Email";
+      $content = "Thank you for registering with Lindenwood University's Gamer Tree tournament management system \n
+      Please click this link to activate your Gamer Tree User Account.\n $actual_link";
+      $mailHeaders = "From: noreply@gamertree.com\r\n";
+
+     $returnval = mail($toEmail, $subject, $content, $mailHeaders);
+
+     if($returnval){
+       echo "<script> alert('Your user account has been succesfully registered. Please check your Lindenwood email address for an activation email.');
+                window.location.href='../index.html'; </script>";
+         exit;
+     }else {
+      $message = "Problem in registration. Try Again!";
+     }
       unset($_POST);
-    } else {
+    }
+     else 
+    {
       $message = "Problem in registration. Try Again!";
     }
-  } else {
+
+
+  }
+   else
+   {
     echo "<script> alert('The email address you entered is already associated with a user account');
     window.location.href='../index.html'; </script>";
 		exit;
@@ -60,14 +76,4 @@ if(!empty($error_message)) {
     if(isset($error_message)) echo $error_message;
 }
 
-
-
-/* 	<?php  ?>
-	<div class="success-message"><?php ?></div>
-	<?php } ?>
-	<?php if(!empty($error_message)) { ?>
-	<div class="error-message"><?php if(isset($error_message)) echo $error_message; ?></div>
-	<?php } ?>  */
-/*header("Location: https://login.microsoftonline.com/common/oauth2/authorize?client_id=00000002-0000-0ff1-ce00-000000000000&redirect_uri=https%3a%2f%2foutlook.office.com%2fowa%2f&resource=00000002-0000-0ff1-ce00-000000000000&response_mode=form_post&response_type=code+id_token&scope=openid&msafed=0&client-request-id=82680fda-df35-4c56-a505-cac648ea8f1a&protectedtoken=true&domain_hint=lindenwood.edu&nonce=636573473347223421.ea347e6d-d2ec-4361-821a-dd10ae0676d7&state=DctBCsMwDERRu71LV3ViS67cTegdegMRCRpIYzA2uX60eJ_ZjHfO3c3N-GhxhZBeBXNBA4AZ0qRsW0mCgK4hI6XwhsRBJEXWSIWkePs-53ry_GnK-3_Zt0P0OGuVSWU8ePTfV2Vruvalt6EX#exsvurl=1&ll-cc=1033&modurl=0", true,303);
-exit;*/
 ?>
