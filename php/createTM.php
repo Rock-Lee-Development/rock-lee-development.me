@@ -61,7 +61,7 @@ values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
               $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
               if (mail($toEmail, $subject, $content, $mailHeaders)){
                   echo "<script> alert('Your tournament is sent. pending');
-          window.location.href='../pull_user_info.php'; </script>";
+          window.location.href='../php/pull_user_info.php'; </script>";
                   exit;
               }
         }

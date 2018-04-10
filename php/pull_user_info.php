@@ -492,8 +492,8 @@ if ($result->num_rows > 0) {
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 
-<script src="js/moment.min.js"></script>
-<script src = "js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="../js/moment.min.js"></script>
+<script src = "../js/tempusdominus-bootstrap-4.min.js"></script>
 
 <!--Create Tournament Script-->
 <script type="text/javascript">
