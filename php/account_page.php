@@ -1,15 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ian
- * Date: 4/4/2018
- * Time: 5:59 PM
- */
+
+/* 
+  Available Session Variables. 
+
+  Remember to call session_start(); 
+
+  $_SESSION["servername"] 
+  $_SESSION["databasename"] 
+  $_SESSION["password"] 
+  $_SESSION["email"] 
+
+*/ 
 session_start();
-$servername = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
-$username = "rocklee";
-$password = "lindenwood";
-$dbname = "rocklee";
+
+$servername = $_SESSION["servername"]; 
+$username = $_SESSION["databasename"];
+$password = $_SESSION["password"];
+$dbname = $_SESSION["databasename"];
 $email = $_SESSION["email"];
 
 // Create connection
