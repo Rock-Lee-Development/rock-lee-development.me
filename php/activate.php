@@ -8,6 +8,8 @@
 	$count = $db_handle->numRows($query1);
 	if($count>0) {
 	$query = "UPDATE User set status = '1' WHERE UserID='" . $_GET["UserID"]. "'";
+	$query3 = "UPDATE UserToken set Token = '$token' WHERE UserID='$id'";
+  $result3 = $db_handle->updateQuery($query3);
 	$result = $db_handle->updateQuery($query);
 		if(!empty($result)) {
 			echo "<script> alert('your account is activate');

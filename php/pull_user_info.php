@@ -6,10 +6,11 @@
  * Time: 5:59 PM
  */
 session_start();
-$servername = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
-$username = "rocklee";
-$password = "lindenwood";
-$dbname = "rocklee";
+
+$servername = $_SESSION["servername"]; 
+$username = $_SESSION["databasename"];
+$password = $_SESSION["password"];
+$dbname = $_SESSION["databasename"];
 $email = $_SESSION["email"];
 
 // Create connection
@@ -39,6 +40,11 @@ if ($result->num_rows > 0) {
  *
  * foreach ($userArray as $key => $value) { echo "Key: $key; Value: $value\n"; }
  */
+
+
+
+
+
 ?>
 
 <html lang="en">
@@ -482,7 +488,7 @@ if ($result->num_rows > 0) {
 
             <!--Body-->
             <div class="modal-body mb-0 mx-3">
-                <form action = "createTM.php" method = "POST"">
+                <form action = "createTM.php" method = "POST">
                 <div class="md-form form-sm row">
                     <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label>
                     <div class="col-sm-8">
@@ -542,7 +548,7 @@ if ($result->num_rows > 0) {
 
                             <div id="numteam" style="display:none">
                                 <div class="md-form form-sm row">
-                                    <label for="teamNumber" class="col-sm-6 control-label right-align">Team Size</label>
+                                    <label for="teamNumber" class="col-sm-6 control-label right-align">Team Number</label>
                                     <div class="col-sm-6">
                                         <input type="number" min="2" step="1" class="form-control" id="teamNumber" name="teamNumber">
                                     </div>
@@ -621,8 +627,8 @@ if ($result->num_rows > 0) {
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 
-<script src="js/moment.min.js"></script>
-<script src = "js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="../js/moment.min.js"></script>
+<script src = "../js/tempusdominus-bootstrap-4.min.js"></script>
 
 <!--Create Tournament Script-->
 <script type="text/javascript">

@@ -14,7 +14,7 @@ if(!isset($message)) {
     $updateToken= "UPDATE UserToken set Token = '$token' WHERE UserID='$current_id'";
     $result2 = $db_handle->updateQuery($updateToken);
     if(!empty($current_id)) {
-      $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/activate.php?UserID=$current_id &Token=$token";
+      $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/resetlink.php?UserID=$current_id &Token=$token";
       $toEmail = $current_email;
       $subject = "User Registration Activation Email";
       $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";

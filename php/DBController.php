@@ -1,9 +1,10 @@
 <?php
+
 class DBController
 {
-    private $host = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
+    private $host = "gamertree.coeozr7b8ydf.us-east-1.rds.amazonaws.com";
     private $user = "rocklee";
-    private $password = "lindenwood";
+    private $password = "rockleelions77";
     private $database = "rocklee";
     private $conn;
 

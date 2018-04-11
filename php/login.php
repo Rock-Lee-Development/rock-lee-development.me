@@ -3,17 +3,28 @@
 // to get data stored in a session, you must let the browser know to start a session
 session_start();
 
-$servername = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
-$databaseName = "rocklee";
-$databasePassword = "lindenwood";
+/* 
+  Available Session Variables. 
 
-$conn = mysqli_connect($servername, $databaseName, $databasePassword, $databaseName);
+  Remember to call session_start(); 
+
+  $_SESSION["servername"] 
+  $_SESSION["databasename"] 
+  $_SESSION["password"] 
+  $_SESSION["email"] 
+
+*/ 
+
+$servername = "gamertree.coeozr7b8ydf.us-east-1.rds.amazonaws.com";
+$databaseName = "rocklee";
+$databasePassword = "rockleelions77";
 
 // Sesion variables for database information. 
 $_SESSION["servername"] = $servername;
 $_SESSION["databasename"] = $databaseName ;
-$_SESSION["password"] = $password;
+$_SESSION["password"] = $databasePassword;
 
+$conn = mysqli_connect($servername, $databaseName, $databasePassword, $databaseName);
 
 if (!$conn) {
     die("Connection to server failed. Contact system adminstrator: " . mysqli_connect_error());
@@ -28,7 +39,7 @@ if (!$conn) {
     $result = mysqli_query($conn, $check_email_query);
 
     if (!$result) {
-        die("There was a database error: " . mysqli_error($conn));
+        die("There was a database connection error: " . mysqli_error($conn));
         header('Location: ../error.html');
     } else {
         if (mysqli_num_rows($result) == 0) {
@@ -56,7 +67,7 @@ if (!$conn) {
                     //Redirect. 
                     header('Location: pull_user_info.php');
                 } else {
-                   echo "<script> alert('The password you entered does not match the associated user account');
+                   echo "<script> alert('The password you entered does not match the associated user account. Please try again.');
                  window.location.href='../index.html'; </script>";
 
                 }
@@ -66,6 +77,7 @@ if (!$conn) {
     
     }
 
-
-
 }
+
+
+?> 
