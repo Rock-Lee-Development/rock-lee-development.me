@@ -17,7 +17,8 @@ $currentTMid = $_GET['TournamentID'];
     if($count > 0) {
         $query1 = "UPDATE Tournament set Approved = '1' WHERE TournamentID='" . $_GET["TournamentID"]. "'";
         $result = $db_handle->updateQuery($query1);
-        $actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/approved.php?TournamentID= $currentTMid&email=$currentEmail";
+        //$actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/approved.php?TournamentID= $currentTMid&email=$currentEmail";
+        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."approved.php?TournamentID=" . $current_id."&email=".$email;
         $toEmail = "zs916@lindenwood.edu";
         $subject = "Tournament status";
         $content = "Tounrmanet is approved. <a href ='" . $actual_link ."'> </a>";

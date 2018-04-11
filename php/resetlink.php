@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-$servername = "rockleedb.cqkqw4vhznsx.us-east-1.rds.amazonaws.com";
+$servername = "gamertree.coeozr7b8ydf.us-east-1.rds.amazonaws.com";
 $databaseName = "rocklee";
-$databasePassword = "lindenwood";
+$databasePassword = "rockleelions77;
 
 $conn = mysqli_connect($servername, $databaseName, $databasePassword, $databaseName);
 
