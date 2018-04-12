@@ -116,42 +116,44 @@ if ($result->num_rows > 0) {
                             "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                             "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
                             "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal\">Launch demo modal</button>".
-                            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal\">Launch demo modal</button>".
+                            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
+                            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".
                         "</div>".
                     "</div>".
 
                     // Todo modal description.
-                    "<div class=\"modal fade\" id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">".
-                        "<div class=\"modal-dialog\" role=\"document\">".
+                    "<div class=\"modal fade\" id=\"deleteModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">".
+                "<div class=\"modal-dialog\" role=\"document\">".
                             "<div class=\"modal-content\">".
                                 "<div class=\"modal-header\">".
-                                    "<h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>".
+                                    "<h5 class=\"modal-title\" id=\"deleteModal\">".$row["Name"]."</h5>".
                                     "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">".
                                         "<span aria-hidden=\"true\">&times;</span>".
                                     "</button>".
                                 "</div>".
                                 "<div class=\"modal-body\">".
-                                    "...".
+                                    "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
+                                      "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament.".
+                                    "</div>".
                                 "</div>".
-                                "<div class=\"modal-footer\">".
-                                    "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>".
-                                    "<button type=\"button\" class=\"btn btn-primary\">Save changes</button>".
+                                "<div class=\"modal-footer justify-content-center\">".
+                                    "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
+                                    "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
                                 "</div>".
                             "</div>".
                         "</div>".
                     "</div>".
 
                     // Todo modal description.
-                    "<div class=\"modal fade\" id=\"updateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">".
+                    "<div class=\"modal fade\" id=\"updateModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">".
                         "<div class=\"modal-dialog\" role=\"document\">".
 
                             "<div class=\"modal-content\">".
 
                                 "<div class=\"modal-header light-blue darken-3 white-text\">".
-                                    "<h4 class=\"title col-sm-9\" id=\"createTournament\">Create Tournament</h4>".
+                                    "<h4 class=\"title col-sm-9\" id=\"updateTournament\">Update Tournament</h4>".
                                     "<button type=\"button\" class=\"close waves-effect waves-light\" data-dismiss=\"modal\" aria-label=\"Close\">".
-                                        "<span aria-hidden=\"true\">&times;</span>1".
+                                        "<span aria-hidden=\"true\">&times;</span>".
                                     "</button>".
                                 "</div>".
 
@@ -160,78 +162,15 @@ if ($result->num_rows > 0) {
                                     "<div class=\"md-form form-sm row\">".
                                         "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
                                         "<div class=\"col-sm-8\">".
-                                            "<input type=\"text\" class=\"form-control\" id=\"tmname\" name=\"tmname\" placeholder=\"Enter Tounrnament Name\" required>".
+                                            "<input type=\"text\" class=\"form-control\" id=\"tmname\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
                                         "</div>".
                                         "<br />".
-                                    "</div>".
-
-
-                                    "<div class=\"md-form form-sm row\">".
-                                        "<label for=\"StartDate\" class=\"col-sm-4 control-label right-align\">Start Date</label>".
-                                        "<div class=\"col-sm-8\">".
-                                            "<div class=\"form-group\">".
-                                                "<div class=\"input-group date\" id=\"StartDate\"  data-target-input=\"nearest\">".
-                                                    "<input type=\"text\" name = \"StartDate\" class=\"form-control datetimepicker-input\" data-target=\"#StartDate\" />".
-                                    "<div class=\"input-group-append\" data-target=\"#StartDate\" data-toggle=\"datetimepicker\">".
-                                                        "<div class=\"input-group-text\"><i class=\"fa fa-calendar\"></i></div>".
-                                                    "</div>".
-                                                "</div>".
-                                            "</div>".
-                                        "</div>".
-                                    "</div>".
-
-                                    "<div class=\"md-form form-sm row\">".
-                                        "<label for=\"EndDate\" class=\"col-sm-4 control-label right-align\">End Date</label>".
-                                        "<div class=\"col-sm-8\">".
-                                            "<div class=\"form-group\">".
-                                                "<div class=\"input-group date\" id=\"EndDate\" data-target-input=\"nearest\">".
-                                                    "<input type=\"text\" name =\"EndDate\"  class=\"form-control datetimepicker-input\" data-target=\"#EndDate\"/>".
-                                                    "<div class=\"input-group-append\" data-target=\"#EndDate\" data-toggle=\"datetimepicker\">".
-                                                        "<div class=\"input-group-text\"><i class=\"fa fa-calendar\"></i></div>".
-                                                    "</div>".
-                                                "</div>".
-                                            "</div>".
-                                        "</div>".
-                                    "</div>".
-
-                                    "<div class=\"md-form form-sm row\">".
-                                        "<label for=\"gType\" class=\"col-sm-4 control-label\">Game Type</label>".
-                                        "<div class=\"col-sm-8\">".
-                                            "<select class=\"form-control\" id=\"gType\" name=\"gType\">".
-                                                "<option value = \"Individual\">Individual</option>".
-                                                "<option value = \"Team\">Team</option>".
-                                                "<br />".
-                                            "</select>".
-
-                                             "<div class =\"teamType\">".
-                                                "<div id=\"selectteam\" style=\"display:none\">".
-                                                    "<div class=\"md-form form-sm row\">".
-                                                        "<label for=\"teamSize\" class=\"col-sm-6 control-label right-align\">Team Size</label>".
-                                                        "<div class=\"col-sm-6\">".
-                                                            "<input type=\"number\" min=\"2\" step=\"1\" class=\"form-control\" id=\"teamSize\" name=\"teamSize\">".
-                                                        "</div>".
-                                                        "<br />".
-                                                    "</div>".
-                                                "</div>".
-
-                                                "<div id=\"numteam\" style=\"display:none\">".
-                                                    "<div class=\"md-form form-sm row\">".
-                                                        "<label for=\"teamNumber\" class=\"col-sm-6 control-label right-align\">Team Size</label>".
-                                                        "<div class=\"col-sm-6\">".
-                                                            "<input type=\"number\" min=\"2\" step=\"1\" class=\"form-control\" id=\"teamNumber\" name=\"teamNumber\">".
-                                                        "</div>".
-                                                        "<br />".
-                                                    "</div>".
-                                                "</div>".
-                                            "</div>".
-                                            "<br />".
-                                        "</div>".
                                     "</div>".
 
                                     "<div class=\"md-form form-sm row\">".
                                         "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
                                         "<div class=\"col-sm-8\">".
-                                            "<textarea class=\"form-control\" id=\"description\" name=\"description\" rows=\"12\" required></textarea>".
+                                            "<textarea class=\"form-control\" id=\"description\" name=\"description\" rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
                                         "</div>".
                                         "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
                                         "<br />".
@@ -240,8 +179,8 @@ if ($result->num_rows > 0) {
 
                                     "<div class=\"text-center mt-1-half\">".
                                         "<br />".
-                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit\" name=\"done\" >Create</button>".
-                                        "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Cancel</button>".
+                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
+                                        "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>".
                                     "</div>".
                                     "</form>".
                                 "</div>".
