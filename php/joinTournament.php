@@ -16,7 +16,7 @@ if(!empty($insideTable)) {
 if(!empty($_POST["teamNmae"]))
 {
     //check limit size
-    $result = "SELECT COUNT(*) FROM TeamMembers WHERE TeamID = ".$_POST["teamNmae"];
+    $result = "SELECT COUNT(*) FROM TeamMembers WHERE TeamID = ".$_POST["teamName"];
     $row_count = $db_handle->numRows($result);
 
     $result = "SELECT TeamLimit FROM UserTournaments WHERE TournamentID =".$_POST["TMname"]."AND TeamID = ".$_POST["teamNmae"];
