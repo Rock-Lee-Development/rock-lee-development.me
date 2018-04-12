@@ -88,6 +88,20 @@ class DBController
         return $token;
     }
 
+    public function getTeamLimit($query)
+    {
+        $result = mysqli_query($this->conn, $query);
+
+        if (!$result) {
+            die('Invalid query: ' . mysqli_error($this->conn));
+        } else {
+            while ($row = mysqli_fetch_assoc($result))
+            {
+                return $row["TeamLimit"];
+            }
+        }
+    }
+
     public function getUserID($query)
     {
         $result = mysqli_query($this->conn, $query);

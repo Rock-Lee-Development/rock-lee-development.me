@@ -21,13 +21,14 @@ if(isset($_POST['get_option']))
     $row = $result->fetch_assoc();
     if($row){
 
-        $find = $conn->query("select TeamName from Team where TournamentID = '$tmID'");
+        $find = $conn->query("select TeamID,TeamName from Team where TournamentID = '$tmID'");
 
             echo "Select A Team";
 
-            echo "<select>";
+            echo '<select name = "teamName">';
             while ($row = $find->fetch_assoc()) {
-                echo "<option>" . $row['TeamName'] . "</option>";
+                echo '<option value= " ' . $row['TeamID']. ' ">' . $row['TeamName'] . '</option>';
+
             }
             echo "</select>";
             exit;
