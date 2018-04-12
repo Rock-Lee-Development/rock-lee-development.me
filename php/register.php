@@ -35,7 +35,7 @@ if(!isset($message)) {
    	$tokenresult = $db_handle->addTokenQuery($add_token_query);
 
      if(!empty($current_id)) {
-      $actual_link = "http://gamertree.coeozr7b8ydf.us-east-1.rds.amazonaws.com/php/activate.php?UserID=$current_id&Token=$token";
+      $actual_link = "http://ec2-18-232-182-234.compute-1.amazonaws.com/php/activate.php?UserID=$current_id&Token=$token";
       $toEmail = $_POST["newEmail"];
       $subject = "Gamer Tree User Account Activation Email";
       $content = "Thank you for registering with Lindenwood University's Gamer Tree tournament management system \n
