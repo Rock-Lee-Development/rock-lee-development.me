@@ -18,7 +18,7 @@ $error_message = 'Passwords should be same<br>';
 
 
 if(!isset($message)) {
-	require_once("php/DBController.php");
+	require_once("DBController.php");
 	$db_handle = new DBController();
 
 	$query1 = "SELECT * FROM UserToken WHERE UserID='$id' AND Token = '$token'";
@@ -56,14 +56,14 @@ if(!isset($message)) {
    <meta content="" name="keywords">
    <meta content="" name="description">
  <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">-->
- <link href="css/bootstrap-grid.css" rel="stylesheet">
- <link href="css/bootstrap-grid.min.css" rel="stylesheet">
- <link href="css/bootstrap-reboot.css" rel="stylesheet">
- <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
- <link href="css/bootstrap.css" rel="stylesheet">
- <link href="css/bootstrap.min.css" rel="stylesheet">
- <link href="css/style.css" rel="stylesheet">
- <link href="css/Footer-with-button-logo.css" rel="stylesheet">
+ <link href="../css/bootstrap-grid.css" rel="stylesheet">
+ <link href="../css/bootstrap-grid.min.css" rel="stylesheet">
+ <link href="../css/bootstrap-reboot.css" rel="stylesheet">
+ <link href="../css/bootstrap-reboot.min.css" rel="stylesheet">
+ <link href="../css/bootstrap.css" rel="stylesheet">
+ <link href="../css/bootstrap.min.css" rel="stylesheet">
+ <link href="../css/style.css" rel="stylesheet">
+ <link href="../css/Footer-with-button-logo.css" rel="stylesheet">
 
  </head>
 
@@ -94,9 +94,9 @@ if(!isset($message)) {
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
      <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-     <script src="js/bootstrap.js"></script>
-     <script src="js/bootstrap.min.js"></script>
-     <script src="js/index.js"></script>
-     <script src="js/resetpassword.js.js"></script>
+     <script src="../js/bootstrap.js"></script>
+     <script src="../js/bootstrap.min.js"></script>
+     <script src="../js/index.js"></script>
+     <script src="../js/resetpassword.js.js"></script>
    </body>
  </html>
