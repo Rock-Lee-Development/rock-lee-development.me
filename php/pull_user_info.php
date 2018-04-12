@@ -545,12 +545,12 @@ if ($result->num_rows > 0) {
                         <label for="contactSupportModal">Description</label>
                         <input type="text" class="form-control input-lg" id="modalContactForm" placeholder="Enter a Description of Issue">
                         -->
-                        <div class="modal-footer d-flex justify-content-center">
-                            <input class="btn btn-primary btn-lg btn-dark" type="submit">
-                            <button class="btn btn-primary btn-lg btn-dark" type="reset">Reset</button>
-                        </div>
+                        <
                     </div>
-                    <input class="btn btn-primary btn-lg btn-dark" type="submit">
+                    <div class="modal-footer d-flex justify-content-center">
+                        <input class="btn btn-primary btn-lg btn-dark" type="submit">
+                        <button class="btn btn-primary btn-lg btn-dark" type="reset">Reset</button>
+                    </div>
                 </form>
             </div>
         </div>
