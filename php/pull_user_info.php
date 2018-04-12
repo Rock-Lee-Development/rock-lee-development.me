@@ -7,7 +7,7 @@
  */
 session_start();
 
-$servername = $_SESSION["servername"]; 
+$servername = $_SESSION["servername"];
 $username = $_SESSION["databasename"];
 $password = $_SESSION["password"];
 $dbname = $_SESSION["databasename"];
@@ -60,7 +60,7 @@ if ($result->num_rows > 0) {
     <!-- Custom styles for this template -->
     <link href="../css/custom.css" rel="stylesheet">
 
-    <link href="/..css/createtournament.css" rel="stylesheet">
+    <link href="../css/createtournament.css" rel="stylesheet">
     <link href = "../css/glyphicons.css" rel = "stylesheet">
     <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
     <link href = "../css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
@@ -382,12 +382,12 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="modal-body mx-3">
-            <form>
+            <form action=" joinTournament.php" method="POST">
                     <div class="form-group">
                         <label for = "TMname"> Select A Tournament</label>
                         <select name = "TMname" id = "TMname" onchange="fetch_team(this.value);">
                             <?php
-                            $result = $conn->query("select TournamentID,Name from Tournament");
+                            $result = $conn->query("select TournamentID,Name from Tournament where Approved = '1' ");
                             while ($row = $result->fetch_assoc()) {
                                 $teamID = $row["TournamentID"];
                                 $name = $row['Name'];
@@ -400,12 +400,13 @@ if ($result->num_rows > 0) {
                         </div>
 
                     </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn btn-primary btn-lg btn-dark" type="submit">Join</button>
+                    </div>
                 </form>
             </div>
 
-            <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-primary btn-lg btn-dark" type="submit">Join</button>
-            </div>
+
         </div>
     </div>
 </div>
