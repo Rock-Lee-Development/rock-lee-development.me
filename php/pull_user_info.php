@@ -381,7 +381,11 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="modal-body mx-3">
+<<<<<<< Updated upstream
             <form action=" joinTournament.php" method="POST">
+=======
+            <form action="joinTournament.php" method = "POST">
+>>>>>>> Stashed changes
                     <div class="form-group">
                         <label for = "TMname"> Select A Tournament</label>
                         <select name = "TMname" id = "TMname" onchange="fetch_team(this.value);">
@@ -630,7 +634,7 @@ if ($result->num_rows > 0) {
     function fetch_team(val){
             $.ajax({
                 type: 'post',
-                url: 'php/fetch_team.php',
+                url: 'fetch_team.php',
                 data: {
                     get_option:val
                 },
