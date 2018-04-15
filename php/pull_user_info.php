@@ -245,7 +245,7 @@ if ($result->num_rows > 0) {
     </div>
     <div class="tab-pane fade" id="records" role="tabpanel" aria-labelledby="records-tab">
         <h3>RECORDS</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Below are your records for tournaments participated in.</p>
         <h3>RECORDS</h3>
         <div class="card top-buffer mx-auto" style="width: 55vmax;">
             <div class="card-header" style="font-weight: bold">League of Legends</div>
@@ -542,13 +542,8 @@ if ($result->num_rows > 0) {
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" name="name "placeholder="Enter Your Name">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" name="email" placeholder="Enter Your Email">
-                        <!--
-                        <label for="contactSupportModal">Description</label>
-                        <input type="text" class="form-control input-lg" id="modalContactForm" placeholder="Enter a Description of Issue">
-                        -->
-                        <
+                        <label for="description">Issue Description</label>
+                        <input type="text" class="form-control" name="email" placeholder="Enter Your Issue">
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <input class="btn btn-primary btn-lg btn-dark" type="submit">
