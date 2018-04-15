@@ -7,30 +7,31 @@ if(!isset($message)) {
   $db_handle = new DBController();
   $email = $_SESSION["email"];
   $query = "SELECT UserID FROM User WHERE email='$email'";
+  //$UserID_Tournament= "SELECT From "
 $current_id = $db_handle->getUserID($query);
 
   //if it is a team game
-if(!empty($_POST["TeamName"]))
+if(!empty($_POST["teamName"]))
 {
 
 
     //check limit size
     $result = "SELECT COUNT(*) FROM TeamMembers WHERE TeamID = ".$_POST["teamName"];
-    $row_count = $db_handle->numRows($result);
+    $row_count = $db_handle->getCount($result);
 
-    $result = "SELECT TeamLimit FROM UserTournaments WHERE TournamentID =".$_POST["TMname"]."AND TeamID = ".$_POST["teamName"];
+    $result = "SELECT TeamLimit FROM Team WHERE TournamentID = ' ".$_POST["TMname"]."' AND TeamID = ' ".$_POST["teamName"]." ' ";
     $team_limit=$db_handle->getTeamLimit($result);
 
-    if($team_limit>)//number of UserID rows in Teammbers table
+    if($team_limit>=$row_count)//number of UserID rows in Teammbers table
     {
 
-    $query = "INSERT INTO UserTournaments (TournamentID, UserID) VALUES
+    $query5 = "INSERT INTO UserTournaments (TournamentID, UserID) VALUES
     ('" . $_POST["TMname"] . "', '$current_id')";
-    $insideTable = $db_handle->insertQuery($query);
+    $insideTable = $db_handle->insertQuery($query5);
         //enroll into team
-        $query ="INSERT INTO TeamMembers (TeamID,UserID) VALUES
+        $query4 ="INSERT INTO TeamMembers (TeamID,UserID) VALUES
         ('" . $_POST["teamName"] . "', '$current_id')";
-        $insideTable = $db_handle->insertQuery($query);
+        $insideTable = $db_handle->insertQuery($query4);
 
         if(!empty($insideTable)){
 
@@ -52,15 +53,16 @@ if(!empty($_POST["TeamName"]))
 
 
 }else{
-  $query = "SELECT UserID FROM User WHERE email='$email'";
-$current_id = $db_handle->getUserID($query);
-$query = "INSERT INTO UserTournaments (TournamentID, UserID) VALUES
+  $query1 = "SELECT UserID FROM User WHERE email='$email'";
+$current_id = $db_handle->getUserID($query1);
+$query2 = "INSERT INTO UserTournaments (TournamentID, UserID) VALUES
 ('" . $_POST["TMname"] . "', '$current_id')";
-$insideTable = $db_handle->insertQuery($query);
+$insideTable = $db_handle->insertQuery($query2);
+    echo "<script> alert('you successfulyuuuuuuu join this tournament');
+           window.location.href='../index.html'; </script>";
+
 }
 
-  echo "<script> alert('you successfuly join this tournament');
-           window.location.href='../index.html'; </script>";
 
 
 

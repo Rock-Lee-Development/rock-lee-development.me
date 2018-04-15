@@ -102,6 +102,20 @@ class DBController
         }
     }
 
+    public function getCount($query)
+    {
+        $result = mysqli_query($this->conn, $query);
+
+        if (!$result) {
+            die('Invalid query: ' . mysqli_error($this->conn));
+        } else {
+            while ($row = mysqli_fetch_assoc($result))
+            {
+                return $result;
+            }
+        }
+    }
+
     public function getUserID($query)
     {
         $result = mysqli_query($this->conn, $query);
