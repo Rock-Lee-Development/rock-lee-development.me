@@ -59,7 +59,7 @@ if ($result->num_rows > 0) {
 
     <!-- Custom styles for this template -->
     <link href="../css/custom.css" rel="stylesheet">
-    
+
     <link href = "../css/glyphicons.css" rel = "stylesheet">
     <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
     <link href = "../css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
@@ -381,11 +381,11 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="modal-body mx-3">
-<<<<<<< Updated upstream
-            <form action=" joinTournament.php" method="POST">
-=======
+
+
+
             <form action="joinTournament.php" method = "POST">
->>>>>>> Stashed changes
+
                     <div class="form-group">
                         <label for = "TMname"> Select A Tournament</label>
                         <select name = "TMname" id = "TMname" onchange="fetch_team(this.value);">

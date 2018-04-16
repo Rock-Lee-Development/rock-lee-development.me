@@ -109,9 +109,22 @@ class DBController
         if (!$result) {
             die('Invalid query: ' . mysqli_error($this->conn));
         } else {
-			while ($row = mysqli_fetch_assoc($result)) 
+			while ($row = mysqli_fetch_assoc($result))
 			{
-              return $row["UserID"]; 
+              return $row["UserID"];
+            }
+        }
+    }
+    public function getCount($query)
+    {
+        $result = mysqli_query($this->conn, $query);
+
+        if (!$result) {
+            die('Invalid query: ' . mysqli_error($this->conn));
+        } else {
+      while ($row = mysqli_fetch_array($result))
+      {
+              return $row[0]; 
             }
         }
     }

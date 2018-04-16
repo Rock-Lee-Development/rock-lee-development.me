@@ -1,14 +1,14 @@
 <?php
 
-session_start(); 
+session_start();
 
 if(isset($_POST['get_option']))
 {
-    $servername = $_SESSION["servername"]; 
+    $servername = $_SESSION["servername"];
     $username = $_SESSION["databasename"];
     $password = $_SESSION["password"];
     $dbname = $_SESSION["databasename"];
-    
+
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -25,7 +25,7 @@ if(isset($_POST['get_option']))
 
             echo "Select A Team";
 
-            echo '<select name = "teamName">';
+            echo '<select name = "TeamName">';
             while ($row = $find->fetch_assoc()) {
                 echo '<option value= " ' . $row['TeamID']. ' ">' . $row['TeamName'] . '</option>';
 
