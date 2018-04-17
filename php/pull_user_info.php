@@ -104,7 +104,6 @@ if ($result->num_rows > 0) {
         <?php
         $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
         $result = $conn->query($sql);
-
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $string = $row["StartDate"];
