@@ -3,7 +3,7 @@ session_start();
 
 $servername = "gamertree.coeozr7b8ydf.us-east-1.rds.amazonaws.com";
 $databaseName = "rocklee";
-$databasePassword = "rockleelions77;
+$databasePassword = "rockleelions77";
 
 $conn = mysqli_connect($servername, $databaseName, $databasePassword, $databaseName);
 

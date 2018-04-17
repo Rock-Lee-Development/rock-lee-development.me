@@ -1,4 +1,5 @@
 <?php
+/*
 require_once("DBController.php");
 $db_handle = new DBController();
 
@@ -21,7 +22,7 @@ if($count > 0) {
 else {
 $message = "Problem in account activation.";
 }
-
+*/
 
 /**
  * Created by PhpStorm.
@@ -29,34 +30,31 @@ $message = "Problem in account activation.";
  * Date: 3/7/2018
  * Time: 5:26 PM
  */
-/*if(!isset($_POST["submit"]))
-{
-	//The page should not be accessed directly. Need to submit the form.
-	echo "error; you need to submit the form!";
-}*/
-/*$name = $_POST['name'];
-$visitor_email = $_POST['email'];
-$message = "test message";//$_POST['message'];
 
-//Validate first
-if(empty($name)||empty($visitor_email))
-{
-	echo "Name and email are mandatory!";
-	exit;
+
+ require_once("DBController.php");
+$db_handle = new DBController();
+
+$currentName = $_POST['name'];
+$currentEmail = $_POST['email'];
+$message = $_POST['description'];
+
+$query = "SELECT Email FROM User WHERE Email = '" . $currentEmail . "'";
+
+if($count > 0) {
+	$toEmail = $currentEmail;
+	$subject = $currentName;
+	$content = $message;
+	$mailHeaders = "From: $currentName";
+	if (mail($toEmail, $subject, $content, $mailHeaders)) {
+        //Done. Redirect to thank-you page.
+        $url='../thank_you_page.html';
+        echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
+        exit;
+	}
+	unset($_POST);
 }
-
-$email_from = 'noreply@gamertree.com';// <==Put your email address here
-$email_subject = "New Form submission";
-$email_body = "You have received a new message from the user $name.\n".
-	"email address: $visitor_email\n".
-	"Here is the message:\n $message".
-
-$to = $visitor_email;// <==Put your email address here
-$headers = "From: $email_from\r\n";
-
-//Send the email!
-mail($to,$email_subject,$email_body,$headers);
-//Done. Redirect to thank-you page.
-$url='../thank_you_page.html';
-//echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';*/
+else {
+$message = "Problem in message delivery please try again.";
+}
 ?>

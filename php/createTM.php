@@ -54,7 +54,7 @@ values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
         $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
         if (mail($toEmail, $subject, $content, $mailHeaders)) {
             echo "<script> alert('Your tounrmanet is sent. An activation link has been sent to your email.');
-        window.location.href='../pull_user_info.php'; </script>";
+        window.location.href='../php/pull_user_info.php'; </script>";
               //send eamil to creator
               $toEmail = $email;
               $subject = "Tournament status";

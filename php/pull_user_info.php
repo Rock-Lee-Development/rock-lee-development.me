@@ -64,16 +64,15 @@ if ($result->num_rows > 0) {
     <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
     <link href = "../css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
 
-    <title>RockLeeDev</title>
+    <title>Gamer Tree</title>
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b6a16b">
-        <a class="navbar-brand" href="#">Lindenwood</a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="color: black;">
+        <a class="navbar-brand" id="lu-title-text" href="pull_user_info.php">Lindenwood</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalEnrollForm">Join Tournament</a>
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#createTournament">Create Tournament</a>
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalContactForm">Support</a>
@@ -83,16 +82,16 @@ if ($result->num_rows > 0) {
 
     <ul class="nav sticky-top nav-tabs nav-fill navbar-dark" id="myTab" role="tablist" style="background-color: #b6a16b">
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="color: black;">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="agenda-tab" data-toggle="tab" href="#agenda" role="tab" aria-controls="agenda" aria-selected="false">Agenda</a>
+            <a class="nav-link" id="agenda-tab" data-toggle="tab" href="#agenda" role="tab" aria-controls="agenda" aria-selected="false" style="color: black;">Agenda</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="records-tab" data-toggle="tab" href="#records" role="tab" aria-controls="records" aria-selected="false">Records</a>
+            <a class="nav-link" id="records-tab" data-toggle="tab" href="#records" role="tab" aria-controls="records" aria-selected="false" style="color: black;">Records</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="color: black;">Profile</a>
         </li>
     </ul>
 </head>
@@ -104,7 +103,8 @@ if ($result->num_rows > 0) {
         <?php
         $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
         $result = $conn->query($sql);
-
+         
+        $id_number = 1; 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $string = $row["StartDate"];
@@ -161,15 +161,14 @@ if ($result->num_rows > 0) {
                                     "<div class=\"md-form form-sm row\">".
                                         "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
                                         "<div class=\"col-sm-8\">".
-                                            "<input type=\"text\" class=\"form-control\" id=\"tmname\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
+                                            "<input type=\"text\" class=\"form-control\" id=\"tmname$id_number\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
                                         "</div>".
-                                        "<br />".
                                     "</div>".
-
+                                    "<br>".
                                     "<div class=\"md-form form-sm row\">".
                                         "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
                                         "<div class=\"col-sm-8\">".
-                                            "<textarea class=\"form-control\" id=\"description\" name=\"description\" rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
+                                            "<textarea class=\"form-control\" id=\"desc$id_number\" name=\"description\" rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
                                         "</div>".
                                         "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
                                         "<br />".
@@ -178,7 +177,7 @@ if ($result->num_rows > 0) {
 
                                     "<div class=\"text-center mt-1-half\">".
                                         "<br />".
-                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
+                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
                                         "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>".
                                     "</div>".
                                     "</form>".
@@ -186,6 +185,8 @@ if ($result->num_rows > 0) {
                             "</div>".
                         "</div>".
                     "</div>";
+
+                    $id_number+=1; 
             }
         } else {
             echo "0 results";
@@ -245,7 +246,7 @@ if ($result->num_rows > 0) {
     </div>
     <div class="tab-pane fade" id="records" role="tabpanel" aria-labelledby="records-tab">
         <h3>RECORDS</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Below are your records for tournaments participated in.</p>
         <h3>RECORDS</h3>
               <?php include 'bracketgenerator.php';?>
               <?php
@@ -390,11 +391,11 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="modal-body mx-3">
-<<<<<<< Updated upstream
-            <form action=" joinTournament.php" method="POST">
-=======
+
+
+
             <form action="joinTournament.php" method = "POST">
->>>>>>> Stashed changes
+
                     <div class="form-group">
                         <label for = "TMname"> Select A Tournament</label>
                         <select name = "TMname" id = "TMname" onchange="fetch_team(this.value);">
@@ -446,10 +447,8 @@ if ($result->num_rows > 0) {
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
                     </div>
-                    <br />
                 </div>
-
-
+                <br>
                 <div class="md-form form-sm row">
                     <label for="StartDate" class="col-sm-4 control-label right-align">Start Date</label>
                     <div class="col-sm-8">
@@ -551,13 +550,8 @@ if ($result->num_rows > 0) {
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" name="name "placeholder="Enter Your Name">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" name="email" placeholder="Enter Your Email">
-                        <!--
-                        <label for="contactSupportModal">Description</label>
-                        <input type="text" class="form-control input-lg" id="modalContactForm" placeholder="Enter a Description of Issue">
-                        -->
-                        <
+                        <label for="description">Issue Description</label>
+                        <input type="text" class="form-control" name="email" placeholder="Enter Your Issue">
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <input class="btn btn-primary btn-lg btn-dark" type="submit">
@@ -576,89 +570,19 @@ if ($result->num_rows > 0) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"> </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="../js/createtournament.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 
 <script src="../js/moment.min.js"></script>
 <script src = "../js/tempusdominus-bootstrap-4.min.js"></script>
 
-<!--Create Tournament Script-->
-<script type="text/javascript">
-    $(function () {
-        $('#StartDate').datetimepicker(
-            {
-                useCurrent: false,
-                minDate: moment(),
-                allowInputToggle: true,
-                widgetPositioning:{
-                    horizontal: 'auto',
-                    vertical: 'bottom'
-                }
-            }
-        );
 
-        $('#EndDate').datetimepicker(
-            {
-                useCurrent: false,
-                minDate: moment(),
-                allowInputToggle: true,
-                startDate:  new Date(),
-            }
-        );
-
-    });
-
-    $(document).ready(function(){
-        $('#gType').on('change', function() {
-            if ( this.value == 'Team')
-            {
-                $("#selectteam").show();
-                $("#numteam").show();
-            }
-            else
-            {
-                $("#selectteam").hide();
-                $("#numteam").hide();
-            }
-        });
-    });
-
-    $('#spnCharLeft').css('display', 'none');
-    var maxLimit = 150;
-    $(document).ready(function () {
-        $('#description').keyup(function () {
-            var lengthCount = this.value.length;
-            if (lengthCount > maxLimit) {
-                this.value = this.value.substring(0, maxLimit);
-                var charactersLeft = maxLimit - lengthCount + 1;
-            }
-            else {
-                var charactersLeft = maxLimit - lengthCount;
-            }
-            $('#spnCharLeft').css('display', 'block');
-            $('#spnCharLeft').text(charactersLeft + ' Characters left');
-        });
-    });
-
-    function fetch_team(val){
-            $.ajax({
-                type: 'post',
-                url: 'fetch_team.php',
-                data: {
-                    get_option:val
-                },
-                success: function (response) {
-                document.getElementById("new_select").innerHTML=response;
-           }
-        });
-    }
-
-</script>
 </body>
 
 <footer class="footer text-center">
     <div class="container">
-        <span class="text-muted" style="font-size: .6rem;">&copy; Rock Lee Development @ Lindenwood Library Services: Media Library</span>
+        <span class="text-muted" >&copy; Rock Lee Development @ Lindenwood Library Services: Media Library</span>
     </div>
 </footer>
 
