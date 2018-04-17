@@ -568,78 +568,7 @@ if ($result->num_rows > 0) {
 <script src="../js/moment.min.js"></script>
 <script src = "../js/tempusdominus-bootstrap-4.min.js"></script>
 
-<!--Create Tournament Script-->
-<script type="text/javascript">
-    $(function () {
-        $('#StartDate').datetimepicker(
-            {
-                useCurrent: false,
-                minDate: moment(),
-                allowInputToggle: true,
-                widgetPositioning:{
-                    horizontal: 'auto',
-                    vertical: 'bottom'
-                }
-            }
-        );
 
-        $('#EndDate').datetimepicker(
-            {
-                useCurrent: false,
-                minDate: moment(),
-                allowInputToggle: true,
-                startDate:  new Date(),
-            }
-        );
-
-    });
-
-    $(document).ready(function(){
-        $('#gType').on('change', function() {
-            if ( this.value == 'Team')
-            {
-                $("#selectteam").show();
-                $("#numteam").show();
-            }
-            else
-            {
-                $("#selectteam").hide();
-                $("#numteam").hide();
-            }
-        });
-    });
-
-    $('#spnCharLeft').css('display', 'none');
-    var maxLimit = 150;
-    $(document).ready(function () {
-        $('#description').keyup(function () {
-            var lengthCount = this.value.length;
-            if (lengthCount > maxLimit) {
-                this.value = this.value.substring(0, maxLimit);
-                var charactersLeft = maxLimit - lengthCount + 1;
-            }
-            else {
-                var charactersLeft = maxLimit - lengthCount;
-            }
-            $('#spnCharLeft').css('display', 'block');
-            $('#spnCharLeft').text(charactersLeft + ' Characters left');
-        });
-    });
-
-    function fetch_team(val){
-            $.ajax({
-                type: 'post',
-                url: 'fetch_team.php',
-                data: {
-                    get_option:val
-                },
-                success: function (response) {
-                document.getElementById("new_select").innerHTML=response;
-           }
-        });
-    }
-
-</script>
 </body>
 
 <footer class="footer text-center">
