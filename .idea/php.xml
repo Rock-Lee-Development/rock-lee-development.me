@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-  <component name="PhpIncludePathManager">
-    <include_path>
-      <path value="" />
-    </include_path>
-  </component>
-=======
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
->>>>>>> 55ea1b70f15b503626df97fe64a4f42bd294a1a4
 </project>

@@ -385,10 +385,14 @@ if ($result->num_rows > 0) {
 
             <div class="modal-body mx-3">
 
+<<<<<<< HEAD
+            <form action="joinTournament.php" method = "POST">
+=======
 
 
             <form action="joinTournament.php" method = "POST">
 
+>>>>>>> origin/master
                     <div class="form-group">
                         <label for = "TMname"> Select A Tournament</label>
                         <select name = "TMname" id = "TMname" onchange="fetch_team(this.value);">
