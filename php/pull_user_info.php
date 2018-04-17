@@ -66,14 +66,13 @@ if ($result->num_rows > 0) {
 
     <title>RockLeeDev</title>
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b6a16b">
-        <a class="navbar-brand" href="#">Lindenwood</a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" id="lu-title-text" href="pull_user_info.php">Lindenwood</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalEnrollForm">Join Tournament</a>
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#createTournament">Create Tournament</a>
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalContactForm">Support</a>
@@ -577,7 +576,7 @@ if ($result->num_rows > 0) {
 
 <footer class="footer text-center">
     <div class="container">
-        <span class="text-muted" style="font-size: .6rem;">&copy; Rock Lee Development @ Lindenwood Library Services: Media Library</span>
+        <span class="text-muted" >&copy; Rock Lee Development @ Lindenwood Library Services: Media Library</span>
     </div>
 </footer>
 
