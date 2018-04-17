@@ -308,8 +308,10 @@ label {
         font-size: 70%;
         width: 100%;
         /* Set the fixed height of the footer here */
-        height: 15%;
         text-align: center;
+        position: fixed;
+        left: 0;
+        bottom: 0;
 
         background: #343b40;
       }
