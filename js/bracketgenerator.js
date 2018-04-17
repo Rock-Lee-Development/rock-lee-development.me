@@ -2,14 +2,13 @@ $( document ).ready(function() {
 
 				var knownBrackets = [2,4,8,16,32], // brackets with "perfect" proportions (full fields, no byes)
 
-					exampleTeams  = _.shuffle(["New Jersey Devils","New York Islanders","New York Rangers","Philadelphia Flyers","Pittsburgh Penguins","Boston Bruins","Buffalo Sabres","Montreal Canadiens","Ottawa Senators","Toronto Maple Leafs","Carolina Hurricanes","Florida Panthers","Tampa Bay Lightning","Washington Capitals","Winnipeg Jets","Chicago Blackhawks","Columbus Blue Jackets","Detroit Red Wings","Nashville Predators","St. Louis Blues","Calgary Flames","Colorado Avalanche","Edmonton Oilers","Minnesota Wild","Vancouver Canucks","Anaheim Ducks","Dallas Stars","Los Angeles Kings","Phoenix Coyotes","San Jose Sharks","Montreal Wanderers","Quebec Nordiques","Hartford Whalers"]), // because a bracket needs some teams!
 
 					bracketCount = 0;
 
 				/*
 				 * Build our bracket "model"
 				 */
-				function getBracket(base) {
+				function getBracket(base, team_array) {
 
 					var closest 		= _.find(knownBrackets, function(k) { return k>=base; }),
 						byes 			= closest-base;
@@ -37,7 +36,7 @@ $( document ).ready(function() {
 						brackets.push({
 							lastGames:	round==1 ? null : [last[0].game,last[1].game],
 							nextGame:	nextInc+i>base-1?null:nextInc+i,
-							teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]],
+							teamnames:	round==1 ? [team_array[teamMark],team_array[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]],
 							bracketNo:	i,
 							roundNo:	round,
 							bye:		isBye

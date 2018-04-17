@@ -59,7 +59,7 @@ if ($result->num_rows > 0) {
 
     <!-- Custom styles for this template -->
     <link href="../css/custom.css" rel="stylesheet">
-    
+
     <link href = "../css/glyphicons.css" rel = "stylesheet">
     <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
     <link href = "../css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
@@ -247,36 +247,45 @@ if ($result->num_rows > 0) {
         <h3>RECORDS</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         <h3>RECORDS</h3>
-        <div class="card top-buffer mx-auto" style="width: 55vmax;">
-            <div class="card-header" style="font-weight: bold">League of Legends</div>
-            <div class="card-body">
-              <div id="add" class="metroBtn">Add Bracket</div>
-         		  <div class="brackets" id="brackets">
-                <?php include 'bracketgenerator.php';?>
-      		  </div>
-            </div>
-        </div>
-        <div class="card top-buffer mx-auto" style="width: 55vmax;">
-            <div class="card-header" style="font-weight: bold">Card Header</div>
-            <img class="card-img-top" src="../images/bracket.svg" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="card top-buffer mx-auto" style="width: 55vmax;">
-            <div class="card-header" style="font-weight: bold">Card Header</div>
-            <img class="card-img-top" src="../images/bracket.svg" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="card top-buffer mx-auto" style="width: 55vmax;">
-            <div class="card-header" style="font-weight: bold">Card Header</div>
-            <img class="card-img-top" src="../images/bracket.svg" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Some quidck exddample text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
+              <?php include 'bracketgenerator.php';?>
+              <?php
+              $sql = "SELECT TournamentID, Name, Descripton FROM Tournament WHERE Approved = 1 AND EndDate < current_date()";
+              $result = $conn->query($sql);
+
+              if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) {
+                      $name = $row["Name"];
+                      $descrip = $row["Descripton"];
+                      $ID = $row["TournamentID"];
+
+                      $sql = "SELECT TeamName FROM Teams WHERE TournamentID = $ID";
+                      $result = $conn->query($sql);
+
+                      $teamNum = $result->num_rows;
+                      $teamArray = array();
+                      while($row = mysql_fetch_array($result)) {
+                          // Append to the array
+                          $teamArray[] = $row['name'];
+                      }
+                      $team_array = json_encode($teamArray)
+            echo
+             "  <div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
+                   "<div class=\"card-body\">".
+                       "<h5 class=\"card-title\">".$name."</h5>".
+                       "<p class=\"card-text\">".$descrip."</p>".
+                       "<script type="text/javascript">".
+                           "getBracket($teamNum,$team_array);".
+                       "</script>".
+         		            "<div class="brackets" id="brackets">".
+                        "</div>".
+                        "</div>."
+                    "</div>";
+
+            }
+          }  else {
+              echo "No records found";
+            } ?>
+
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Profile</h3>

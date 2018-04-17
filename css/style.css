@@ -23,6 +23,21 @@ label{
 	color: #666;
 }
 
+h1 {
+
+  font-family:  "Impact",sans-serif;
+  text-shadow: #000 0px 0px 2px;
+}
+
+h1 {
+  color : #dcce86;
+}
+
+h1 em{
+  color : #e8e9ec;
+   font-style: normal;
+}
+
 input[type="checkbox"], input[type="radio"]{
 	position: absolute;
   label{
@@ -243,7 +258,7 @@ label {
 .btn-register:hover,
 .btn-register:focus {
   color: #fff;
-  background-color: #2D3B55;
+  background-color: #B6A16B;
 }
 
 .material-switch > input[type="checkbox"] {
