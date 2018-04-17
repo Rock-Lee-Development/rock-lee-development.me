@@ -104,6 +104,8 @@ if ($result->num_rows > 0) {
         <?php
         $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
         $result = $conn->query($sql);
+         
+        $id_number = 1; 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $string = $row["StartDate"];
@@ -160,7 +162,7 @@ if ($result->num_rows > 0) {
                                     "<div class=\"md-form form-sm row\">".
                                         "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
                                         "<div class=\"col-sm-8\">".
-                                            "<input type=\"text\" class=\"form-control\" id=\"tmname\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
+                                            "<input type=\"text\" class=\"form-control\" id=\"tmname$id_number\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
                                         "</div>".
                                         "<br />".
                                     "</div>".
@@ -168,7 +170,7 @@ if ($result->num_rows > 0) {
                                     "<div class=\"md-form form-sm row\">".
                                         "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
                                         "<div class=\"col-sm-8\">".
-                                            "<textarea class=\"form-control\" id=\"description\" name=\"description\" rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
+                                            "<textarea class=\"form-control\" id=\"desc$id_number\" name=\"description\" rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
                                         "</div>".
                                         "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
                                         "<br />".
@@ -177,7 +179,7 @@ if ($result->num_rows > 0) {
 
                                     "<div class=\"text-center mt-1-half\">".
                                         "<br />".
-                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
+                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
                                         "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>".
                                     "</div>".
                                     "</form>".
@@ -185,6 +187,8 @@ if ($result->num_rows > 0) {
                             "</div>".
                         "</div>".
                     "</div>";
+
+                    $id_number+=1; 
             }
         } else {
             echo "0 results";
@@ -561,6 +565,7 @@ if ($result->num_rows > 0) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"> </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="../js/createtournament.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 
