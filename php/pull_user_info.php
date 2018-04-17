@@ -66,7 +66,7 @@ if ($result->num_rows > 0) {
 
     <title>Gamer Tree</title>
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="color: black;">
         <a class="navbar-brand" id="lu-title-text" href="pull_user_info.php">Lindenwood</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -82,16 +82,16 @@ if ($result->num_rows > 0) {
 
     <ul class="nav sticky-top nav-tabs nav-fill navbar-dark" id="myTab" role="tablist" style="background-color: #b6a16b">
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="color: black;">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="agenda-tab" data-toggle="tab" href="#agenda" role="tab" aria-controls="agenda" aria-selected="false">Agenda</a>
+            <a class="nav-link" id="agenda-tab" data-toggle="tab" href="#agenda" role="tab" aria-controls="agenda" aria-selected="false" style="color: black;">Agenda</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="records-tab" data-toggle="tab" href="#records" role="tab" aria-controls="records" aria-selected="false">Records</a>
+            <a class="nav-link" id="records-tab" data-toggle="tab" href="#records" role="tab" aria-controls="records" aria-selected="false" style="color: black;">Records</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="color: black;">Profile</a>
         </li>
     </ul>
 </head>
@@ -163,9 +163,8 @@ if ($result->num_rows > 0) {
                                         "<div class=\"col-sm-8\">".
                                             "<input type=\"text\" class=\"form-control\" id=\"tmname$id_number\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
                                         "</div>".
-                                        "<br />".
                                     "</div>".
-
+                                    "<br>".
                                     "<div class=\"md-form form-sm row\">".
                                         "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
                                         "<div class=\"col-sm-8\">".
@@ -439,10 +438,8 @@ if ($result->num_rows > 0) {
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
                     </div>
-                    <br />
                 </div>
-
-
+                <br>
                 <div class="md-form form-sm row">
                     <label for="StartDate" class="col-sm-4 control-label right-align">Start Date</label>
                     <div class="col-sm-8">
