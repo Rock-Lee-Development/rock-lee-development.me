@@ -102,7 +102,7 @@ class DBController
         }
     }
 
-    public function getCount($query)
+   /* public function getCount($query)
     {
         $result = mysqli_query($this->conn, $query);
 
@@ -115,7 +115,7 @@ class DBController
             }
         }
     }
-
+*/
     public function getUserID($query)
     {
         $result = mysqli_query($this->conn, $query);

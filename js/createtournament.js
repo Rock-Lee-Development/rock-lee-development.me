@@ -1,6 +1,34 @@
 
   $(function () {
-        $('#StartDate').datetimepicker(
+
+      //$(function () {
+          $('#StartDate').datetimepicker({
+              useCurrent: false,
+              minDate: moment(),
+              allowInputToggle: true,
+              widgetPositioning:{
+                  horizontal: 'auto',
+                  vertical: 'bottom'
+              }
+          });
+          $('#EndDate').datetimepicker({
+              useCurrent: false,
+              minDate: moment(),
+              allowInputToggle: true,
+              widgetPositioning:{
+                  horizontal: 'auto',
+                  vertical: 'bottom'
+              }
+          });
+          $("#StartDate").on("change.datetimepicker", function (e) {
+              $('#EndDate').datetimepicker('minDate', e.date);
+
+          });
+          $("#EndDate").on("change.datetimepicker", function (e) {
+              $('#StartDate').datetimepicker('maxDate', e.date);
+          });
+      //});
+        /*$('#StartDate').datetimepicker(
             {
                 useCurrent: false,
                 minDate: moment(),
@@ -19,7 +47,7 @@
                 allowInputToggle: true,
                 startDate:  new Date(),
             }
-        );
+        );*/
 
     });
 
