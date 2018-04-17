@@ -1,8 +1,5 @@
 
   $(function () {
-<<<<<<< HEAD
-        $('#StartDate').datetimepicker(
-=======
 
       //$(function () {
           $('#StartDate').datetimepicker({
@@ -32,7 +29,6 @@
           });
       //});
         /*$('#StartDate').datetimepicker(
->>>>>>> d025b40b4e9df524c4ce76c931aae4b67f41d065
             {
                 useCurrent: false,
                 minDate: moment(),
@@ -51,11 +47,7 @@
                 allowInputToggle: true,
                 startDate:  new Date(),
             }
-<<<<<<< HEAD
-        );
-=======
         );*/
->>>>>>> d025b40b4e9df524c4ce76c931aae4b67f41d065
 
     });
 
