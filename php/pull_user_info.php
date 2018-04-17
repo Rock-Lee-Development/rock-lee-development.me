@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
     <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
     <link href = "../css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
 
-    <title>RockLeeDev</title>
+    <title>Gamer Tree</title>
 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" id="lu-title-text" href="pull_user_info.php">Lindenwood</a>
