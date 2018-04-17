@@ -10,9 +10,7 @@ if(!isset($message)) {
   //$UserID_Tournament= "SELECT From "
 $current_id = $db_handle->getUserID($query);
 
-  //if it is a team game
-if(!empty($_POST["teamName"]))
-{
+
  $TMname =  $_POST["TMname"];
  $TeamName= $_POST["TeamName"];
 
@@ -22,6 +20,8 @@ if(!empty($_POST["teamName"]))
 
     $result2 = "SELECT TeamLimit FROM Team WHERE TournamentID ='$TMname' AND TeamID = '$TeamName'";
     $team_limit=$db_handle->getTeamLimit($result2);
+
+    if(!empty($TeamName)){
 
     if($row_count<$team_limit) //number of UserID rows in Teammbers table
     {
@@ -34,14 +34,18 @@ if(!empty($_POST["teamName"]))
       $insideTable2 = $db_handle->insertQuery($query1);
       echo "<script> alert('You successfuly join the team');
      window.location.href='../index.html'; </script>";
+}else{
 
+  echo "<script> alert('something wrong with team');
+  window.location.href='../index.html'; </script>";
+
+}
 
 }else{
   $query3 = "SELECT UserID FROM User WHERE email='$email'";
 $current_id = $db_handle->getUserID($query3);
 $query4 = "INSERT INTO UserTournaments (TournamentID, UserID) VALUES
 ('" . $_POST["TMname"] . "', '$current_id')";
-
 $insideTable = $db_handle->insertQuery($query4);
     echo "<script> alert('you successfulyuuuuuuu join this tournament');
            window.location.href='../index.html'; </script>";
@@ -49,13 +53,9 @@ $insideTable = $db_handle->insertQuery($query4);
 }
 
 
-}else{
-  echo "<script> alert('something wrong');
-           window.location.href='../index.html'; </script>";
-}
 
 }else{
-  echo "<script> alert('something wrong');
+  echo "<script> alert('something wrong2');
            window.location.href='../index.html'; </script>";
 }
 ?>
