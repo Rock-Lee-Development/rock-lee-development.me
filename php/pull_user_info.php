@@ -267,7 +267,7 @@ if ($result->num_rows > 0) {
                           // Append to the array
                           $teamArray[] = $row;
                       }
-                      
+
             echo
              "  <div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                    "<div class=\"card-body\">".
