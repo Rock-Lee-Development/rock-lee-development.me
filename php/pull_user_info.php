@@ -267,16 +267,31 @@ if ($result->num_rows > 0) {
                           // Append to the array
                           $teamArray[] = $row;
                       }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+                      $team_array = json_encode($teamArray);
+=======
+                      
+>>>>>>> origin/master
+>>>>>>> 98cb6725bb8ba5239a2a49287d795d8b09ce5f8f
             echo
              "  <div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                    "<div class=\"card-body\">".
                        "<h5 class=\"card-title\">".$name."</h5>".
                        "<p class=\"card-text\">".$descrip."</p>".
+<<<<<<< HEAD
+                       "<script type='text/javascript'>".
+                           "getBracket($teamNum,$team_array);".
+                       "</script>".
+         		            "<div class='brackets' id='brackets'>".
+=======
                        '<script type="text/javascript" src="../js/bracketgenerator.js">',
                            "getBracket($teamNum,$team_array);".
                        "</script>".
          		            '<div class="brackets" id="brackets">',
+>>>>>>> origin/master
                         "</div>".
                         "</div>".
                     "</div>";
