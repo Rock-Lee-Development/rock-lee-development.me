@@ -324,7 +324,7 @@ label {
         width: 100%;
         /* Set the fixed height of the footer here */
         text-align: center;
-        position: fixed;
+        position: relative;
         left: 0;
         bottom: 0;
 

@@ -49,7 +49,8 @@ if ($result->num_rows > 0) {
 
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
+  <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="../images/Logo.svg">
@@ -103,8 +104,8 @@ if ($result->num_rows > 0) {
         <?php
         $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
         $result = $conn->query($sql);
-         
-        $id_number = 1; 
+
+        $id_number = 1;
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $string = $row["StartDate"];
@@ -186,7 +187,7 @@ if ($result->num_rows > 0) {
                         "</div>".
                     "</div>";
 
-                    $id_number+=1; 
+                    $id_number+=1;
             }
         } else {
             echo "0 results";
@@ -247,10 +248,8 @@ if ($result->num_rows > 0) {
     <div class="tab-pane fade" id="records" role="tabpanel" aria-labelledby="records-tab">
         <h3>RECORDS</h3>
         <p>Below are your records for tournaments participated in.</p>
-        <h3>RECORDS</h3>
-              <?php include 'bracketgenerator.php';?>
               <?php
-              $sql = "SELECT TournamentID, Name, Descripton FROM Tournament WHERE Approved = 1 AND EndDate < current_date()";
+              $sql = "SELECT TournamentID, Name, Descripton FROM Tournament WHERE Approved = 1";//AND EndDate < current_date()";
               $result = $conn->query($sql);
 
               if ($result->num_rows > 0) {
@@ -259,25 +258,36 @@ if ($result->num_rows > 0) {
                       $descrip = $row["Descripton"];
                       $ID = $row["TournamentID"];
 
-                      $sql = "SELECT TeamName FROM Teams WHERE TournamentID = $ID";
+                      $sql = "SELECT TeamName FROM Team"; //WHERE TournamentID = $ID";
                       $result = $conn->query($sql);
 
                       $teamNum = $result->num_rows;
                       $teamArray = array();
-                      while($row = mysql_fetch_array($result)) {
+                      while($row = mysqli_fetch_row($result)) {
                           // Append to the array
-                          $teamArray[] = $row['name'];
+                          $teamArray[] = $row;
                       }
+<<<<<<< HEAD
                       $team_array = json_encode($teamArray);
+=======
+                      
+>>>>>>> origin/master
             echo
              "  <div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                    "<div class=\"card-body\">".
                        "<h5 class=\"card-title\">".$name."</h5>".
                        "<p class=\"card-text\">".$descrip."</p>".
+<<<<<<< HEAD
                        "<script type='text/javascript'>".
                            "getBracket($teamNum,$team_array);".
                        "</script>".
          		            "<div class='brackets' id='brackets'>".
+=======
+                       '<script type="text/javascript" src="../js/bracketgenerator.js">',
+                           "getBracket($teamNum,$team_array);".
+                       "</script>".
+         		            '<div class="brackets" id="brackets">',
+>>>>>>> origin/master
                         "</div>".
                         "</div>".
                     "</div>";
@@ -576,7 +586,7 @@ if ($result->num_rows > 0) {
 
 <script src="../js/moment.min.js"></script>
 <script src = "../js/tempusdominus-bootstrap-4.min.js"></script>
-
+<script src = "../js/bracketgenerator.js"></script>
 
 </body>
 
