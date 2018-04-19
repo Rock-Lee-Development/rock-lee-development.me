@@ -102,6 +102,12 @@ if ($result->num_rows > 0) {
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <h3>HOME</h3>
         <?php
+        require_once("DBController.php");
+        $db_handle = new DBController();
+        $check_Admin = "select Email from User where Email = \"$email\" and Admin = 1";
+          $count = $db_handle->numRows($check_Admin);
+        if($count>0)
+        {
         $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
         $result = $conn->query($sql);
 
@@ -192,6 +198,112 @@ if ($result->num_rows > 0) {
         } else {
             echo "0 results";
         }
+      }else{
+        $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
+        $current_ID= $db_handle->getUserID($getUserID);
+        $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+        $result1 = $db_handle->getCount($check_join);
+        if($result1 > 0){
+        //  $gettourID = "SELECT COUNT(TournamentID)  FROM UserTournaments WHERE UserID = '$current_ID'";
+        //  $get_tournamentID= $db_handle->getCount($gettourID);
+//$tryget = "SELECT tournamentID, Name, Descripton, StartDate, EndDate FROM Tournament ".
+         " LEFT JOIN UserTournaments on Tournament.TournamentID = UserTournaments.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ";
+
+      $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
+        $result = $conn->query($sql);
+
+        $id_number = 1;
+
+      if ($result->num_rows > 0) {
+            while($row = $result->fetch_array()) {
+                $string = $row["StartDate"];
+                $timestamp = strtotime($string);
+                echo
+                    "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
+                        "<div class=\"card-body\">".
+                            "<h5 class=\"card-title\">".$row["Name"]."</h5>".
+                            "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
+                            "<p class=\"card-text\">".$row["Descripton"]."</p>".
+                            /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
+                            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
+                        "</div>".
+                    "</div>".
+
+                    // Todo modal description.
+                    "<div class=\"modal fade\" id=\"deleteModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">".
+                "<div class=\"modal-dialog\" role=\"document\">".
+                            "<div class=\"modal-content\">".
+                              //  "<div class=\"modal-header\">".
+                                    //"<h5 class=\"modal-title\" id=\"deleteModal\">Delete ".$row["Name"]."</h5>".
+                                    //"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">".
+                                      //  "<span aria-hidden=\"true\">&times;</span>".
+                                  //  "</button>".
+                                //"</div>".
+                                "<div class=\"modal-body\">".
+                                    "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
+                                      "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament.".
+                                    "</div>".
+                                "</div>".
+                                "<div class=\"modal-footer justify-content-center\">".
+                                    "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
+                                    "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
+                                "</div>".
+                            "</div>".
+                        "</div>".
+                    "</div>".
+
+                    // Todo modal description.
+                    "<div class=\"modal fade\" id=\"updateModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">".
+                        "<div class=\"modal-dialog\" role=\"document\">".
+
+                            "<div class=\"modal-content\">".
+
+                              /*  "<div class=\"modal-header light-blue darken-3 white-text\">".
+                                    "<h4 class=\"title col-sm-9\" id=\"updateTournament\">Update Tournament</h4>".
+                                    "<button type=\"button\" class=\"close waves-effect waves-light\" data-dismiss=\"modal\" aria-label=\"Close\">".
+                                        "<span aria-hidden=\"true\">&times;</span>".
+                                    "</button>".
+
+                                    "</div>".*/
+                                "<div class=\"modal-body mb-0 mx-3\">".
+                                    "<form action = \"createTM.php\" method = \"POST\">".
+                                    "<div class=\"md-form form-sm row\">".
+                                        "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
+                                        "<div class=\"col-sm-8\">".
+                                            "<input type=\"text\" class=\"form-control\" id=\"tmname$id_number\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
+                                        "</div>".
+                                    "</div>".
+                                    "<br>".
+                                    "<div class=\"md-form form-sm row\">".
+                                        "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
+                                        "<div class=\"col-sm-8\">".
+                                            "<textarea class=\"form-control\" id=\"desc$id_number\" name=\"description\" rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
+                                        "</div>".
+                                        "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
+                                        "<br />".
+                                    "</div>".
+
+
+                                    "<div class=\"text-center mt-1-half\">".
+                                        "<br />".
+                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
+                                        "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>".
+                                    "</div>".
+                                    "</form>".
+                                "</div>".
+                            "</div>".
+                        "</div>".
+                    "</div>";
+
+                    $id_number+=1;
+            }
+          } else {
+            echo "0 results";
+        }
+      }else{
+        echo "0 results";
+      }
+      }
         ?>
     </div>
     <div class="tab-pane fade" id="agenda" role="tabpanel" aria-labelledby="agenda-tab">
@@ -267,31 +379,25 @@ if ($result->num_rows > 0) {
                           // Append to the array
                           $teamArray[] = $row;
                       }
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
+
+
                       $team_array = json_encode($teamArray);
-=======
-                      
->>>>>>> origin/master
->>>>>>> 98cb6725bb8ba5239a2a49287d795d8b09ce5f8f
+
+
+
             echo
              "  <div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                    "<div class=\"card-body\">".
                        "<h5 class=\"card-title\">".$name."</h5>".
                        "<p class=\"card-text\">".$descrip."</p>".
-<<<<<<< HEAD
-                       "<script type='text/javascript'>".
-                           "getBracket($teamNum,$team_array);".
-                       "</script>".
-         		            "<div class='brackets' id='brackets'>".
-=======
+
+
                        '<script type="text/javascript" src="../js/bracketgenerator.js">',
                            "getBracket($teamNum,$team_array);".
                        "</script>".
          		            '<div class="brackets" id="brackets">',
->>>>>>> origin/master
+
                         "</div>".
                         "</div>".
                     "</div>";
