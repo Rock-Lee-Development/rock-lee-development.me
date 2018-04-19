@@ -199,6 +199,7 @@ if ($result->num_rows > 0) {
             echo "0 results";
         }
       }else{
+            //not admin
         $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
         $current_ID= $db_handle->getUserID($getUserID);
         $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
@@ -209,12 +210,12 @@ if ($result->num_rows > 0) {
 //$tryget = "SELECT tournamentID, Name, Descripton, StartDate, EndDate FROM Tournament ".
          //" LEFT JOIN UserTournaments on Tournament.TournamentID = UserTournaments.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ";
 
-      $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
+        $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
         $result = $conn->query($sql);
 
         $id_number = 1;
 
-      if ($result->num_rows > 0) {
+         if ($result->num_rows > 0) {
             while($row = $result->fetch_array()) {
                 $string = $row["StartDate"];
                 $timestamp = strtotime($string);
@@ -325,44 +326,81 @@ if ($result->num_rows > 0) {
                         </thead>
                         <tbody>
                         <?php
-                        $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
-                        $current_ID= $db_handle->getUserID($getUserID);
-                        $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
-                        $result1 = $db_handle->getCount($check_join);
-
-                        if($result1 > 0) {
-                            //$sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
-                            $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
+                        //check admin
+                        require_once("DBController.php");
+                        $db_handle = new DBController();
+                        $check_Admin = "select Email from User where Email = \"$email\" and Admin = 1";
+                        $count = $db_handle->numRows($check_Admin);
+                        if($count>0)
+                        {
+                            $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament ORDER BY StartDate";
                             $result = $conn->query($sql);
-
+                            //show all tounament approved & not approved
                             //ordered by start date
-                            //$result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $string = $row["StartDate"];
+                                        $timestamp = strtotime($string);
+                                        echo
+                                            "<tr>" .
+                                            "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
+                                            "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
+                                            "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
+                                            "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
+                                            "</td>" .
+                                            "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
+                                            "<td class=\"agenda-events\">" .
+                                            "<div class=\"agenda-event\"> " .
+                                            $row["Name"] . " " . $row["Descripton"] .
+                                            "</div>" .
+                                            "</td>" .
+                                            "</tr>";
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
 
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $string = $row["StartDate"];
-                                    $timestamp = strtotime($string);
-                                    echo
-                                        "<tr>" .
-                                        "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
-                                        "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
-                                        "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
-                                        "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
-                                        "</td>" .
-                                        "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
-                                        "<td class=\"agenda-events\">" .
-                                        "<div class=\"agenda-event\"> " .
-                                        $row["Name"] . " " . $row["Descripton"] .
-                                        "</div>" .
-                                        "</td>" .
-                                        "</tr>";
+                        } //end admin agenda
+                        else {
+                            $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+                            $current_ID = $db_handle->getUserID($getUserID);
+                            $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+                            $result1 = $db_handle->getCount($check_join);
+
+                            if ($result1 > 0) {
+                                //$sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
+                                $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
+                                $result = $conn->query($sql);
+
+                                //ordered by start date
+                                //$result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $string = $row["StartDate"];
+                                        $timestamp = strtotime($string);
+                                        echo
+                                            "<tr>" .
+                                            "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
+                                            "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
+                                            "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
+                                            "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
+                                            "</td>" .
+                                            "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
+                                            "<td class=\"agenda-events\">" .
+                                            "<div class=\"agenda-event\"> " .
+                                            $row["Name"] . " " . $row["Descripton"] .
+                                            "</div>" .
+                                            "</td>" .
+                                            "</tr>";
+                                    }
+                                } else {
+                                    echo "0 results";
                                 }
                             } else {
-                                echo "0 results";
+                                echo "no agenda";
                             }
-                        }else {
-                            echo "no agenda";
-                        }
+                          } //end not admin agenda
                         ?>
                         </tbody>
                     </table>
@@ -395,30 +433,22 @@ if ($result->num_rows > 0) {
                           $teamArray[] = $row['TeamName'];
                       }
 
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
                       $team_array = json_encode($teamArray);
 
                       $team_array = json_encode($teamArray);
 
 
->>>>>>> c8e129ccfe89f0cd3617ac018daa6b17a32fccd0
+
             echo
              "  <div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                    "<div class=\"card-body\">".
                        "<h5 class=\"card-title\">".$name."</h5>".
                        "<p class=\"card-text\">".$descrip."</p>".
-<<<<<<< HEAD
-                       '<script type="text/javascript" src="../js/bracketgenerator.js">'.
+         '<script type="text/javascript" src="../js/bracketgenerator.js">'.
                            'getBracket('.$tNum.',' .json_encode($teamArray) . ');'.
                        "</script>".
          		            '<div class="brackets" id="bracket'.$tNum.'">'.
-=======
+
 
 
                        "<script type='text/javascript'>".
@@ -432,7 +462,6 @@ if ($result->num_rows > 0) {
                        "</script>".
          		            '<div class="brackets" id="brackets">',
 
->>>>>>> c8e129ccfe89f0cd3617ac018daa6b17a32fccd0
                         "</div>".
                         "</div>".
                     "</div>";
