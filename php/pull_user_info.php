@@ -207,7 +207,7 @@ if ($result->num_rows > 0) {
         //  $gettourID = "SELECT COUNT(TournamentID)  FROM UserTournaments WHERE UserID = '$current_ID'";
         //  $get_tournamentID= $db_handle->getCount($gettourID);
 //$tryget = "SELECT tournamentID, Name, Descripton, StartDate, EndDate FROM Tournament ".
-         " LEFT JOIN UserTournaments on Tournament.TournamentID = UserTournaments.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ";
+         //" LEFT JOIN UserTournaments on Tournament.TournamentID = UserTournaments.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ";
 
       $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
         $result = $conn->query($sql);
@@ -325,30 +325,43 @@ if ($result->num_rows > 0) {
                         </thead>
                         <tbody>
                         <?php
-                        $sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
-                        $result = $conn->query($sql);
+                        $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
+                        $current_ID= $db_handle->getUserID($getUserID);
+                        $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+                        $result1 = $db_handle->getCount($check_join);
 
-                        if ($result->num_rows > 0) {
-                            while($row = $result->fetch_assoc()) {
-                                $string = $row["StartDate"];
-                                $timestamp = strtotime($string);
-                                echo
-                                    "<tr>".
-                                        "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">".
-                                            "<div class=\"dayofmonth\">".date("d", $timestamp)."</div>".
-                                            "<div class=\"dayofweek\">".date("D", $timestamp)."</div>".
-                                            "<div class=\"shortdate text-muted\">".date("F", $timestamp).",".date("Y", $timestamp)."</div>".
-                                        "</td>".
-                                        "<td class=\"agenda-time\">".date("h:i A", $timestamp)."</td>".
-                                        "<td class=\"agenda-events\">".
-                                            "<div class=\"agenda-event\"> ".
-                                                $row["Name"]." ".$row["Descripton"].
-                                            "</div>".
-                                        "</td>".
-                                    "</tr>";
+                        if($result1 > 0) {
+                            //$sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
+                            $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
+                            $result = $conn->query($sql);
+
+                            //ordered by start date
+                            //$result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $string = $row["StartDate"];
+                                    $timestamp = strtotime($string);
+                                    echo
+                                        "<tr>" .
+                                        "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
+                                        "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
+                                        "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
+                                        "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
+                                        "</td>" .
+                                        "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
+                                        "<td class=\"agenda-events\">" .
+                                        "<div class=\"agenda-event\"> " .
+                                        $row["Name"] . " " . $row["Descripton"] .
+                                        "</div>" .
+                                        "</td>" .
+                                        "</tr>";
+                                }
+                            } else {
+                                echo "0 results";
                             }
-                        } else {
-                            echo "0 results";
+                        }else {
+                            echo "no agenda";
                         }
                         ?>
                         </tbody>
@@ -380,10 +393,9 @@ if ($result->num_rows > 0) {
                           $teamArray[] = $row;
                       }
 
-
-
                       $team_array = json_encode($teamArray);
 
+                      $team_array = json_encode($teamArray);
 
 
             echo
@@ -391,6 +403,12 @@ if ($result->num_rows > 0) {
                    "<div class=\"card-body\">".
                        "<h5 class=\"card-title\">".$name."</h5>".
                        "<p class=\"card-text\">".$descrip."</p>".
+
+
+                       "<script type='text/javascript'>".
+                           "getBracket($teamNum,$team_array);".
+                       "</script>".
+         		            "<div class='brackets' id='brackets'>".
 
 
                        '<script type="text/javascript" src="../js/bracketgenerator.js">',
