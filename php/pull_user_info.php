@@ -395,30 +395,23 @@ if ($result->num_rows > 0) {
                           $teamArray[] = $row['TeamName'];
                       }
 
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
                       $team_array = json_encode($teamArray);
 
                       $team_array = json_encode($teamArray);
 
 
->>>>>>> c8e129ccfe89f0cd3617ac018daa6b17a32fccd0
             echo
-             "  <div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
+             "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                    "<div class=\"card-body\">".
                        "<h5 class=\"card-title\">".$name."</h5>".
                        "<p class=\"card-text\">".$descrip."</p>".
-<<<<<<< HEAD
+
                        '<script type="text/javascript" src="../js/bracketgenerator.js">'.
                            'getBracket('.$tNum.',' .json_encode($teamArray) . ');'.
                        "</script>".
          		            '<div class="brackets" id="bracket'.$tNum.'">'.
-=======
+
 
 
                        "<script type='text/javascript'>".
@@ -432,7 +425,9 @@ if ($result->num_rows > 0) {
                        "</script>".
          		            '<div class="brackets" id="brackets">',
 
->>>>>>> c8e129ccfe89f0cd3617ac018daa6b17a32fccd0
+
+                        "</div>".
+                        "</div>".
                         "</div>".
                         "</div>".
                     "</div>";
@@ -533,6 +528,7 @@ if ($result->num_rows > 0) {
 
         </div>
     </div>
+
 </div>
 
 <!--Join Tournament Modal-->
