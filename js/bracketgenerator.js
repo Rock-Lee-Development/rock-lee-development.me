@@ -8,8 +8,9 @@ $( document ).ready(function() {
 				/*
 				 * Build our bracket "model"
 				 */
-				function getBracket(base, team_array) {
+				function getBracket(tNum, team_array) {
 
+          var base = team_array.length;
 					var closest 		= _.find(knownBrackets, function(k) { return k>=base; }),
 						byes 			= closest-base;
 
@@ -51,13 +52,13 @@ $( document ).ready(function() {
 						}
 					}
 
-					renderBrackets(brackets);
+					renderBrackets(tNum, brackets);
 				}
 
 				/*
 				 * Inject our brackets
 				 */
-				function renderBrackets(struct) {
+				function renderBrackets(tNum, struct) {
 					var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;
 
 					var group	= $('<div class="group'+(groupCount+1)+'" id="b'+bracketCount+'"></div>'),
@@ -73,7 +74,7 @@ $( document ).ready(function() {
 						group.append(round);
 					}
 					group.append('<div class="r'+(groupCount+1)+'"><div class="final"><div class="bracketbox"><span class="teamc">'+_.last(struct).teamnames[_.random(1)]+'</span></div></div></div>');
-					$('#brackets').append(group);
+					$('#bracket'+ tNum).append(group);
 
 					bracketCount++;
 					$('html,body').animate({
