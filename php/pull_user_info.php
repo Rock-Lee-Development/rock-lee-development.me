@@ -249,52 +249,42 @@ if ($result->num_rows > 0) {
         <h3>RECORDS</h3>
         <p>Below are your records for tournaments participated in.</p>
               <?php
+              $tNum = 1;
               $sql = "SELECT TournamentID, Name, Descripton FROM Tournament WHERE Approved = 1";//AND EndDate < current_date()";
               $result = $conn->query($sql);
 
               if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) {
+                      $ID = $row["TournamentID"];
                       $name = $row["Name"];
                       $descrip = $row["Descripton"];
-                      $ID = $row["TournamentID"];
 
-                      $sql = "SELECT TeamName FROM Team"; //WHERE TournamentID = $ID";
-                      $result = $conn->query($sql);
 
-                      $teamNum = $result->num_rows;
+                      $sql2 = "SELECT TeamName FROM Team"; //WHERE TournamentID = $ID";
+                      $result2 = $conn->query($sql2);
+
+                      $teamNum = $result2->num_rows;
                       $teamArray = array();
-                      while($row = mysqli_fetch_row($result)) {
+                      while($row = mysqli_fetch_array($result2)) {
                           // Append to the array
-                          $teamArray[] = $row;
+                          $teamArray[] = $row['TeamName'];
                       }
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-                      $team_array = json_encode($teamArray);
-=======
-                      
->>>>>>> origin/master
->>>>>>> 98cb6725bb8ba5239a2a49287d795d8b09ce5f8f
+
             echo
              "  <div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                    "<div class=\"card-body\">".
                        "<h5 class=\"card-title\">".$name."</h5>".
                        "<p class=\"card-text\">".$descrip."</p>".
-<<<<<<< HEAD
-                       "<script type='text/javascript'>".
-                           "getBracket($teamNum,$team_array);".
+                       '<script type="text/javascript" src="../js/bracketgenerator.js">'.
+                           'getBracket('.$tNum.',' .json_encode($teamArray) . ');'.
                        "</script>".
-         		            "<div class='brackets' id='brackets'>".
-=======
-                       '<script type="text/javascript" src="../js/bracketgenerator.js">',
-                           "getBracket($teamNum,$team_array);".
-                       "</script>".
-         		            '<div class="brackets" id="brackets">',
->>>>>>> origin/master
+         		            '<div class="brackets" id="bracket'.$tNum.'">'.
                         "</div>".
                         "</div>".
                     "</div>";
+
+               $tNum +=1;
 
             }
           }  else {
