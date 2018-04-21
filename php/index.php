@@ -68,7 +68,7 @@ if ($result->num_rows > 0) {
     <title>Gamer Tree</title>
 
     <nav class="navbar navbar-expand-lg navbar-dark" style="color: black;">
-        <a class="navbar-brand" id="lu-title-text" href="pull_user_info.php">Lindenwood</a>
+        <a class="navbar-brand" id="lu-title-text" href="index.php">Lindenwood</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
