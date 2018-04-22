@@ -633,8 +633,8 @@ if ($result->num_rows > 0) {
         $result = $conn->query($sql);
 
         $id_number = 1;
-        if ($result2->num_rows > 0) {
-            while($rows = $result->fetch_assoc()) {
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
                 $string = $row["StartDate"];
                 $timestamp = strtotime($string);
                 echo
