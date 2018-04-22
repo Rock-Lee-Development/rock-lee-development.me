@@ -486,55 +486,19 @@ if ($result->num_rows > 0) {
                           $teamArray[] = $row['TeamName'];
                       }
 
-<<<<<<< HEAD:php/pull_user_info.php
                       $team_array = json_encode($teamArray);
 
-=======
-
-                      $team_array = json_encode($teamArray);
-
-                      $team_array = json_encode($teamArray);
-
-
->>>>>>> 4734781dadc8504d6e300c0b96190791ef417231:php/index.php
             echo
              "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                    "<div class=\"card-body\">".
                        "<h5 class=\"card-title\">".$name."</h5>".
                        "<p class=\"card-text\">".$descrip."</p>".
 
-<<<<<<< HEAD:php/pull_user_info.php
-=======
-         '<script type="text/javascript" src="../js/bracketgenerator.js">'.
-
-
-                       '<script type="text/javascript" src="../js/bracketgenerator.js">'.
-
-                           'getBracket('.$tNum.',' .json_encode($teamArray) . ');'.
-                       "</script>".
-         		            '<div class="brackets" id="bracket'.$tNum.'">'.
-
-
-
-                       "<script type='text/javascript'>".
-                           "getBracket($teamNum,$team_array);".
-                       "</script>".
-         		            "<div class='brackets' id='brackets'>".
-
-
->>>>>>> 4734781dadc8504d6e300c0b96190791ef417231:php/index.php
-                       '<script type="text/javascript" src="../js/bracketgenerator.js">',
+                       '<script type="text/javascript">',
                            "getBracket($teamNum,$team_array);".
                        "</script>".
          		            '<div class="brackets" id="brackets">',
 
-<<<<<<< HEAD:php/pull_user_info.php
-=======
-
-                        "</div>".
-                        "</div>".
-
->>>>>>> 4734781dadc8504d6e300c0b96190791ef417231:php/index.php
                         "</div>".
                         "</div>".
                     "</div>";
