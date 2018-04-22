@@ -116,6 +116,7 @@ if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $string = $row["StartDate"];
                 $timestamp = strtotime($string);
+                $tm_id = $row["TournamentID"];
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
@@ -144,7 +145,7 @@ if ($result->num_rows > 0) {
                                 "</div>".
                                 "<div class=\"modal-footer justify-content-center\">".
                                     "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
-                                    "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
+                                    "<button type=\"submit\" value = \"submit$tm_id\"  onclick=\"deleteTM(this . value);\"  class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
                                 "</div>".
                             "</div>".
                         "</div>".
@@ -198,7 +199,9 @@ if ($result->num_rows > 0) {
         } else {
             echo "0 results";
         }
-      }else{
+      }//end admin home
+      else
+          {
             //not admin
         $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
         $current_ID= $db_handle->getUserID($getUserID);
@@ -219,6 +222,7 @@ if ($result->num_rows > 0) {
             while($row = $result->fetch_array()) {
                 $string = $row["StartDate"];
                 $timestamp = strtotime($string);
+
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
@@ -247,7 +251,7 @@ if ($result->num_rows > 0) {
                                 "</div>".
                                 "<div class=\"modal-footer justify-content-center\">".
                                     "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
-                                    "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
+                                    "<button type=\"submit\" value = \"submit$tm_id\"  onclick=\"delet_tm(this.value);\" class=\"btn btn-primary\"  style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
                                 "</div>".
                             "</div>".
                         "</div>".
