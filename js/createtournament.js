@@ -94,4 +94,17 @@
                 document.getElementById("new_select").innerHTML=response;
            }
         });
+
     }
+
+  function deleteTM(val){
+
+      $.ajax({
+          type: 'post',
+          url: 'deleteTM.php',
+          data: val,
+          success: function (data) {
+              $(".status").html(data);
+          }
+      });
+  }
