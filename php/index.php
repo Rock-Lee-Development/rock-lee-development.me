@@ -440,7 +440,6 @@ else {
                     echo "no agenda";
                 }
             } //end not admin agenda
-        }
         ?>
         </tbody>
         </table>
