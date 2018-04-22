@@ -344,7 +344,7 @@ if ($result->num_rows > 0) {
                         </thead>
                         <tbody>
                         <?php
-<<<<<<< HEAD:php/pull_user_info.php
+
                         //check admin
                         require_once("DBController.php");
                         $db_handle = new DBController();
@@ -415,7 +415,7 @@ if ($result->num_rows > 0) {
                                     }
                                 } else {
                                     echo "0 results";
-=======
+
                         $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
                         $current_ID= $db_handle->getUserID($getUserID);
                         $check_join_Agenda = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
@@ -447,7 +447,7 @@ if ($result->num_rows > 0) {
                                         "</div>" .
                                         "</td>" .
                                         "</tr>";
->>>>>>> origin/master:php/index.php
+
                                 }
                             } else {
                                 echo "no agenda";
@@ -485,30 +485,23 @@ if ($result->num_rows > 0) {
                           $teamArray[] = $row['TeamName'];
                       }
 
-<<<<<<< HEAD:php/pull_user_info.php
-=======
 
->>>>>>> origin/master:php/index.php
                       $team_array = json_encode($teamArray);
 
                       $team_array = json_encode($teamArray);
 
 
-<<<<<<< HEAD:php/pull_user_info.php
-
-=======
->>>>>>> origin/master:php/index.php
             echo
              "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                    "<div class=\"card-body\">".
                        "<h5 class=\"card-title\">".$name."</h5>".
                        "<p class=\"card-text\">".$descrip."</p>".
-<<<<<<< HEAD:php/pull_user_info.php
+
          '<script type="text/javascript" src="../js/bracketgenerator.js">'.
-=======
+
 
                        '<script type="text/javascript" src="../js/bracketgenerator.js">'.
->>>>>>> origin/master:php/index.php
+
                            'getBracket('.$tNum.',' .json_encode($teamArray) . ');'.
                        "</script>".
          		            '<div class="brackets" id="bracket'.$tNum.'">'.
@@ -526,12 +519,10 @@ if ($result->num_rows > 0) {
                        "</script>".
          		            '<div class="brackets" id="brackets">',
 
-<<<<<<< HEAD:php/pull_user_info.php
-=======
 
                         "</div>".
                         "</div>".
->>>>>>> origin/master:php/index.php
+
                         "</div>".
                         "</div>".
                     "</div>";
