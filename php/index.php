@@ -626,95 +626,81 @@ if ($result->num_rows > 0) {
 
         </div>
     </div>
-    <div class="tab-pane fade" id="Pending" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="tab-pane fade show active" id="Pending" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Pending Tournament</h3>
         <?php
-        $sql= "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 0";
-        $result = $conn->query($sql);
+        $sql2 = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 0";
+        $results2 = $conn->query($sql2);
 
-        $id_number = 1;
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $string = $row["StartDate"];
-                $timestamp = strtotime($string);
+        $id_numbers = 1;
+        if ($results2->num_rows > 0) {
+            while($row = $results2->fetch_assoc()) {
+                $strings = $row["StartDate"];
+                $timestamps = strtotime($strings);
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
                             "<h5 class=\"card-title\">".$row["Name"]."</h5>".
-                            "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
+                            "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamps)."</h6>".
                             "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                            "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModals".$row["TournamentID"]."\">APPROVE</button>".
-                            "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">DENY</button>".
+                            "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#approveModal".$row["TournamentID"]."\">APPROVE</button>".
+                            "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#denyModal".$row["TournamentID"]."\">DENY</button>".
                         "</div>".
                     "</div>".
 
                     // Todo modal description.
-                    "<div class=\"modal fade\" id=\"deleteModals".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModals\" aria-hidden=\"true\">".
+                    "<div class=\"modal fade\" id=\"approveModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"approveModal\" aria-hidden=\"true\">".
                 "<div class=\"modal-dialog\" role=\"document\">".
                             "<div class=\"modal-content\">".
                                 "<div class=\"modal-header\">".
-                                    "<h5 class=\"modal-title\" id=\"deleteModals\">Delete ".$row["Name"]."</h5>".
+                                    "<h5 class=\"modal-title\" id=\"approveModal\">Approve ".$row["Name"]."</h5>".
                                     "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">".
                                         "<span aria-hidden=\"true\">&times;</span>".
                                     "</button>".
                                 "</div>".
+
                                 "<div class=\"modal-body\">".
                                     "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
-                                      "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament.".
+                                      "<p><strong>YOU ARE ABOUT TO APPROVE A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you approve this tournament.".
                                     "</div>".
                                 "</div>".
+
                                 "<div class=\"modal-footer justify-content-center\">".
                                     "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
                                     "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
                                 "</div>".
+
                             "</div>".
                         "</div>".
                     "</div>".
 
                     // Todo modal description.
-                    "<div class=\"modal fade\" id=\"updateModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">".
+                    "<div class=\"modal fade\" id=\"denyModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"denyModal\" aria-hidden=\"true\">".
                         "<div class=\"modal-dialog\" role=\"document\">".
-
                             "<div class=\"modal-content\">".
 
-                                "<div class=\"modal-header light-blue darken-3 white-text\">".
-                                    "<h4 class=\"title col-sm-9\" id=\"updateTournament\">Update Tournament</h4>".
-                                    "<button type=\"button\" class=\"close waves-effect waves-light\" data-dismiss=\"modal\" aria-label=\"Close\">".
-                                        "<span aria-hidden=\"true\">&times;</span>".
-                                    "</button>".
-                                "</div>".
+                    "<div class=\"modal-header\">".
+                        "<h5 class=\"modal-title\" id=\"denyModal\">Deny ".$row["Name"]."</h5>".
+                        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">".
+                         "<span aria-hidden=\"true\">&times;</span>".
+                         "</button>".
+                    "</div>".
 
-                                "<div class=\"modal-body mb-0 mx-3\">".
-                                    "<form action = \"createTM.php\" method = \"POST\">".
-                                    "<div class=\"md-form form-sm row\">".
-                                        "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
-                                        "<div class=\"col-sm-8\">".
-                                            "<input type=\"text\" class=\"form-control\" id=\"tmname$id_number\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
-                                        "</div>".
-                                    "</div>".
-                                    "<br>".
-                                    "<div class=\"md-form form-sm row\">".
-                                        "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
-                                        "<div class=\"col-sm-8\">".
-                                            "<textarea class=\"form-control\" id=\"desc$id_number\" name=\"description\" rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
-                                        "</div>".
-                                        "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
-                                        "<br />".
-                                    "</div>".
+                    "<div class=\"modal-body\">".
+                         "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
+                         "<p><strong>YOU ARE ABOUT TO DENY A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you deny this tournament.".
+                         "</div>".
+                    "</div>".
 
+                    "<div class=\"modal-footer justify-content-center\">".
+                         "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
+                         "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
+                    "</div>".
 
-                                    "<div class=\"text-center mt-1-half\">".
-                                        "<br />".
-                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
-                                        "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>".
-                                    "</div>".
-                                    "</form>".
-                                "</div>".
                             "</div>".
                         "</div>".
                     "</div>";
 
-                    $id_number+=1;
             }
         } else {
             echo "0 results";
