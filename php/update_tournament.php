@@ -1,13 +1,39 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ian
- * Date: 4/10/2018
- * Time: 10:27 AM
- */
+//get tm id
+//get des
+//get name
+//update
+if(isset($_POST['get_id'])) {
 
-echo
-    "<div class=\"alert alert-success\" role=\"alert\">".
-        "<strong>Well done!</strong> You successfully read <a href=\"#\" class=\"alert-link\">this important alert message</a>".
-    "</div>";
+    // Create connection
+    require_once("DBController.php");
+    $db_handle = new DBController();
+
+
+    $tmID = $_POST['get_id'];
+    $name = $_POST['tm_name'];
+    $des = $_POST['desc'];
+    //delete tounament
+    $query = "UPDATE Tournament Set Name = '$name', Descripton = '$des' WHERE TournamentID = '$tmID' ";
+
+    //
+    //delete other table relate with this id
+    //UserTournaments
+    //team
+    //teammember
+    //records
+    //matches
+
+    $result = $db_handle->updateQuery($query);
+
+    if ($result) {
+
+        echo "<script> alert('you successfully update a tournament $tmID') </script>";
+
+    } else {
+        echo "<script> alert('wrong $tmID') </script>";
+    }
+
+}
+
 ?>
