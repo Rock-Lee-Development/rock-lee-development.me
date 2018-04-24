@@ -108,3 +108,20 @@
           }
       });
   }
+
+  function updateTM(val){
+    var name = document.getElementById('tmname'+val).value;
+    var des =  document.getElementById('desc'+val).value;
+  $.ajax({
+      type: 'post',
+      url: 'update_tournament.php',
+      data: {get_id:val,
+          tm_name:name,
+          desc:des
+      },
+      success: function (response) {
+          // process on data
+          alert("got response as "+"'"+response+"'");
+      }
+  });
+}

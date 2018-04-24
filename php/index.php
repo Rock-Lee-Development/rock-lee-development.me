@@ -180,30 +180,30 @@ if ($result->num_rows > 0) {
                                 "</div>".
 
                                 "<div class=\"modal-body mb-0 mx-3\">".
-                                    "<form action = \"createTM.php\" method = \"POST\">".
-                                    "<div class=\"md-form form-sm row\">".
-                                        "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
-                                        "<div class=\"col-sm-8\">".
-                                            "<input type=\"text\" class=\"form-control\" id=\"tmname$id_number\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
-                                        "</div>".
+                                "<form  method = \"POST\">".
+                                "<div class=\"md-form form-sm row\">".
+                                    "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
+                                    "<div class=\"col-sm-8\">".
+                                        "<input type=\"text\" class=\"form-control\" id=\"tmname$tm_id\" placeholder=\"".$row["Name"]."\" required>".
                                     "</div>".
-                                    "<br>".
-                                    "<div class=\"md-form form-sm row\">".
-                                        "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
-                                        "<div class=\"col-sm-8\">".
-                                            "<textarea class=\"form-control\" id=\"desc$id_number\" name=\"description\" rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
-                                        "</div>".
-                                        "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
-                                        "<br />".
+                                "</div>".
+                                "<br>".
+                                "<div class=\"md-form form-sm row\">".
+                                    "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
+                                    "<div class=\"col-sm-8\">".
+                                        "<textarea class=\"form-control\" id=\"desc$tm_id\"  rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
                                     "</div>".
+                                    "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
+                                    "<br />".
+                                "</div>".
 
 
-                                    "<div class=\"text-center mt-1-half\">".
-                                        "<br />".
-                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
-                                        "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>".
-                                    "</div>".
-                                    "</form>".
+                                "<div class=\"text-center mt-1-half\">".
+                                    "<br />".
+                                    "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" value = \"$tm_id\" onclick=\"updateTM(this.value);\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
+                                    "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>".
+                                "</div>".
+                                "</form>".
                                 "</div>".
                             "</div>".
                         "</div>".
