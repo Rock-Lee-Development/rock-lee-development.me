@@ -626,7 +626,7 @@ if ($result->num_rows > 0) {
 
         </div>
     </div>
-    <div class="tab-pane fade show active" id="Pending" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="tab-pane fade " id="Pending" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Pending Tournament</h3>
         <?php
         $sql2 = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 0";
