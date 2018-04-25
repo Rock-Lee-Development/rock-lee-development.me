@@ -501,7 +501,7 @@ if ($result->num_rows > 0) {
                 "teams[i] = [\"Team\"+(i+1)];".
               "var knownBrackets = [2,4,8,16,32],". // brackets with "perfect" proportions (full fields, no byes)
 
-              "  exampleTeams  = _.shuffle(teams[i]),".
+              "  exampleTeams  = _.shuffle(teams),".
 
               "  bracketCount = 0;".
               /*
