@@ -714,7 +714,7 @@ if ($result->num_rows > 0) {
                 $strings = $row["StartDate"];
                 $timestamps = strtotime($strings);
                 $current_tm = $row["TournamentID"];
-                $current_email = $row["Creator"];
+                //$current_email = $row["Creator"];
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
