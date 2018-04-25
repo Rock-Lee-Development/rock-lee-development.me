@@ -155,6 +155,7 @@ if ($result->num_rows > 0) {
                                     "</button>".
                                 "</div>".
                                 "<div class=\"modal-body\">".
+                                 "<form  method = \"POST\">".
                                     "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
                                       "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament.".
                                     "</div>".
@@ -163,6 +164,7 @@ if ($result->num_rows > 0) {
                                     "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
                                     "<button type=\"submit\" value = \"$tm_id\"  onclick=\"deleteTM(this.value);\"  class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
                                 "</div>".
+                                 "</form>".
                             "</div>".
                         "</div>".
                     "</div>".
@@ -714,7 +716,7 @@ if ($result->num_rows > 0) {
                 $strings = $row["StartDate"];
                 $timestamps = strtotime($strings);
                 $current_tm = $row["TournamentID"];
-                //$current_email = $row["Creator"];
+
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".

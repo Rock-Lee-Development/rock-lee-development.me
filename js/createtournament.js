@@ -102,7 +102,9 @@
       $.ajax({
           type: 'post',
           url: 'deleteTM.php',
-          data: val,
+          data: {
+              get_id:val,
+          },
           success: function (data) {
               $(".status").html(data);
           }

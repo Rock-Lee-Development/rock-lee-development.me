@@ -1,20 +1,13 @@
 <?php
-$servername = $_SESSION["servername"];
-    $username = $_SESSION["databasename"];
-    $password = $_SESSION["password"];
-    $dbname = $_SESSION["databasename"];
-
+require_once("DBController.php");
+$db_handle = new DBController();
     // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
-    $tmID = $_POST['val'];
-    $result = $conn->query( "DELETE * FROM Tournament WHERE TournamentID = '$tmID' ");
-    $row = $result->fetch_assoc();
-    if($row){
+
+    $tmID = $_POST['get_id'];
+    $result = $db_handle->deleteQuery( "DELETE  FROM Tournament WHERE TournamentID = '$tmID' ");
+
+    if($result){
 
         echo "<script> alert('you successfully delete a tournament $tmID') </script>";
 
