@@ -713,6 +713,8 @@ if ($result->num_rows > 0) {
             while($row = $results2->fetch_assoc()) {
                 $strings = $row["StartDate"];
                 $timestamps = strtotime($strings);
+                $current_tm = $row["TournamentID"];
+                $current_email = $row["Creator"];
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
@@ -763,6 +765,7 @@ if ($result->num_rows > 0) {
                     "</div>".
 
                     "<div class=\"modal-body\">".
+                    "<form method=\"POST\">".
                          "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
                          "<p><strong>YOU ARE ABOUT TO DENY A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you deny this tournament.".
                          "</div>".
@@ -770,8 +773,9 @@ if ($result->num_rows > 0) {
 
                     "<div class=\"modal-footer justify-content-center\">".
                          "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
-                         "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
+                         "<button type=\"submit\" value = \"$current_tm\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
                     "</div>".
+                    "</form>".
 
                             "</div>".
                         "</div>".

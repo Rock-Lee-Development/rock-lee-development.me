@@ -126,3 +126,21 @@
   });
   
 }
+
+function trans_Deny(val){
+    //get tm id
+    // get creator email
+    // send to deny. php
+    $.ajax({
+        type: 'post',
+        url: 'deny.php',
+        data: {get_id:val,
+        },
+        success: function (response) {
+            // process on data
+            alert("got response as "+"'"+response+"'");
+        }
+    });
+
+
+}
