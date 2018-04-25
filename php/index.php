@@ -498,7 +498,7 @@ if ($result->num_rows > 0) {
               "var teams, i;".
               "teams = [\"\"];".
               "for (i = 0; i < $row_count; i++) {".
-                "teams[i] = [\"Team\"];".
+                "teams[i] = [\"Team\"+(i+1)];".
               "var knownBrackets = [2,4,8,16,32],". // brackets with "perfect" proportions (full fields, no byes)
 
               "  exampleTeams  = _.shuffle(teams[i]),".
