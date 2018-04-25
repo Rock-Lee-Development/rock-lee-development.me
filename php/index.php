@@ -46,10 +46,10 @@ if ($result->num_rows > 0) {
 
 
 ?>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -64,9 +64,11 @@ if ($result->num_rows > 0) {
     <link href = "../css/glyphicons.css" rel = "stylesheet">
     <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
     <link href = "../css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
-
+    <link href = "../css/bracketgenerator.css" rel = "stylesheet">
     <title>Gamer Tree</title>
 
+  <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+  <script src="http://underscorejs.org/underscore-min.js"></script>
     <nav class="navbar navbar-expand-lg navbar-dark" style="color: black;">
         <a class="navbar-brand" id="lu-title-text" href="index.php">Lindenwood</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -466,77 +468,151 @@ if ($result->num_rows > 0) {
     <div class="tab-pane fade" id="records" role="tabpanel" aria-labelledby="records-tab">
         <h3>RECORDS</h3>
         <p>Below are your records for tournaments participated in.</p>
-              <?php
-              $tNum = 1;
-              $sql = "SELECT TournamentID, Name, Descripton FROM Tournament WHERE Approved = 1";//AND EndDate < current_date()";
-              $result = $conn->query($sql);
+        <?php
 
-              if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) {
-                      $ID = $row["TournamentID"];
-                      $name = $row["Name"];
-                      $descrip = $row["Descripton"];
+        $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
+        $current_ID= $db_handle_pending->getUserID($getUserID);
+        $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+        $result1 = $db_handle_pending->getCount($check_join2);
+        if($result1 > 0){
 
+        $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
+        $result = $conn->query($sql);
 
-                      $sql2 = "SELECT TeamName FROM Team"; //WHERE TournamentID = $ID";
-                      $result2 = $conn->query($sql2);
+        $id_number = 1;
 
-                      $teamNum = $result2->num_rows;
-                      $teamArray = array();
-                      while($row = mysqli_fetch_array($result2)) {
-                          // Append to the array
-                          $teamArray[] = $row['TeamName'];
-                      }
-
-
-                      $team_array = json_encode($teamArray);
-
-                      $team_array = json_encode($teamArray);
-
-
+         if ($result->num_rows > 0) {
+            while($row = $result->fetch_array()) {
+                $string = $row["StartDate"];
+                $timestamp = strtotime($string);
+                $tournament_Name = $row["Name"];
+                $touramentID = $row["TournamentID"];
+                $result3 = "SELECT COUNT(TeamID) FROM Team WHERE TournamentID = '$touramentID'";
+               $row_count = $db_handle_pending->getCount($result3);
             echo
-             "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
-                   "<div class=\"card-body\">".
-                       "<h5 class=\"card-title\">".$name."</h5>".
-                       "<p class=\"card-text\">".$descrip."</p>".
 
-         '<script type="text/javascript" src="../js/bracketgenerator.js">'.
+            "<script>".
+            "$(document).on('ready', function() {".
+              "var teams, i;".
+              "teams = [\"\"];".
+              "for (i = 0; i < $row_count; i++) {".
+                "teams[i] = [\"Team\"];".
+              "var knownBrackets = [2,4,8,16,32],". // brackets with "perfect" proportions (full fields, no byes)
+
+              "  exampleTeams  = _.shuffle(teams[i]),".
+
+              "  bracketCount = 0;".
+              /*
+               * Build our bracket "model"
+               */
+             "}".
+              "function getBracket(base) {".
+
+              "  var closest 		= _.find(knownBrackets, function(k) { return k>=base; }),".
+                "  byes 			= closest-base;".
+
+              "  if(byes>0)	base = closest;".
+
+                "var brackets 	= [],".
+                  "round 		= 1,".
+                  "baseT 		= base/2,".
+                  "baseC 		= base/2,".
+                  "teamMark	= 0,".
+                  "nextInc		= base/2;".
+
+                "for(i=1;i<=(base-1);i++) {".
+                  "var	baseR = i/baseT,".
+                    "isBye = false;".
+
+                  "if(byes>0 && (i%2!=0 || byes>=(baseT-i))) {".
+                    "isBye = true;".
+                    "byes--;".
+                  "}".
+
+                  "var last = _.map(_.filter(brackets, function(b) { return b.nextGame == i; }),".
+                   "function(b) { return {game:b.bracketNo,teams:b.teamnames}; });".
+
+                  "brackets.push({".
+                    "lastGames:	round==1 ? null : [last[0].game,last[1].game],".
+                    "nextGame:	nextInc+i>base-1?null:nextInc+i,".
+                    "teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]],".
+                    "bracketNo:	i,".
+                    "roundNo:	round,".
+                    "bye:		isBye });".
+                  "teamMark+=2;".
+                  "if(i%2!=0)	nextInc--;".
+                  "while(baseR>=1) {".
+                    "round++;".
+                    "baseC/= 2;".
+                    "baseT = baseT + baseC;".
+                    "baseR = i/baseT;".
+                  "}".
+                "}".
+
+                "renderBrackets(brackets);".
+              "}".
+
+              /*
+               * Inject our brackets
+               */
+              "function renderBrackets(struct) {".
+                "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;".
+
+                "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>'),".
+                  "grouped = _.groupBy(struct, function(s) { return s.roundNo; });".
+
+                "for(g=1;g<=groupCount;g++) {".
+                  "var round = $('<div class=\"r'+g+'\"></div>');".
+                  "_.each(grouped[g], function(gg) {".
+                    "if(gg.bye)".
+                      "round.append('<div></div>');".
+                    "else
+                      round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
+                  "});".
+                  "group.append(round);".
+                "}".
+                "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'+_.last(struct).teamnames[_.random(1)]+'</span></div></div></div>');".
+                "$('#$tournament_Name').append(group);".
+
+                "bracketCount++;".
+                "$('html,body').animate({".
+                  "scrollTop: $(\"#b\"+(bracketCount-1)).offset().top })".
+              "}".
 
 
-                       '<script type="text/javascript" src="../js/bracketgenerator.js">'.
+                "var opts = parseInt($row_count,32);".
 
-                           'getBracket('.$tNum.',' .json_encode($teamArray) . ');'.
-                       "</script>".
-         		            '<div class="brackets" id="bracket'.$tNum.'">'.
-
-
-
-                       "<script type='text/javascript'>".
-                           "getBracket($teamNum,$team_array);".
-                       "</script>".
-         		            "<div class='brackets' id='brackets'>".
+                "if(!_.isNaN(opts) && opts <= _.last(knownBrackets))".
+                  "getBracket(opts);".
+                "else
+                  alert('The bracket size you specified is not currently supported.');".
 
 
-                       '<script type="text/javascript" src="../js/bracketgenerator.js">',
-                           "getBracket($teamNum,$team_array);".
-                       "</script>".
-         		            '<div class="brackets" id="brackets">',
+            "});".
+            "</script>".
 
-
+            "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
+                "<div class=\"card-body\">".
+                    "<h5 class=\"card-title\">".$row["Name"]."</h5>".
+                    "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
+                    "<div class=\"brackets\" id=\"$tournament_Name\">".
                         "</div>".
-                        "</div>".
+                    "<p class=\"card-text\">".$row["Descripton"]."</p>".
+                    /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
+                    "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
+                "</div>".
+            "</div>";
 
-                        "</div>".
-                        "</div>".
-                    "</div>";
 
-               $tNum +=1;
 
-            }
-          }  else {
-              echo "No records found";
-            }?>
-
+        }
+        } else {
+        echo "0 results";
+        }
+        }else{
+        echo "0 results";
+        }
+         ?>
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Profile</h3>
