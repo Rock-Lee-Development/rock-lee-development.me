@@ -32,8 +32,8 @@ $db_handle = new DBController();
     $des = $_POST['description'];
 
 //insert into tounament id
-$query = "insert into Tournament (Name, Descripton,StartDate,EndDate,Approved,isTeamBased)
-values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
+$query = "insert into Tournament (Name, Descripton,StartDate,EndDate,Approved,isTeamBased,Creator)
+values ('$tmname', '$des','$startDate', '$endDate',0,'$type','$email')";
     $current_id = $db_handle->insertQuery($query); //get current tournament id
 
    for($x =1;$x<=$teamNum;$x++) {
@@ -50,7 +50,7 @@ values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
         $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."approved.php?TournamentID=" . $current_id."&email=".$email;
         $toEmail = 'ccjumpper@gmail.com';
         $subject = "New Tournament need chack status";
-        $content = "Click this link to activate your account. <a href='" . $actual_link . "'> </a>";
+        $content = "Click this link approve or check on the pending page. <a href='" . $actual_link . "'> </a>";
         $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
         if (mail($toEmail, $subject, $content, $mailHeaders)) {
             echo "<script> alert('Your tounrmanet is sent. An activation link has been sent to your email.');
