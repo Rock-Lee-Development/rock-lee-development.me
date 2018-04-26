@@ -17,6 +17,7 @@ $email = $db_handle->getEmail($query);
 if(!empty($email)) {
     $query1 = "UPDATE Tournament set Approved = '0' WHERE TournamentID='" . $currentTMid . "'";
     //delete tm when deny?
+    $result2 = $db_handle->deleteQuery( "DELETE  FROM Tournament WHERE TournamentID = '$currentTMid' ");
     //add reson for deny?
 
     $result = $db_handle->updateQuery($query1);
