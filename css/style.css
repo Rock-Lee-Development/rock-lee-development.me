@@ -348,16 +348,6 @@ label {
     left: 15px;
 }
 
-/* .footer {
- 
-    background-color: black;
-    font-size: .8rem;
-    text-align: center;
-    line-height: 70px;
- 
-} */
-
-
 
    @media screen and (max-width: 500px) {
     #footer {
@@ -378,5 +368,7 @@ label {
   }
 
 
-
+  #loginbox { 
+    margin-bottom: 10%;
+  }
 
