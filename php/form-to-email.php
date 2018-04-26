@@ -48,7 +48,7 @@ if($count > 0) {
 	$mailHeaders = "From: $currentName";
 	if (mail($toEmail, $subject, $content, $mailHeaders)) {
         //Done. Redirect to thank-you page.
-        $url='../thank_you_page.html';
+        $url='../thankyou.html';
         echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
         exit;
 	}
