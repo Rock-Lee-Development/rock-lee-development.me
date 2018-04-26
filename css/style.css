@@ -1,8 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,100,700,500");
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-
-
-
+@import url("googlefont.css");
+@import url("font-awesome.min.css");
 
 
 
@@ -32,10 +29,8 @@ label {
 h1 {
     font-family: "Impact", sans-serif;
     text-shadow: #000 0px 0px 2px;
-}
-
-h1 {
     color: #dcce86;
+    
 }
 
 h1 em {
