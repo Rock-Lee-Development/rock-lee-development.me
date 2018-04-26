@@ -45,7 +45,7 @@ values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
 
     //$current_id = $db_handle->insertQuery($query);
 
-    if (!empty($current_id)) {
+  /*if (!empty($current_id)) {
         //$actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/approved.php?TournamentID= $current_id&email=$email";
         $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."approved.php?TournamentID=" . $current_id."&email=".$email;
         $toEmail = 'ccjumpper@gmail.com';
@@ -69,7 +69,7 @@ values ('$tmname', '$des','$startDate', '$endDate',0,'$type')";
         unset($_POST);
     } else {
         $message = "Problem in registration. Try Again!";
-    }
+    }*/
 
 
 }
