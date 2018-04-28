@@ -555,7 +555,7 @@ if ($result->num_rows > 0) {
               "}".
 
               /*
-               * Inject our brackets
+                 * Inject our brackets
                */
               "function renderBrackets(struct) {".
                 "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;".
@@ -566,9 +566,16 @@ if ($result->num_rows > 0) {
                 "for(g=1;g<=groupCount;g++) {".
                   "var round = $('<div class=\"r'+g+'\"></div>');".
                   "_.each(grouped[g], function(gg) {".
-                    "if(gg.bye)".
-                      "round.append('<div></div>');".
-                      "else if(g<2){".
+                    "if(gg.bye){".
+                      "round.append('<div></div>');}".
+                       "else if(g==1 || g<=groupCount/2){".
+                         "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
+                          "}".
+                       "else {".
+                           "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input  type=\"text\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t3b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                       "}".
+
+                      /*"else if(g<2){".
 
                         //$('<div class="r'+(groupCount+1)+'"><div><divclass="bracketbox"><span class="info">'+gg.bracketNo+'</span><span class="teama">'+'df'+'</span><span class="teamb">'+'df'+'</span></div></div></div>');
                             "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
@@ -666,7 +673,7 @@ if ($result->num_rows > 0) {
 
                           "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t31a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t31b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
                           "  }".
-                      "}".
+                      "}".*/
 
                   "});".
 
