@@ -872,7 +872,15 @@ if ($result->num_rows > 0) {
                          "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
                          "<p><strong>YOU ARE ABOUT TO DENY A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you deny this tournament.".
                          "</div>".
-                    "</div>".
+                         "<div class=\"md-form form-sm row\">".
+                         "<label for=\"denyReason\" class=\"col-sm-4 control-label right-align\">Deny Reason</label>".
+                         "<div class=\"col-sm-8\">".
+                         "<textarea class=\"form-control\" id=\"denyreason".$current_tm."\" name=\"denyReason\" rows=\"12\" placeholder=\"Enter Reason Why Deny\" required></textarea>".
+                         "</div>".
+                         "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
+                      "<br />".
+                      "</div>".
+                      "</div>".
 
                     "<div class=\"modal-footer justify-content-center\">".
                          "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
@@ -907,19 +915,23 @@ if ($result->num_rows > 0) {
 
             <div class="modal-body mx-3">
 
-
-
             <form action="joinTournament.php" method = "POST">
 
                     <div class="form-group">
                         <label for = "TMname"> Select A Tournament</label>
                         <select name = "TMname" id = "TMname" onchange="fetch_team(this.value);">
                             <?php
-                            $result = $conn->query("select TournamentID,Name from Tournament where Approved = '1' ");
+                            echo '<option value="0" > - select -</option>';
+                            $dt = new DateTime();
+                            $current =  $dt->format('Y-m-d H:i:s');
+                            $result = $conn->query("select TournamentID,Name,StartDate from Tournament where Approved = '1' ");
                             while ($row = $result->fetch_assoc()) {
                                 $teamID = $row["TournamentID"];
                                 $name = $row['Name'];
-                                echo '<option value="'.$teamID.'">'.$name.'</option>';
+                                $sDate = $row['StartDate'];
+                                if(strtotime($current) < strtotime($sDate)) {
+                                    echo '<option value="' . $teamID . '">' . $name . '</option>';
+                                }
                             }
                             ?>
                         </select>
@@ -1006,7 +1018,7 @@ if ($result->num_rows > 0) {
                                 <div class="md-form form-sm row">
                                     <label for="teamSize" class="col-sm-6 control-label right-align">Team Size</label>
                                     <div class="col-sm-6">
-                                        <input type="number" min="2" step="1" class="form-control" id="teamSize" name="teamSize">
+                                        <input type="number" min="2" step="1" class="form-control" id="teamSize" name="teamSize" value="2">
                                     </div>
                                     <br />
                                 </div>
@@ -1016,7 +1028,7 @@ if ($result->num_rows > 0) {
                                 <div class="md-form form-sm row">
                                     <label for="teamNumber" class="col-sm-6 control-label right-align">Team Number</label>
                                     <div class="col-sm-6">
-                                        <input type="number" min="2" step="1" class="form-control" id="teamNumber" name="teamNumber">
+                                        <input type="number" min="2" step="2" class="form-control" id="teamNumber" name="teamNumber" value="2">
                                     </div>
                                     <br />
                                 </div>

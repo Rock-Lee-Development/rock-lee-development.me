@@ -5,6 +5,7 @@ $db_handle = new DBController();
 
 //$currentEmail = $_GET['email'];
 $currentTMid = $_POST['get_id'];
+$reason = $_POST['get_reason'];
 
 
 //if((!empty($currentEmail)) && (!empty($currentTMid))){
@@ -23,9 +24,9 @@ if(!empty($email)) {
     $result = $db_handle->updateQuery($query1);
     //$actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/approved.php?TournamentID= $currentTMid&email=$currentEmail";
     $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."deny.php?TournamentID=" . $currentTMid."&email=".$email;
-    $toEmail = $email;
+    $toEmail = 'ccjumpper@gmail.com';
     $subject = "Tournament status";
-    $content = "Tounrmanet is denied. <a href ='" . $actual_link ."'> </a>";
+    $content = "Tounrmanet is denied.  The reason is:  " .$reason . "     "." <a href ='" . $actual_link ."'> </a>";
     $mailHeaders = "From: noreply@tourneyregistration.com\r\n";
     if (mail($toEmail, $subject, $content, $mailHeaders)) {
         echo "<script> alert('Your tounrmanet is denied. ask for more detail ');
