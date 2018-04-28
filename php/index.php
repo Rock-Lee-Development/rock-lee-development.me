@@ -694,6 +694,7 @@ if ($result->num_rows > 0) {
 
             "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                 "<div class=\"card-body\">".
+                "<form  action= \"edit_tournament.php\" method=\"POST\">".
                     "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                     "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
                     "<div class=\"brackets\" id=\"$tournament_Name\">".
@@ -701,8 +702,14 @@ if ($result->num_rows > 0) {
                     "<p class=\"card-text\">".$row["Descripton"]."</p>".
                     /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
                     "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
+            "<div class=\"text-center mt-1-half\">".
+            "<br />".
+            "<button type=\"submit\" class=\"btn btn-secondary\" id=\"Record$touramentID\" name=\"records\" style=\"margin-left: 10px; margin-right: 10px;\">Update</button>".
+            "</div>".
+            "</form>".
                 "</div>".
             "</div>";
+
 
 
 
