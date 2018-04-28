@@ -17,6 +17,11 @@ $email = $db_handle->getEmail($query);
 if(!empty($email)) {
     $query1 = "UPDATE Tournament set Approved = '1' WHERE TournamentID='" . $currentTMid . "'";
     $result = $db_handle->updateQuery($query1);
+$Check_UserID = "SELECT UserID FROM User WHERE email = '$email'";
+$getUserID = $db_handle->getUserID($Check_UserID);
+    $query4 = "INSERT INTO UserTournaments (TournamentID, UserID) VALUES
+    ('$currentTMid', '$getUserID')";
+    $insideTable = $db_handle->insertQuery($query4);
 
         //$actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/approved.php?TournamentID= $currentTMid&email=$currentEmail";
         $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."approved.php?TournamentID=" . $currentTMid."&email=".$email;
