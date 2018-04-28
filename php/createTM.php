@@ -19,6 +19,7 @@ $db_handle = new DBController();
     $teamSize =  $_POST["teamSize"];
     $teamNum =  $_POST["teamNumber"];
 
+
     $type = $_POST["gType"];
     if ($type == 'Team') {
         $type = 1;

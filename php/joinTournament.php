@@ -32,11 +32,11 @@ $current_id = $db_handle->getUserID($query);
       $query1 = "INSERT INTO UserTournaments (TournamentID, UserID) VALUES
       ('" . $_POST["TMname"] . "', '$current_id')";
       $insideTable2 = $db_handle->insertQuery($query1);
-      echo "<script> alert('You successfuly join the team');
+      echo "<script> alert('You successfuly joined the team');
      window.location.href='../index.html'; </script>";
 }else{
 
-  echo "<script> alert('something wrong with team');
+  echo "<script> alert('This team is already full');
   window.location.href='../index.html'; </script>";
 
 }
@@ -47,7 +47,7 @@ $current_id = $db_handle->getUserID($query3);
 $query4 = "INSERT INTO UserTournaments (TournamentID, UserID) VALUES
 ('" . $_POST["TMname"] . "', '$current_id')";
 $insideTable = $db_handle->insertQuery($query4);
-    echo "<script> alert('you successfulyuuuuuuu join this tournament');
+    echo "<script> alert('You successfuly joined this tournament');
            window.location.href='../index.html'; </script>";
 
 }

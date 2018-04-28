@@ -1016,7 +1016,7 @@ if ($result->num_rows > 0) {
                          <div class ="teamType">
                             <div id="selectteam" style="display:none">
                                 <div class="md-form form-sm row">
-                                    <label for="teamSize" class="col-sm-6 control-label right-align">Team Size</label>
+                                    <label for="teamSize" class="col-sm-6 control-label right-align">Maximum Team Size (Members)</label>
                                     <div class="col-sm-6">
                                         <input type="number" min="2" step="1" class="form-control" id="teamSize" name="teamSize" value="2">
                                     </div>
@@ -1026,9 +1026,15 @@ if ($result->num_rows > 0) {
 
                             <div id="numteam" style="display:none">
                                 <div class="md-form form-sm row">
-                                    <label for="teamNumber" class="col-sm-6 control-label right-align">Team Number</label>
+                                    <label for="teamNumber" class="col-sm-6 control-label right-align">Number of Teams</label>
                                     <div class="col-sm-6">
-                                        <input type="number" min="2" step="2" class="form-control" id="teamNumber" name="teamNumber" value="2">
+                                        <select name = "teamNumber" id = "teamNumber">
+                                          <option>2</option>
+                                          <option>4</option>
+                                          <option>8</option>
+                                          <option>16</option>
+                                          <option>32</option>
+                                        </select>
                                     </div>
                                     <br />
                                 </div>
