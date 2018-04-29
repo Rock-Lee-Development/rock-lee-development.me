@@ -524,6 +524,7 @@ if ($result->num_rows > 0) {
                   "nextInc		= base/2;".
 
                 "for(i=1;i<=(base-1);i++) {".
+                    " var k =i;".
                   "var	baseR = i/baseT,".
                     "isBye = false;".
 
@@ -540,6 +541,7 @@ if ($result->num_rows > 0) {
                     "nextGame:	nextInc+i>base-1?null:nextInc+i,".
                     "teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]],".
                     "bracketNo:	i,".
+                    "nameNum: k,".
                     "roundNo:	round,".
                     "bye:		isBye });".
                   "teamMark+=2;".
@@ -559,6 +561,7 @@ if ($result->num_rows > 0) {
                  * Inject our brackets
                */
               "function renderBrackets(struct) {".
+                "var last;".
                 "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;".
 
                 "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>'),".
@@ -573,7 +576,11 @@ if ($result->num_rows > 0) {
                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
                           "}".
                        "else {".
-                           "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input  type=\"text\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t3b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                        "var num1 = (gg.nameNum-last);".
+                        "var num2 = num1+1;".
+                         "last--;".
+                       "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input  type=\"text\"  name = \"t' + num1 +'\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name= \"t' +num2+ '\" type=\"text\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                       //"num1++;".
                        "}".
 
                       /*"else if(g<2){".
