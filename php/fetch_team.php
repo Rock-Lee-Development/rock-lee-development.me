@@ -25,7 +25,7 @@ if(isset($_POST['get_option']))
 
             echo "Select A Team";
 
-            echo '<select name = "TeamName">';
+            echo '<select name = "TeamName" class="form-control">';
             while ($row = $find->fetch_assoc()) {
                 echo '<option value= " ' . $row['TeamID']. ' ">' . $row['TeamName'] . '</option>';
 

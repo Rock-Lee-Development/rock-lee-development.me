@@ -1176,7 +1176,7 @@ echo
 
                     <div class="form-group">
                         <label for = "TMname"> Select A Tournament</label>
-                        <select name = "TMname" id = "TMname" onchange="fetch_team(this.value);">
+                        <select name = "TMname" id = "TMname" class="form-control" onchange="fetch_team(this.value);">
                             <?php
                             echo '<option value="0" > - select -</option>';
                             $dt = new DateTime();
@@ -1291,7 +1291,7 @@ echo
                 <div class="md-form form-sm row">
                     <label for="gType" class="col-sm-4 control-label">Game Type</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="gType" name="gType">
+                        <select class="form-control" id="gType" name="gType" >
                             <option value = "Individual">Individual</option>
                             <option value = "Team">Team</option>
                             <br />
@@ -1312,7 +1312,7 @@ echo
                                 <div class="md-form form-sm row">
                                     <label for="teamNumber" class="col-sm-6 control-label right-align">Number of Teams</label>
                                     <div class="col-sm-6">
-                                        <select name = "teamNumber" id = "teamNumber">
+                                        <select name = "teamNumber" id = "teamNumber" class="form-control">
                                           <option>2</option>
                                           <option>4</option>
                                           <option>8</option>
