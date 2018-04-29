@@ -505,6 +505,7 @@ if ($result->num_rows > 0) {
                 $touramentID = $row["TournamentID"];
                 $result3 = "SELECT COUNT(TeamID) FROM Team WHERE TournamentID = '$touramentID'";
                $row_count = $db_handle_pending->getCount($result3);
+               $token= $db_handle_pending->generateNewString();
             echo
 
             "<script>".
@@ -701,7 +702,7 @@ if ($result->num_rows > 0) {
                   "group.append(round);".
               "}".
                 "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'+'<input name=\"final\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div></div>');".
-                "$('#$tournament_Name').append(group);".
+                "$('#$token').append(group);".
 
                 "bracketCount++;".
                 "$('html,body').animate({".
@@ -725,7 +726,7 @@ if ($result->num_rows > 0) {
                 "<form  action= \"edit_tournament.php\" method=\"POST\">".
                     "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                     "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
-                    "<div class=\"brackets\" id=\"$tournament_Name\">".
+                    "<div class=\"brackets\" id=\"$token\">".
                         "</div>".
                     "<p class=\"card-text\">".$row["Descripton"]."</p>".
                     /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
