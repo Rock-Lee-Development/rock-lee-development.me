@@ -33,7 +33,7 @@ $current_id = $db_handle->getUserID($query);
       ('" . $_POST["TMname"] . "', '$current_id')";
       $insideTable2 = $db_handle->insertQuery($query1);
       echo "<script> alert('You successfuly joined the team');
-     window.location.href='../index.html'; </script>";
+     window.location.href='../index.php'; </script>";
 }else{
 
   echo "<script> alert('This team is already full');
@@ -48,7 +48,7 @@ $query4 = "INSERT INTO UserTournaments (TournamentID, UserID) VALUES
 ('" . $_POST["TMname"] . "', '$current_id')";
 $insideTable = $db_handle->insertQuery($query4);
     echo "<script> alert('You successfuly joined this tournament');
-           window.location.href='../index.html'; </script>";
+           window.location.href='../index.php'; </script>";
 
 }
 

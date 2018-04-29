@@ -506,6 +506,10 @@ if ($result->num_rows > 0) {
                 $result3 = "SELECT COUNT(TeamID) FROM Team WHERE TournamentID = '$touramentID'";
                $row_count = $db_handle_pending->getCount($result3);
                $token= $db_handle_pending->generateNewString();
+               $check_Admin_Records = "select Creator from Tournament where Creator = \"$email\" and TournamentID = $touramentID ";
+               $count_Records = $db_handle_pending->numRows($check_Admin_Records);
+               if ($count_Records > 0){
+
             echo
 
             "<script>".
@@ -719,8 +723,224 @@ if ($result->num_rows > 0) {
 
 
             "});".
-            "</script>".
+            "</script>";
+          }else{
+            echo
 
+            "<script>".
+            "$(document).on('ready', function() {".
+              "var teams, i;".
+              "teams = [\"\"];".
+              "for (i = 0; i < $row_count; i++) {".
+                "teams[i] = [\"Team\"+(i+1)];".
+              "var knownBrackets = [2,4,8,16,32],". // brackets with "perfect" proportions (full fields, no byes)
+
+              "  exampleTeams  = _.shuffle(teams),".
+
+              "  bracketCount = 0;".
+              /*
+               * Build our bracket "model"
+               */
+             "}".
+              "function getBracket(base) {".
+
+              "  var closest 		= _.find(knownBrackets, function(k) { return k>=base; }),".
+                "  byes 			= closest-base;".
+
+              "  if(byes>0)	base = closest;".
+
+                "var brackets 	= [],".
+                  "round 		= 1,".
+                  "baseT 		= base/2,".
+                  "baseC 		= base/2,".
+                  "teamMark	= 0,".
+                  "nextInc		= base/2;".
+
+                "for(i=1;i<=(base-1);i++) {".
+                    " var k =i;".
+                  "var	baseR = i/baseT,".
+                    "isBye = false;".
+
+                  "if(byes>0 && (i%2!=0 || byes>=(baseT-i))) {".
+                    "isBye = true;".
+                    "byes--;".
+                  "}".
+
+                  "var last = _.map(_.filter(brackets, function(b) { return b.nextGame == i; }),".
+                   "function(b) { return {game:b.bracketNo,teams:b.teamnames}; });".
+
+                  "brackets.push({".
+                    "lastGames:	round==1 ? null : [last[0].game,last[1].game],".
+                    "nextGame:	nextInc+i>base-1?null:nextInc+i,".
+                    "teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]],".
+                    "bracketNo:	i,".
+                    "nameNum: k,".
+                    "roundNo:	round,".
+                    "bye:		isBye });".
+                  "teamMark+=2;".
+                  "if(i%2!=0)	nextInc--;".
+                  "while(baseR>=1) {".
+                    "round++;".
+                    "baseC/= 2;".
+                    "baseT = baseT + baseC;".
+                    "baseR = i/baseT;".
+                  "}".
+                "}".
+
+                "renderBrackets(brackets);".
+              "}".
+
+              /*
+                 * Inject our brackets
+               */
+              "function renderBrackets(struct) {".
+                "var last;".
+                "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;".
+
+                "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>'),".
+                  "grouped = _.groupBy(struct, function(s) { return s.roundNo; });".
+
+                "for(g=1;g<=groupCount;g++) {".
+                  "var round = $('<div class=\"r'+g+'\"></div>');".
+                  "_.each(grouped[g], function(gg) {".
+                    "if(gg.bye){".
+                      "round.append('<div></div>');}".
+                       "else if(g==1 || g<=groupCount/2){".
+                         "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
+                          "}".
+                       "else {".
+                        "var num1 = (gg.nameNum-last);".
+                        "var num2 = num1+1;".
+                         "last--;".
+                       "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+' '+'</span><span class=\"teamb\">'+' '+'</span></div></div>');".
+                       //"num1++;".
+                       "}".
+
+                      /*"else if(g<2){".
+
+                        //$('<div class="r'+(groupCount+1)+'"><div><divclass="bracketbox"><span class="info">'+gg.bracketNo+'</span><span class="teama">'+'df'+'</span><span class="teamb">'+'df'+'</span></div></div></div>');
+                            "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
+                      "}".
+                      "else if(g<3){".
+
+                      "if(gg.bracketNo== 3){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t3a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t3b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 4){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t4a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t4b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 5){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t5a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t5b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 6){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t6a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t6b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 9){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t9a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t9b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 10){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t10a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t10b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 11){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t11a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t11b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 12){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t12a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t12b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 17){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t17a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t17b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 18){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t18a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t18b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 19){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t19a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t19b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 20){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t20a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t20b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 21){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t21a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t21b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 22){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t22a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t22b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 23){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"23a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t23b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "if(gg.bracketNo== 24){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t24a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t24b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                      "}".
+                      "else if(g<4){".
+                        "if(gg.bracketNo== 7){".
+                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t7a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t7b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                        "}".
+                        "if(gg.bracketNo== 13){".
+                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t13a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t13b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                        "}".
+                        "if(gg.bracketNo== 14){".
+                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t14a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t14b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                        "}".
+                        "if(gg.bracketNo== 25){".
+                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t25a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t25b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                        "}".
+                      "if(gg.bracketNo== 26){".
+                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t26a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t26b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                      "}".
+                    "if(gg.bracketNo== 27){".
+                      "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t27a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t27b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                    "}".
+                  "if(gg.bracketNo== 28){".
+                    "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t28a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t28b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                  "}".
+                "}".
+                      "else if(g<5){".
+                        "if(gg.bracketNo== 15){".
+                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t15a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t15b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+
+                        "}".
+                        "if(gg.bracketNo== 29){".
+                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t29a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t29b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+
+                        "}".
+
+                        "if(gg.bracketNo== 30){".
+                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t30a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t30b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                        "}".
+                      "}".
+                      "else if(g<6){".
+                        "if(gg.bracketNo== 31){".
+
+                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t31a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t31b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                          "  }".
+                      "}".*/
+
+                  "});".
+
+                  "group.append(round);".
+              "}".
+                "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'+''+'</span></div></div></div>');".
+                "$('#$token').append(group);".
+
+                "bracketCount++;".
+                "$('html,body').animate({".
+                  "scrollTop: $(\"#b\"+(bracketCount-1)).offset().top })".
+              "}".
+
+
+                "var opts = ($row_count);".
+
+                "if(!_.isNaN(opts) && opts <= _.last(knownBrackets))".
+                  "getBracket(opts);".
+                "else
+                  alert('The bracket size you specified is not currently supported.');".
+
+
+            "});".
+            "</script>";
+}
+echo
             "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                 "<div class=\"card-body\">".
                 "<form  action= \"edit_tournament.php\" method=\"POST\">".
@@ -731,11 +951,7 @@ if ($result->num_rows > 0) {
                     "<p class=\"card-text\">".$row["Descripton"]."</p>".
                     /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
                     "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
-            "<div class=\"text-center mt-1-half\">".
-            "<br />".
-            "<button type=\"submit\" class=\"btn btn-secondary\" id=\"Record$touramentID\" name=\"records\" style=\"margin-left: 10px; margin-right: 10px;\">Update</button>".
-            "</div>".
-            "</form>".
+
                 "</div>".
             "</div>";
 
