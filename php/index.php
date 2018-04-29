@@ -133,12 +133,20 @@ if ($result->num_rows > 0) {
                 $string = $row["StartDate"];
                 $timestamp = strtotime($string);
                 $tm_id = $row["TournamentID"];
+
+                $query = "SELECT file FROM tbl_uploads WHERE TournamentId='$tm_id'";
+                //$you= "18462-harden.png";
+                $current_image = $db_handle_pending->getImage($query);
                 echo
                     //"<form method = \"POST\">".
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
                             "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                             "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
+
+                              "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" style= \"border:none\">".
+
+                            //echo '<img src="uploads/'.$you.'" alt="icon" />';
                             "<p class=\"card-text\">".$row["Descripton"]."</p>".
                             "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
                             "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".
@@ -242,12 +250,17 @@ if ($result->num_rows > 0) {
             while($row = $result->fetch_array()) {
                 $string = $row["StartDate"];
                 $timestamp = strtotime($string);
+                $tournamID = $row["TournamentID"];
 
+                $query_files = "SELECT file FROM tbl_uploads WHERE TournamentId='$tournamID'";
+                //$you= "18462-harden.png";
+                $current_image = $db_handle_pending->getImage($query_files);
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
                             "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                             "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
+                            "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" style= \"border:none\">".
                             "<p class=\"card-text\">".$row["Descripton"]."</p>".
                             /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
                             "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
@@ -836,13 +849,18 @@ if ($result->num_rows > 0) {
             while($row = $results2->fetch_assoc()) {
                 $strings = $row["StartDate"];
                 $timestamps = strtotime($strings);
-                $current_tm = $row["TournamentID"];
+                $current_tm = $row["TournamentID"];  $tm_id = $row["TournamentID"];
+
+                  $query_file = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tm'";
+                  //$you= "18462-harden.png";
+                  $current_image = $db_handle_pending->getImage($query_file);
 
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
                             "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                             "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamps)."</h6>".
+                            "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" style= \"border:none\">".
                             "<p class=\"card-text\">".$row["Descripton"]."</p>".
                             "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#approveModal".$row["TournamentID"]."\">APPROVE</button>".
                             "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#denyModal".$row["TournamentID"]."\">DENY</button>".
@@ -997,6 +1015,33 @@ if ($result->num_rows > 0) {
                         <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
                     </div>
                 </div>
+                <div class="md-form form-sm row">
+                    <label for="tmname" class="col-sm-4 control-label right-align">upload Tournament picture</label>
+                    <div class="col-sm-8">
+                      <input type="file" name="file" / required>
+                      <?php
+
+                    if(isset($_GET['success']))
+                    {
+                      ?>
+                          <label>File Uploaded Successfully...  </label>
+                          <?php
+                    }
+                    else if(isset($_GET['fail']))
+                    {
+                      ?>
+                          <label>Problem While File Uploading !</label>
+                          <?php
+                    }
+                    else
+                    {
+                      ?>
+                          <label>Try to upload any files(PDF, DOC, EXE, VIDEO, MP3, ZIP,etc...)</label>
+                          <?php
+                    }
+                    ?>
+                    </div>
+        </div>
                 <br>
                 <div class="md-form form-sm row">
                     <label for="StartDate" class="col-sm-4 control-label right-align">Start Date</label>

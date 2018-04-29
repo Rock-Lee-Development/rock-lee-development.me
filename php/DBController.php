@@ -138,7 +138,7 @@ class DBController
         } else {
       while ($row = mysqli_fetch_array($result))
       {
-              return $row[0]; 
+              return $row[0];
             }
         }
     }
@@ -153,6 +153,19 @@ class DBController
             while ($row = mysqli_fetch_assoc($result))
             {
                 return $row["Creator"];
+            }
+        }
+    }
+    public function getImage($query)
+    {
+        $result = mysqli_query($this->conn, $query);
+
+        if (!$result) {
+            die('Invalid query: ' . mysqli_error($this->conn));
+        } else {
+            while ($row = mysqli_fetch_assoc($result))
+            {
+                return $row["file"];
             }
         }
     }
