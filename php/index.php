@@ -65,6 +65,7 @@ if ($result->num_rows > 0) {
     <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
     <link href = "../css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
     <link href = "../css/bracketgenerator.css" rel = "stylesheet">
+    <link href = "../css/_card.scss" rel = "stylesheet">
     <title>Gamer Tree</title>
 
   <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
