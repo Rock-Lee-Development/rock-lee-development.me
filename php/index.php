@@ -849,18 +849,18 @@ if ($result->num_rows > 0) {
             while($row = $results2->fetch_assoc()) {
                 $strings = $row["StartDate"];
                 $timestamps = strtotime($strings);
-                $current_tm = $row["TournamentID"];  $tm_id = $row["TournamentID"];
+                $current_tms = $row["TournamentID"];
 
-                  $query_file = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tm'";
+                  $query_file2 = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tms'";
                   //$you= "18462-harden.png";
-                  $current_image = $db_handle_pending->getImage($query_file);
+                  $current_image_Pending = $db_handle_pending->getImage($query_file2);
 
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
                             "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                             "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamps)."</h6>".
-                            "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" style= \"border:none\">".
+                            "<img src= \"../uploads/$current_image_Pending\" class=\"img-thumbnail\" style= \"border:none;\">".
                             "<p class=\"card-text\">".$row["Descripton"]."</p>".
                             "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#approveModal".$row["TournamentID"]."\">APPROVE</button>".
                             "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#denyModal".$row["TournamentID"]."\">DENY</button>".
@@ -887,7 +887,7 @@ if ($result->num_rows > 0) {
 
                             "<div class=\"modal-footer justify-content-center\">".
                                 "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
-                                "<button type=\"submit\" value = \"$current_tm\" onclick=\"trans_Approve(this.value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
+                                "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Approve(this.value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
                             "</div>".
                             "</form>".
 
@@ -915,7 +915,7 @@ if ($result->num_rows > 0) {
                          "<div class=\"md-form form-sm row\">".
                          "<label for=\"denyReason\" class=\"col-sm-4 control-label right-align\">Deny Reason</label>".
                          "<div class=\"col-sm-8\">".
-                         "<textarea class=\"form-control\" id=\"denyreason".$current_tm."\" name=\"denyReason\" rows=\"12\" placeholder=\"Enter Reason Why Deny\" required></textarea>".
+                         "<textarea class=\"form-control\" id=\"denyreason".$current_tms."\" name=\"denyReason\" rows=\"12\" placeholder=\"Enter Reason Why Deny\" required></textarea>".
                          "</div>".
                          "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
                       "<br />".
@@ -924,7 +924,7 @@ if ($result->num_rows > 0) {
 
                     "<div class=\"modal-footer justify-content-center\">".
                          "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
-                         "<button type=\"submit\" value = \"$current_tm\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
+                         "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
                     "</div>".
                     "</form>".
 
@@ -1008,7 +1008,7 @@ if ($result->num_rows > 0) {
 
             <!--Body-->
             <div class="modal-body mb-0 mx-3">
-                <form action = "createTM.php" method = "POST">
+                <form action = "createTM.php" method = "POST" enctype="multipart/form-data">
                 <div class="md-form form-sm row">
                     <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label>
                     <div class="col-sm-8">

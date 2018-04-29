@@ -21,6 +21,8 @@ if(!empty($email)) {
     $result2 = $db_handle->deleteQuery( "DELETE  FROM Tournament WHERE TournamentID = '$currentTMid' ");
     //add reson for deny?
 
+    $result3 = $db_handle->deleteQuery( "DELETE  FROM tbl_uploads WHERE TournamentId = '$currentTMid' ");
+
     $result = $db_handle->updateQuery($query1);
     //$actual_link = "http://localhost/public/my_site/GitHub/rock-lee-development.me/php/approved.php?TournamentID= $currentTMid&email=$currentEmail";
     $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."deny.php?TournamentID=" . $currentTMid."&email=".$email;

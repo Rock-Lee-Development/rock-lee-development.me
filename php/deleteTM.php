@@ -6,6 +6,7 @@ $db_handle = new DBController();
 
     $tmID = $_POST['get_id'];
     $result = $db_handle->deleteQuery( "DELETE  FROM Tournament WHERE TournamentID = '$tmID' ");
+    $result1 = $db_handle->deleteQuery( "DELETE  FROM tbl_uploads WHERE TournamentId = '$tmID' ");
 
     if($result){
 
