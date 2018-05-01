@@ -241,7 +241,7 @@ if ($result->num_rows > 0) {
                         "<div class=\"card-body\">".
                             "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                             "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
-                            "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" style= \"border:none\">".
+                            "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">".
                             "<p class=\"card-text\">".$row["Descripton"]."</p>".
                         "</div>".
                     "</div>".
