@@ -1,41 +1,40 @@
 <?php
 
-// to get data stored in a session, you must let the browser know to start a session
+// This session will store vital information for the entirety of the project. 
+// Refer to this file to know what session variables are available to us. 
 session_start();
 
 /* 
-  Available Session Variables. 
-
-  Remember to call session_start(); 
-
+  Available Session Variables.  Remember to call session_start(); to use these. 
   $_SESSION["servername"] 
   $_SESSION["databasename"] 
   $_SESSION["password"] 
   $_SESSION["email"] 
-
 */ 
 
 $servername = "gamertree.coeozr7b8ydf.us-east-1.rds.amazonaws.com";
 $databaseName = "rocklee";
 $databasePassword = "rockleelions77";
 
-// Sesion variables for database information. 
 $_SESSION["servername"] = $servername;
 $_SESSION["databasename"] = $databaseName ;
 $_SESSION["password"] = $databasePassword;
 
+// Building the connection. Database name and user name for us are the same "rocklee". 
 $conn = mysqli_connect($servername, $databaseName, $databasePassword, $databaseName);
 
 if (!$conn) {
-    die("Connection to server failed. Contact system adminstrator: " . mysqli_connect_error());
+    die("Connection to server failed. Contact your Lindenwood University system adminstrator: " . mysqli_connect_error());
     header('Location: ./error.html');
 
 } else {
+
+    // Email and password from the input boxes on login. 
     $email = $_POST["email"];
     $password = $_POST["password"];
-
+     
+    // Make sure their email is in our database. If not they need to register. 
     $check_email_query = "select Email from User where Email = \"$email\" and Status = 1";
-   
     $result = mysqli_query($conn, $check_email_query);
 
     if (!$result) {
@@ -73,11 +72,7 @@ if (!$conn) {
                 }
             }
         }
-   
-    
     }
-
 }
-
 
 ?> 
