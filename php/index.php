@@ -70,6 +70,7 @@ if ($result->num_rows > 0) {
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalEnrollForm">Join Tournament</a>
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#createTournament">Create Tournament</a>
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalContactForm">Support</a>
+                <a class="nav-item nav-link" href="../index.html">Logout</a>
             </div>
         </div>
     </nav>
