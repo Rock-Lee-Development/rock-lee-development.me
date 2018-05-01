@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ian
- * Date: 4/4/2018
- * Time: 5:59 PM
- */
-session_start();
 
+session_start();
 $servername = $_SESSION["servername"];
 $username = $_SESSION["databasename"];
 $password = $_SESSION["password"];
@@ -40,10 +34,6 @@ if ($result->num_rows > 0) {
  *
  * foreach ($userArray as $key => $value) { echo "Key: $key; Value: $value\n"; }
  */
-
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -135,10 +125,8 @@ if ($result->num_rows > 0) {
                 $tm_id = $row["TournamentID"];
 
                 $query = "SELECT file FROM tbl_uploads WHERE TournamentId='$tm_id'";
-                //$you= "18462-harden.png";
                 $current_image = $db_handle_pending->getImage($query);
                 echo
-                    //"<form method = \"POST\">".
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                         "<div class=\"card-body\">".
                             "<h5 class=\"card-title\">".$row["Name"]."</h5>".
@@ -146,7 +134,6 @@ if ($result->num_rows > 0) {
 
                               "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">".
 
-                            //echo '<img src="uploads/'.$you.'" alt="icon" />';
                             "<p class=\"card-text\">".$row["Descripton"]."</p>".
                             "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
                             "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".
@@ -236,11 +223,6 @@ if ($result->num_rows > 0) {
         $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
         $result1 = $db_handle_pending->getCount($check_join);
         if($result1 > 0){
-        //  $gettourID = "SELECT COUNT(TournamentID)  FROM UserTournaments WHERE UserID = '$current_ID'";
-        //  $get_tournamentID= $db_handle->getCount($gettourID);
-//$tryget = "SELECT tournamentID, Name, Descripton, StartDate, EndDate FROM Tournament ".
-         //" LEFT JOIN UserTournaments on Tournament.TournamentID = UserTournaments.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ";
-
         $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
         $result = $conn->query($sql);
 
@@ -253,7 +235,6 @@ if ($result->num_rows > 0) {
                 $tournamID = $row["TournamentID"];
 
                 $query_files = "SELECT file FROM tbl_uploads WHERE TournamentId='$tournamID'";
-                //$you= "18462-harden.png";
                 $current_image = $db_handle_pending->getImage($query_files);
                 echo
                     "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
@@ -262,8 +243,6 @@ if ($result->num_rows > 0) {
                             "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
                             "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" style= \"border:none\">".
                             "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                            /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
-                            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
                         "</div>".
                     "</div>".
 
@@ -271,12 +250,6 @@ if ($result->num_rows > 0) {
                     "<div class=\"modal fade\" id=\"deleteModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">".
                 "<div class=\"modal-dialog\" role=\"document\">".
                             "<div class=\"modal-content\">".
-                              //  "<div class=\"modal-header\">".
-                                    //"<h5 class=\"modal-title\" id=\"deleteModal\">Delete ".$row["Name"]."</h5>".
-                                    //"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">".
-                                      //  "<span aria-hidden=\"true\">&times;</span>".
-                                  //  "</button>".
-                                //"</div>".
                                 "<div class=\"modal-body\">".
                                     "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
                                       "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament.".
@@ -363,9 +336,6 @@ if ($result->num_rows > 0) {
                         </thead>
                         <tbody>
                         <?php
-
-                      //check admin
-
                         $check_Admin_agenda = "select Email from User where Email = \"$email\" and Admin = 1";
                         $count = $db_handle_pending->numRows($check_Admin_agenda);
                         if($count>0)
@@ -405,13 +375,10 @@ if ($result->num_rows > 0) {
                             $result_agenda2 = $db_handle_pending->getCount($check_join2);
 
                             if ($result_agenda2 > 0) {
-                                //$sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
                                 $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
                                 $result = $conn->query($sql);
 
                                 //ordered by start date
-                                //$result = $conn->query($sql);
-
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         $string = $row["StartDate"];
@@ -443,7 +410,6 @@ if ($result->num_rows > 0) {
                         $result= $db_handle_pending->getCount($check_join_Agenda);
 
                         if($result> 0) {
-                            //$sql = "SELECT Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
                             $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID2' ORDER BY StartDate";
                             $result = $conn->query($sql);
 
@@ -949,9 +915,6 @@ echo
                     "<div class=\"brackets\" id=\"$token\">".
                         "</div>".
                     "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                    /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
-                    "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
-
                 "</div>".
             "</div>";
 
@@ -985,12 +948,9 @@ echo
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-body">
-                                <!-- <center class="m-t-30"> <img src="images/5.jpg" class="img-circle" width="150" /> -->
                                 <h4 class="card-title m-t-10"><?php echo $userArray["first"]." ".$userArray["last"]; ?></h4>
                                 <h6 class="card-subtitle"><?php echo $userArray["email"]; ?></h6>
                                 <div class="row text-center justify-content-md-center">
-                                    <!--<div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
-                                    <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>-->
                                 </div>
                                 </center>
                             </div>
@@ -1227,13 +1187,14 @@ echo
             <div class="modal-body mb-0 mx-3">
                 <form action = "createTM.php" method = "POST" enctype="multipart/form-data">
                 <div class="md-form form-sm row">
-                    <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label>
+                    <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label> 
+                    </br> 
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
                     </div>
                 </div>
                 <div class="md-form form-sm row">
-                    <label for="tmname" class="col-sm-4 control-label right-align">upload Tournament picture</label>
+                    <label for="tmname" class="col-sm-4 control-label right-align">Upload Tournament Picture</label>
                     <div class="col-sm-8">
                       <input type="file" name="file" / required>
                       <?php
@@ -1365,7 +1326,7 @@ echo
             <div class="modal-body mx-3">
                 <form method="post" name="myemailform" action="form-to-email.php">
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name</label> <br/> </br> 
                         <input type="text" class="form-control" name="name "placeholder="Enter Your Name">
                         <label for="description">Issue Description</label>
                         <input type="text" class="form-control" name="email" placeholder="Enter Your Issue">
@@ -1397,10 +1358,8 @@ echo
 
 </body>
 
-<footer class="footer text-center">
-    <div class="container">
-        <span class="text-muted" >&copy; Rock Lee Development @ Lindenwood Library Services: Media Library</span>
-    </div>
+<footer id="footer" class="footer navbar-fixed-bottom">
+    <div> &copy; Rock Lee Development @ Lindenwood Library Services: Media Library </div>
 </footer>
 
 </html>
