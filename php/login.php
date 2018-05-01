@@ -10,6 +10,7 @@ session_start();
   $_SESSION["databasename"]
   $_SESSION["password"]
   $_SESSION["email"]
+  $_SESSION["logged_in"]
 */
 
 $servername = "gamertree.coeozr7b8ydf.us-east-1.rds.amazonaws.com";
@@ -19,6 +20,7 @@ $databasePassword = "rockleelions77";
 $_SESSION["servername"] = $servername;
 $_SESSION["databasename"] = $databaseName ;
 $_SESSION["password"] = $databasePassword;
+$_SESSION["logged_in"] = true;
 
 // Building the connection. Database name and user name for us are the same "rocklee".
 $conn = mysqli_connect($servername, $databaseName, $databasePassword, $databaseName);

@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+if($_SESSION["logged_in"] == false) {
+      header("Location: ../index.html");
+  }
 $servername = $_SESSION["servername"];
 $username = $_SESSION["databasename"];
 $password = $_SESSION["password"];
@@ -39,8 +42,6 @@ if ($result->num_rows > 0) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="../images/Logo.svg">
@@ -1368,7 +1369,6 @@ echo
 
 <script src="../js/moment.min.js"></script>
 <script src = "../js/tempusdominus-bootstrap-4.min.js"></script>
-<script src = "../js/bracketgenerator.js"></script>
 
 </body>
 
