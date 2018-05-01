@@ -910,7 +910,16 @@ echo
             "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                 "<div class=\"card-body\">".
                 "<form  action= \"edit_tournament.php\" method=\"POST\">".
-                    "<h5 class=\"card-title\">".$row["Name"]."</h5>".
+                "<div class=\"row justify-content-center\">".
+                "<div class=\"col align-self-center\">".
+                "<h5 class=\"card-title\">".$row["Name"]."</h5>".
+                "</div>".
+                "<div class=\"col align-self-end\">".
+                 "Your Team: ".
+
+                "</div>".
+
+                "</div>".
                     "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
                     "<div class=\"brackets\" id=\"$token\">".
                         "</div>".
@@ -1187,8 +1196,8 @@ echo
             <div class="modal-body mb-0 mx-3">
                 <form action = "createTM.php" method = "POST" enctype="multipart/form-data">
                 <div class="md-form form-sm row">
-                    <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label> 
-                    </br> 
+                    <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label>
+                    </br>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
                     </div>
@@ -1326,7 +1335,7 @@ echo
             <div class="modal-body mx-3">
                 <form method="post" name="myemailform" action="form-to-email.php">
                     <div class="form-group">
-                        <label for="name">Name</label> <br/> </br> 
+                        <label for="name">Name</label> <br/> </br>
                         <input type="text" class="form-control" name="name "placeholder="Enter Your Name">
                         <label for="description">Issue Description</label>
                         <input type="text" class="form-control" name="email" placeholder="Enter Your Issue">
