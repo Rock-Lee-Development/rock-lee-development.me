@@ -129,6 +129,32 @@ class DBController
             }
         }
     }
+    public function getUserTeamID($query)
+    {
+        $result = mysqli_query($this->conn, $query);
+
+        if (!$result) {
+            die('Invalid query: ' . mysqli_error($this->conn));
+        } else {
+      while ($row = mysqli_fetch_assoc($result))
+      {
+              return $row["TeamID"];
+            }
+        }
+    }
+    public function getUserTeamName($query)
+    {
+        $result = mysqli_query($this->conn, $query);
+
+        if (!$result) {
+            die('Invalid query: ' . mysqli_error($this->conn));
+        } else {
+      while ($row = mysqli_fetch_assoc($result))
+      {
+              return $row["TeamName"];
+            }
+        }
+    }
     public function getCount($query)
     {
         $result = mysqli_query($this->conn, $query);

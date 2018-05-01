@@ -70,7 +70,7 @@ if ($result->num_rows > 0) {
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalEnrollForm">Join Tournament</a>
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#createTournament">Create Tournament</a>
                 <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modalContactForm">Support</a>
-                <a class="nav-item nav-link" href="../index.html">Logout</a>
+                <a class="nav-item nav-link" href="logout.php">Logout</a>
             </div>
         </div>
     </nav>
@@ -471,6 +471,10 @@ if ($result->num_rows > 0) {
                 $tournament_Name = $row["Name"];
                 $touramentID = $row["TournamentID"];
                 $result3 = "SELECT COUNT(TeamID) FROM Team WHERE TournamentID = '$touramentID'";
+                $result4 = "SELECT TeamID FROM TeamMembers WHERE UserID = '$current_ID'";
+               $user_teamID = $db_handle_pending->getUserTeamID($result4);
+               $result5 = "SELECT TeamName FROM Team WHERE TeamID = '$user_teamID'";
+               $user_TeamName = $db_handle_pending->getUserTeamName($result5);
                $row_count = $db_handle_pending->getCount($result3);
                $token= $db_handle_pending->generateNewString();
                $check_Admin_Records = "select Creator from Tournament where Creator = \"$email\" and TournamentID = $touramentID ";
@@ -916,7 +920,7 @@ echo
                 "<h5 class=\"card-title\">".$row["Name"]."</h5>".
                 "</div>".
                 "<div class=\"col align-self-end\">".
-                 "Your Team: ".
+                 "Your Team: ". $user_TeamName.
 
                 "</div>".
 

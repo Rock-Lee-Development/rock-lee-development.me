@@ -1,16 +1,16 @@
 <?php
 
-// This session will store vital information for the entirety of the project. 
-// Refer to this file to know what session variables are available to us. 
+// This session will store vital information for the entirety of the project.
+// Refer to this file to know what session variables are available to us.
 session_start();
 
-/* 
-  Available Session Variables.  Remember to call session_start(); to use these. 
-  $_SESSION["servername"] 
-  $_SESSION["databasename"] 
-  $_SESSION["password"] 
-  $_SESSION["email"] 
-*/ 
+/*
+  Available Session Variables.  Remember to call session_start(); to use these.
+  $_SESSION["servername"]
+  $_SESSION["databasename"]
+  $_SESSION["password"]
+  $_SESSION["email"]
+*/
 
 $servername = "gamertree.coeozr7b8ydf.us-east-1.rds.amazonaws.com";
 $databaseName = "rocklee";
@@ -20,7 +20,7 @@ $_SESSION["servername"] = $servername;
 $_SESSION["databasename"] = $databaseName ;
 $_SESSION["password"] = $databasePassword;
 
-// Building the connection. Database name and user name for us are the same "rocklee". 
+// Building the connection. Database name and user name for us are the same "rocklee".
 $conn = mysqli_connect($servername, $databaseName, $databasePassword, $databaseName);
 
 if (!$conn) {
@@ -29,11 +29,11 @@ if (!$conn) {
 
 } else {
 
-    // Email and password from the input boxes on login. 
+    // Email and password from the input boxes on login.
     $email = $_POST["email"];
     $password = $_POST["password"];
-     
-    // Make sure their email is in our database. If not they need to register. 
+
+    // Make sure their email is in our database. If not they need to register.
     $check_email_query = "select Email from User where Email = \"$email\" and Status = 1";
     $result = mysqli_query($conn, $check_email_query);
 
@@ -46,7 +46,7 @@ if (!$conn) {
               window.location.href='../index.html'; </script>";
         } else if (mysqli_num_rows($result) == 1) {
 
-           // $check_status_query = "DD"; 
+           // $check_status_query = "DD";
 
             $get_password_query = "select PasswordHash from User where Email = \"$email\"";
             $result2 = mysqli_query($conn, $get_password_query);
@@ -60,10 +60,10 @@ if (!$conn) {
 
                 if (password_verify($password, $hashed_password)) {
 
-                    // Session variable for Email Address; 
-                    $_SESSION["email"] = $email; 
+                    // Session variable for Email Address;
+                    $_SESSION["email"] = $email;
 
-                    //Redirect. 
+                    //Redirect.
                     header('Location: index.php');
                 } else {
                    echo "<script> alert('The password you entered does not match the associated user account. Please try again.');
@@ -75,4 +75,4 @@ if (!$conn) {
     }
 }
 
-?> 
+?>
