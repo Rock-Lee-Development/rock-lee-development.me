@@ -1,9 +1,11 @@
 <?php
 
 session_start();
-if($_SESSION["logged_in"] == false) {
-      header("Location: ../index.html");
-  }
+
+if ($_SESSION["logged_in"] == false) {
+    header("Location: ../index.html");
+}
+
 $servername = $_SESSION["servername"];
 $username = $_SESSION["databasename"];
 $password = $_SESSION["password"];
@@ -24,7 +26,7 @@ $userArray = array();
 
 if ($result->num_rows > 0) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         //
         $userArray = array("email" => $row["Email"], "first" => $row["FirstName"], "last" => $row["LastName"]);
     }
@@ -46,21 +48,31 @@ if ($result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="../images/Logo.svg">
 
-    <!-- Bootstrap CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- Custom styles for this template -->
-    <link href="../css/custom.css" rel="stylesheet">
-
-    <link href = "../css/glyphicons.css" rel = "stylesheet">
     <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
+    <link href="../css/custom.css" rel="stylesheet">
+    <link href = "../css/glyphicons.css" rel = "stylesheet">
     <link href = "../css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
     <link href = "../css/bracketgenerator.css" rel = "stylesheet">
     <link href = "../css/_card.scss" rel = "stylesheet">
+
+    <!--  JavaScript --> <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+     <!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="../js/createtournament.js"></script>
+    <script src="../js/moment.min.js"></script>
+    <script src = "../js/tempusdominus-bootstrap-4.min.js"></script>
+
     <title>Gamer Tree</title>
 
-  <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-  <script src="http://underscorejs.org/underscore-min.js"></script>
     <nav class="navbar navbar-expand-lg navbar-dark" style="color: black;">
         <a class="navbar-brand" id="lu-title-text" href="index.php">Lindenwood</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,19 +102,18 @@ if ($result->num_rows > 0) {
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="color: black;">Profile</a>
         </li>
         <?php
-        require_once("DBController.php");
-        $db_handle_pending = new DBController();
-        $check_Admin_pending = "select Email from User where Email = \"$email\" and Admin = 1";
-          $count_pending = $db_handle_pending->numRows($check_Admin_pending);
-        if($count_pending>0)
-        {
-          echo
-          "<li class=\"nav-item\">".
-              "<a class=\"nav-link\" id=\"profile-tab\" data-toggle=\"tab\" href=\"#Pending\" role=\"tab\" aria-controls=\"profile\" aria-selected=\"false\" style=\"color: black; background-color: red;\">Pendings</a>".
-          "</li>";
+require_once "DBController.php";
+$db_handle_pending = new DBController();
+$check_Admin_pending = "select Email from User where Email = \"$email\" and Admin = 1";
+$count_pending = $db_handle_pending->numRows($check_Admin_pending);
+if ($count_pending > 0) {
+    echo
+        "<li class=\"nav-item\">" .
+        "<a class=\"nav-link\" id=\"profile-tab\" data-toggle=\"tab\" href=\"#Pending\" role=\"tab\" aria-controls=\"profile\" aria-selected=\"false\" style=\"color: black; background-color: red;\">Pendings</a>" .
+        "</li>";
 
-        }
-        ?>
+}
+?>
     </ul>
 </head>
 
@@ -112,126 +123,123 @@ if ($result->num_rows > 0) {
         <h3>HOME</h3>
         <?php
 
-        $check_Admin1 = "select Email from User where Email = \"$email\" and Admin = 1";
-          $count1 = $db_handle_pending->numRows($check_Admin1);
-        if($count1>0)
-        {
-        $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
-        $result = $conn->query($sql);
+$check_Admin1 = "select Email from User where Email = \"$email\" and Admin = 1";
+$count1 = $db_handle_pending->numRows($check_Admin1);
+if ($count1 > 0) {
+    $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
+    $result = $conn->query($sql);
 
-        $id_number = 1;
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $string = $row["StartDate"];
-                $timestamp = strtotime($string);
-                $tm_id = $row["TournamentID"];
+    $id_number = 1;
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $string = $row["StartDate"];
+            $timestamp = strtotime($string);
+            $tm_id = $row["TournamentID"];
 
-                $query = "SELECT file FROM tbl_uploads WHERE TournamentId='$tm_id'";
-                $current_image = $db_handle_pending->getImage($query);
-                echo
-                    "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
-                        "<div class=\"card-body\">".
-                            "<h5 class=\"card-title\">".$row["Name"]."</h5>".
-                            "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
+            $query = "SELECT file FROM tbl_uploads WHERE TournamentId='$tm_id'";
+            $current_image = $db_handle_pending->getImage($query);
+            echo
+            "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
+            "<div class=\"card-body\">" .
+            "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
+            "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamp) . "</h6>" .
 
-                              "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">".
+            "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">" .
 
-                            "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
-                            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".
-                        "</div>".
-                    "</div>".
+            "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
+            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal" . $row["TournamentID"] . "\">DELETE</button>" .
+            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal" . $row["TournamentID"] . "\">UPDATE</button>" .
+            "</div>" .
+            "</div>" .
 
-                    // Todo modal description.
-                    "<div class=\"modal fade\" id=\"deleteModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">".
-                "<div class=\"modal-dialog\" role=\"document\">".
-                            "<div class=\"modal-content\">".
-                                "<div class=\"modal-header\">".
-                                    "<h5 class=\"modal-title\" id=\"deleteModal\">Delete ".$row["Name"]."</h5>".
-                                    "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">".
-                                        "<span aria-hidden=\"true\">&times;</span>".
-                                    "</button>".
-                                "</div>".
-                                "<div class=\"modal-body\">".
-                                 "<form  method = \"POST\">".
-                                    "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
-                                      "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament.".
-                                    "</div>".
-                                "</div>".
-                                "<div class=\"modal-footer justify-content-center\">".
-                                    "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
-                                    "<button type=\"submit\" value = \"$tm_id\"  onclick=\"deleteTM(this.value);\"  class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
-                                "</div>".
-                                 "</form>".
-                            "</div>".
-                        "</div>".
-                    "</div>".
-                    //"</form>".
+            // Todo modal description.
+            "<div class=\"modal fade\" id=\"deleteModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">" .
+            "<div class=\"modal-dialog\" role=\"document\">" .
+            "<div class=\"modal-content\">" .
+            "<div class=\"modal-header\">" .
+            "<h5 class=\"modal-title\" id=\"deleteModal\">Delete " . $row["Name"] . "</h5>" .
+            "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+            "<span aria-hidden=\"true\">&times;</span>" .
+            "</button>" .
+            "</div>" .
+            "<div class=\"modal-body\">" .
+            "<form  method = \"POST\">" .
+            "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+            "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament." .
+            "</div>" .
+            "</div>" .
+            "<div class=\"modal-footer justify-content-center\">" .
+            "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+            "<button type=\"submit\" value = \"$tm_id\"  onclick=\"deleteTM(this.value);\"  class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+            "</div>" .
+            "</form>" .
+            "</div>" .
+            "</div>" .
+            "</div>" .
+            //"</form>".
 
-                    // Todo modal description.
-                    "<div class=\"modal fade\" id=\"updateModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">".
-                        "<div class=\"modal-dialog\" role=\"document\">".
+            // Todo modal description.
+            "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
+                "<div class=\"modal-dialog\" role=\"document\">" .
 
-                            "<div class=\"modal-content\">".
+                "<div class=\"modal-content\">" .
 
-                                "<div class=\"modal-header light-blue darken-3 white-text\">".
-                                    "<h4 class=\"title col-sm-9\" id=\"updateTournament\">Update Tournament</h4>".
-                                    "<button type=\"button\" class=\"close waves-effect waves-light\" data-dismiss=\"modal\" aria-label=\"Close\">".
-                                        "<span aria-hidden=\"true\">&times;</span>".
-                                    "</button>".
-                                "</div>".
+                "<div class=\"modal-header light-blue darken-3 white-text\">" .
+                "<h4 class=\"title col-sm-9\" id=\"updateTournament\">Update Tournament</h4>" .
+                "<button type=\"button\" class=\"close waves-effect waves-light\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+                "<span aria-hidden=\"true\">&times;</span>" .
+                "</button>" .
+                "</div>" .
 
-                                "<div class=\"modal-body mb-0 mx-3\">".
-                                "<form  method = \"POST\">".
-                                "<div class=\"md-form form-sm row\">".
-                                    "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
-                                    "<div class=\"col-sm-8\">".
-                                    "<input type=\"text\" class=\"form-control\" id=\"tmname$tm_id\" value=\"".$row["Name"]."\" placeholder=\"".$row["Name"]."\" required>".
-                                    "</div>".
-                                "</div>".
-                                "<br>".
-                                "<div class=\"md-form form-sm row\">".
-                                    "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
-                                    "<div class=\"col-sm-8\">".
-                                    "<textarea class=\"form-control\" id=\"desc$tm_id\"  rows=\"12\" value =\"".$row["Descripton"]."\" placeholder=\"".$row["Descripton"]."\">".$row["Descripton"]."</textarea>".
-                                    "</div>".
-                                    "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
-                                    "<br />".
-                                "</div>".
+                "<div class=\"modal-body mb-0 mx-3\">" .
+                "<form  method = \"POST\">" .
+                "<div class=\"md-form form-sm row\">" .
+                "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>" .
+                "<div class=\"col-sm-8\">" .
+                "<input type=\"text\" class=\"form-control\" id=\"tmname$tm_id\" value=\"" . $row["Name"] . "\" placeholder=\"" . $row["Name"] . "\" required>" .
+                "</div>" .
+                "</div>" .
+                "<br>" .
+                "<div class=\"md-form form-sm row\">" .
+                "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>" .
+                "<div class=\"col-sm-8\">" .
+                "<textarea class=\"form-control\" id=\"desc$tm_id\"  rows=\"12\" value =\"" . $row["Descripton"] . "\" placeholder=\"" . $row["Descripton"] . "\">" . $row["Descripton"] . "</textarea>" .
+                "</div>" .
+                "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>" .
+                "<br />" .
+                "</div>" .
 
+                "<div class=\"text-center mt-1-half\">" .
+                "<br />" .
+                "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" value = \"$tm_id\" onclick=\"updateTM(this.value);\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>" .
+                "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>" .
+                "</div>" .
+                "</form>" .
+                "</div>" .
+                "</div>" .
+                "</div>" .
+                "</div>";
 
-                                "<div class=\"text-center mt-1-half\">".
-                                    "<br />".
-                                    "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" value = \"$tm_id\" onclick=\"updateTM(this.value);\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
-                                    "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>".
-                                "</div>".
-                                "</form>".
-                                "</div>".
-                            "</div>".
-                        "</div>".
-                    "</div>";
-
-                    $id_number+=1;
-            }
-        } else {
-            echo "0 results";
+            $id_number += 1;
         }
-      } //end admin home
-     else
-          {
-            //not admin
-        $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
-        $current_ID= $db_handle_pending->getUserID($getUserID);
-        $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
-        $result1 = $db_handle_pending->getCount($check_join);
-        if($result1 > 0){
+    } else {
+        echo "0 results";
+    }
+} //end admin home
+else {
+    //not admin
+    $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+    $current_ID = $db_handle_pending->getUserID($getUserID);
+    $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+    $result1 = $db_handle_pending->getCount($check_join);
+    if ($result1 > 0) {
         $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
         $result = $conn->query($sql);
 
         $id_number = 1;
 
-         if ($result->num_rows > 0) {
-            while($row = $result->fetch_array()) {
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_array()) {
                 $string = $row["StartDate"];
                 $timestamp = strtotime($string);
                 $tournamID = $row["TournamentID"];
@@ -239,85 +247,84 @@ if ($result->num_rows > 0) {
                 $query_files = "SELECT file FROM tbl_uploads WHERE TournamentId='$tournamID'";
                 $current_image = $db_handle_pending->getImage($query_files);
                 echo
-                    "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
-                        "<div class=\"card-body\">".
-                            "<h5 class=\"card-title\">".$row["Name"]."</h5>".
-                            "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
-                            "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">".
-                            "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                        "</div>".
-                    "</div>".
+                "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
+                "<div class=\"card-body\">" .
+                "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
+                "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamp) . "</h6>" .
+                "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">" .
+                "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
+                "</div>" .
+                "</div>" .
 
-                    // Todo modal description.
-                    "<div class=\"modal fade\" id=\"deleteModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">".
-                "<div class=\"modal-dialog\" role=\"document\">".
-                            "<div class=\"modal-content\">".
-                                "<div class=\"modal-body\">".
-                                    "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
-                                      "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament.".
-                                    "</div>".
-                                "</div>".
-                                "<div class=\"modal-footer justify-content-center\">".
-                                    "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
-                                    "<button type=\"button\" class=\"btn btn-primary\"  style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
-                                "</div>".
-                            "</div>".
-                        "</div>".
-                    "</div>".
+                // Todo modal description.
+                "<div class=\"modal fade\" id=\"deleteModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">" .
+                "<div class=\"modal-dialog\" role=\"document\">" .
+                "<div class=\"modal-content\">" .
+                "<div class=\"modal-body\">" .
+                "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+                "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament." .
+                "</div>" .
+                "</div>" .
+                "<div class=\"modal-footer justify-content-center\">" .
+                "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+                "<button type=\"button\" class=\"btn btn-primary\"  style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+                "</div>" .
+                "</div>" .
+                "</div>" .
+                "</div>" .
 
-                    // Todo modal description.
-                    "<div class=\"modal fade\" id=\"updateModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">".
-                        "<div class=\"modal-dialog\" role=\"document\">".
+                // Todo modal description.
+                "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
+                    "<div class=\"modal-dialog\" role=\"document\">" .
 
-                            "<div class=\"modal-content\">".
+                    "<div class=\"modal-content\">" .
 
-                               "<div class=\"modal-header light-blue darken-3 white-text\">".
-                                    "<h4 class=\"title col-sm-9\" id=\"updateTournament\">Update Tournament</h4>".
-                                    "<button type=\"button\" class=\"close waves-effect waves-light\" data-dismiss=\"modal\" aria-label=\"Close\">".
-                                        "<span aria-hidden=\"true\">&times;</span>".
-                                    "</button>".
+                    "<div class=\"modal-header light-blue darken-3 white-text\">" .
+                    "<h4 class=\"title col-sm-9\" id=\"updateTournament\">Update Tournament</h4>" .
+                    "<button type=\"button\" class=\"close waves-effect waves-light\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+                    "<span aria-hidden=\"true\">&times;</span>" .
+                    "</button>" .
 
-                                    "</div>".
-                                "<div class=\"modal-body mb-0 mx-3\">".
-                                    "<form action = \"createTM.php\" method = \"POST\">".
-                                    "<div class=\"md-form form-sm row\">".
-                                        "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
-                                        "<div class=\"col-sm-8\">".
-                                            "<input type=\"text\" class=\"form-control\" id=\"tmname$id_number\" name=\"tmname\" placeholder=\"".$row["Name"]."\" required>".
-                                        "</div>".
-                                    "</div>".
-                                    "<br>".
-                                    "<div class=\"md-form form-sm row\">".
-                                        "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
-                                        "<div class=\"col-sm-8\">".
-                                            "<textarea class=\"form-control\" id=\"desc$id_number\" name=\"description\" rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
-                                        "</div>".
-                                        "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
-                                        "<br />".
-                                    "</div>".
+                    "</div>" .
+                    "<div class=\"modal-body mb-0 mx-3\">" .
+                    "<form action = \"createTM.php\" method = \"POST\">" .
+                    "<div class=\"md-form form-sm row\">" .
+                    "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>" .
+                    "<div class=\"col-sm-8\">" .
+                    "<input type=\"text\" class=\"form-control\" id=\"tmname$id_number\" name=\"tmname\" placeholder=\"" . $row["Name"] . "\" required>" .
+                    "</div>" .
+                    "</div>" .
+                    "<br>" .
+                    "<div class=\"md-form form-sm row\">" .
+                    "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>" .
+                    "<div class=\"col-sm-8\">" .
+                    "<textarea class=\"form-control\" id=\"desc$id_number\" name=\"description\" rows=\"12\" placeholder=\"" . $row["Descripton"] . "\" required></textarea>" .
+                    "</div>" .
+                    "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>" .
+                    "<br />" .
+                    "</div>" .
 
-
-                                    "<div class=\"text-center mt-1-half\">".
-                                        "<br />".
-                                        "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>".
-                                        "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>".
-                                    "</div>".
-                                    "</form>".
-                                "</div>".
-                            "</div>".
-                        "</div>".
+                    "<div class=\"text-center mt-1-half\">" .
+                    "<br />" .
+                    "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" name=\"done\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>" .
+                    "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>" .
+                    "</div>" .
+                    "</form>" .
+                    "</div>" .
+                    "</div>" .
+                    "</div>" .
                     "</div>";
 
-                    $id_number+=1;
+                $id_number += 1;
             }
-          } else {
+        } else {
             echo "0 results";
         }
-      }else{
+    } else {
         echo "0 results";
-      }
     }
-        ?>
+}
+?>
     </div>
     <div class="tab-pane fade" id="agenda" role="tabpanel" aria-labelledby="agenda-tab">
         <h3>UPCOMING MATCHES</h3>
@@ -338,111 +345,110 @@ if ($result->num_rows > 0) {
                         </thead>
                         <tbody>
                         <?php
-                        $check_Admin_agenda = "select Email from User where Email = \"$email\" and Admin = 1";
-                        $count = $db_handle_pending->numRows($check_Admin_agenda);
-                        if($count>0)
-                        {
-                            $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament ORDER BY StartDate";
-                            $result = $conn->query($sql);
-                            //show all tounament approved & not approved
-                            //ordered by start date
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $string = $row["StartDate"];
-                                        $timestamp = strtotime($string);
-                                        echo
-                                            "<tr>" .
-                                            "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
-                                            "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
-                                            "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
-                                            "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
-                                            "</td>" .
-                                            "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
-                                            "<td class=\"agenda-events\">" .
-                                            "<div class=\"agenda-event\"> " .
-                                            $row["Name"] . " " . $row["Descripton"] .
-                                            "</div>" .
-                                            "</td>" .
-                                            "</tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
+$check_Admin_agenda = "select Email from User where Email = \"$email\" and Admin = 1";
+$count = $db_handle_pending->numRows($check_Admin_agenda);
+if ($count > 0) {
+    $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament ORDER BY StartDate";
+    $result = $conn->query($sql);
+    //show all tounament approved & not approved
+    //ordered by start date
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $string = $row["StartDate"];
+            $timestamp = strtotime($string);
+            echo
+            "<tr>" .
+            "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
+            "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
+            "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
+            "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
+            "</td>" .
+            "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
+                "<td class=\"agenda-events\">" .
+                "<div class=\"agenda-event\"> " .
+                $row["Name"] . " " . $row["Descripton"] .
+                "</div>" .
+                "</td>" .
+                "</tr>";
+        }
+    } else {
+        echo "0 results";
+    }
 
-                        } //end admin agenda
-                        else {
-                            $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
-                            $current_ID = $db_handle_pending->getUserID($getUserID);
-                            $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
-                            $result_agenda2 = $db_handle_pending->getCount($check_join2);
+} //end admin agenda
+else {
+    $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+    $current_ID = $db_handle_pending->getUserID($getUserID);
+    $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+    $result_agenda2 = $db_handle_pending->getCount($check_join2);
 
-                            if ($result_agenda2 > 0) {
-                                $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
-                                $result = $conn->query($sql);
+    if ($result_agenda2 > 0) {
+        $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
+        $result = $conn->query($sql);
 
-                                //ordered by start date
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $string = $row["StartDate"];
-                                        $timestamp = strtotime($string);
-                                        echo
-                                            "<tr>" .
-                                            "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
-                                            "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
-                                            "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
-                                            "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
-                                            "</td>" .
-                                            "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
-                                            "<td class=\"agenda-events\">" .
-                                            "<div class=\"agenda-event\"> " .
-                                            $row["Name"] . " " . $row["Descripton"] .
-                                            "</div>" .
-                                            "</td>" .
-                                            "</tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
-                            }
-                        }
+        //ordered by start date
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $string = $row["StartDate"];
+                $timestamp = strtotime($string);
+                echo
+                "<tr>" .
+                "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
+                "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
+                "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
+                "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
+                "</td>" .
+                "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
+                    "<td class=\"agenda-events\">" .
+                    "<div class=\"agenda-event\"> " .
+                    $row["Name"] . " " . $row["Descripton"] .
+                    "</div>" .
+                    "</td>" .
+                    "</tr>";
+            }
+        } else {
+            echo "0 results";
+        }
+    }
+}
 
-                        $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
-                        $current_ID2= $db_handle_pending->getUserID($getUserID);
-                        $check_join_Agenda = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID2'";
-                        $result= $db_handle_pending->getCount($check_join_Agenda);
+$getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+$current_ID2 = $db_handle_pending->getUserID($getUserID);
+$check_join_Agenda = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID2'";
+$result = $db_handle_pending->getCount($check_join_Agenda);
 
-                        if($result> 0) {
-                            $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID2' ORDER BY StartDate";
-                            $result = $conn->query($sql);
+if ($result > 0) {
+    $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID2' ORDER BY StartDate";
+    $result = $conn->query($sql);
 
-                            //ordered by start date
-                            //$result = $conn->query($sql);
+    //ordered by start date
+    //$result = $conn->query($sql);
 
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $string= $row["StartDate"];
-                                    $timestamp = strtotime($string);
-                                    echo
-                                        "<tr>" .
-                                        "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
-                                        "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
-                                        "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
-                                        "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
-                                        "</td>" .
-                                        "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
-                                        "<td class=\"agenda-events\">" .
-                                        "<div class=\"agenda-event\"> " .
-                                          $row["Name"] . " " . $row["Descripton"] .
-                                        "</div>" .
-                                        "</td>" .
-                                        "</tr>";
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $string = $row["StartDate"];
+            $timestamp = strtotime($string);
+            echo
+            "<tr>" .
+            "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
+            "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
+            "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
+            "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
+            "</td>" .
+            "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
+                "<td class=\"agenda-events\">" .
+                "<div class=\"agenda-event\"> " .
+                $row["Name"] . " " . $row["Descripton"] .
+                "</div>" .
+                "</td>" .
+                "</tr>";
 
-                                }
-                            } else {
-                                echo "no agenda";
-                            }
-                          } //end not admin agenda
-                       ?>
+        }
+    } else {
+        echo "no agenda";
+    }
+} //end not admin agenda
+?>
                         </tbody>
                     </table>
                 </div>
@@ -454,534 +460,525 @@ if ($result->num_rows > 0) {
         <p>Below are your records for tournaments participated in.</p>
         <?php
 
-        $getUserID=" SELECT UserID FROM User WHERE email = '$email'";
-        $current_ID= $db_handle_pending->getUserID($getUserID);
-        $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
-        $result1 = $db_handle_pending->getCount($check_join2);
-        if($result1 > 0){
+$getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+$current_ID = $db_handle_pending->getUserID($getUserID);
+$check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+$result1 = $db_handle_pending->getCount($check_join2);
+if ($result1 > 0) {
 
-        $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
-        $result = $conn->query($sql);
+    $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
+    $result = $conn->query($sql);
 
-        $id_number = 1;
+    $id_number = 1;
 
-         if ($result->num_rows > 0) {
-            while($row = $result->fetch_array()) {
-                $string = $row["StartDate"];
-                $timestamp = strtotime($string);
-                $tournament_Name = $row["Name"];
-                $touramentID = $row["TournamentID"];
-                $result3 = "SELECT COUNT(TeamID) FROM Team WHERE TournamentID = '$touramentID'";
-                $result4 = "SELECT TeamID FROM TeamMembers WHERE UserID = '$current_ID'";
-               $user_teamID = $db_handle_pending->getUserTeamID($result4);
-               $result5 = "SELECT TeamName FROM Team WHERE TeamID = '$user_teamID'";
-               $user_TeamName = $db_handle_pending->getUserTeamName($result5);
-               $row_count = $db_handle_pending->getCount($result3);
-               $token= $db_handle_pending->generateNewString();
-               $check_Admin_Records = "select Creator from Tournament where Creator = \"$email\" and TournamentID = $touramentID ";
-               $count_Records = $db_handle_pending->numRows($check_Admin_Records);
-               $nameS = "";
-               for($m = 1; $m<=$row_count;$m++)
-               {
-                   $nameS  = $nameS ."<option>Team".$m."</option>";
-               }
-               if ($count_Records > 0){
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_array()) {
+            $string = $row["StartDate"];
+            $timestamp = strtotime($string);
+            $tournament_Name = $row["Name"];
+            $touramentID = $row["TournamentID"];
+            $result3 = "SELECT COUNT(TeamID) FROM Team WHERE TournamentID = '$touramentID'";
+            $result4 = "SELECT TeamID FROM TeamMembers WHERE UserID = '$current_ID'";
+            $user_teamID = $db_handle_pending->getUserTeamID($result4);
+            $result5 = "SELECT TeamName FROM Team WHERE TeamID = '$user_teamID'";
+            $user_TeamName = $db_handle_pending->getUserTeamName($result5);
+            $row_count = $db_handle_pending->getCount($result3);
+            $token = $db_handle_pending->generateNewString();
+            $check_Admin_Records = "select Creator from Tournament where Creator = \"$email\" and TournamentID = $touramentID ";
+            $count_Records = $db_handle_pending->numRows($check_Admin_Records);
+            $nameS = "";
+            for ($m = 1; $m <= $row_count; $m++) {
+                $nameS = $nameS . "<option>Team" . $m . "</option>";
+            }
+            if ($count_Records > 0) {
 
-            echo
+                echo
 
-            "<script>".
-            "$(document).on('ready', function() {".
-              "var teams, i;".
-              "teams = [\"\"];".
-              "for (i = 0; i < $row_count; i++) {".
-                "teams[i] = [\"Team\"+(i+1)];".
-              "var knownBrackets = [2,4,8,16,32],". // brackets with "perfect" proportions (full fields, no byes)
+                "<script>" .
+                "$(document).on('ready', function() {" .
+                "var teams, i;" .
+                "teams = [\"\"];" .
+                "for (i = 0; i < $row_count; i++) {" .
+                "teams[i] = [\"Team\"+(i+1)];" .
+                "var knownBrackets = [2,4,8,16,32]," . // brackets with "perfect" proportions (full fields, no byes)
 
-              "  exampleTeams  = (teams),".
+                "  exampleTeams  = (teams)," .
 
-              "  bracketCount = 0;".
-              /*
-               * Build our bracket "model"
-               */
-             "}".
-              "function getBracket(base) {".
+                "  bracketCount = 0;" .
+                /*
+                 * Build our bracket "model"
+                 */
+                "}" .
+                "function getBracket(base) {" .
 
-              "  var closest 		= _.find(knownBrackets, function(k) { return k>=base; }),".
-                "  byes 			= closest-base;".
+                "  var closest 		= _.find(knownBrackets, function(k) { return k>=base; })," .
+                "  byes 			= closest-base;" .
 
-              "  if(byes>0)	base = closest;".
+                "  if(byes>0)	base = closest;" .
 
-                "var brackets 	= [],".
-                  "round 		= 1,".
-                  "baseT 		= base/2,".
-                  "baseC 		= base/2,".
-                  "teamMark	= 0,".
-                  "nextInc		= base/2;".
+                "var brackets 	= []," .
+                "round 		= 1," .
+                "baseT 		= base/2," .
+                "baseC 		= base/2," .
+                "teamMark	= 0," .
+                "nextInc		= base/2;" .
 
-                "for(i=1;i<=(base-1);i++) {".
-                    " var k =i;".
-                  "var	baseR = i/baseT,".
-                    "isBye = false;".
+                "for(i=1;i<=(base-1);i++) {" .
+                " var k =i;" .
+                "var	baseR = i/baseT," .
+                "isBye = false;" .
 
-                  "if(byes>0 && (i%2!=0 || byes>=(baseT-i))) {".
-                    "isBye = true;".
-                    "byes--;".
-                  "}".
+                "if(byes>0 && (i%2!=0 || byes>=(baseT-i))) {" .
+                "isBye = true;" .
+                "byes--;" .
+                "}" .
 
-                  "var last = _.map(_.filter(brackets, function(b) { return b.nextGame == i; }),".
-                   "function(b) { return {game:b.bracketNo,teams:b.teamnames}; });".
+                "var last = _.map(_.filter(brackets, function(b) { return b.nextGame == i; })," .
+                "function(b) { return {game:b.bracketNo,teams:b.teamnames}; });" .
 
-                  "brackets.push({".
-                    "lastGames:	round==1 ? null : [last[0].game,last[1].game],".
-                    "nextGame:	nextInc+i>base-1?null:nextInc+i,".
-                    "teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]],".
-                    "bracketNo:	i,".
-                    "nameNum: k,".
-                    "roundNo:	round,".
-                    "bye:		isBye });".
-                  "teamMark+=2;".
-                  "if(i%2!=0)	nextInc--;".
-                  "while(baseR>=1) {".
-                    "round++;".
-                    "baseC/= 2;".
-                    "baseT = baseT + baseC;".
-                    "baseR = i/baseT;".
-                  "}".
-                "}".
+                "brackets.push({" .
+                "lastGames:	round==1 ? null : [last[0].game,last[1].game]," .
+                "nextGame:	nextInc+i>base-1?null:nextInc+i," .
+                "teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]]," .
+                "bracketNo:	i," .
+                "nameNum: k," .
+                "roundNo:	round," .
+                "bye:		isBye });" .
+                "teamMark+=2;" .
+                "if(i%2!=0)	nextInc--;" .
+                "while(baseR>=1) {" .
+                "round++;" .
+                "baseC/= 2;" .
+                "baseT = baseT + baseC;" .
+                "baseR = i/baseT;" .
+                "}" .
+                "}" .
 
-                "renderBrackets(brackets);".
-              "}".
+                "renderBrackets(brackets);" .
+                "}" .
 
-              /*
+                /*
                  * Inject our brackets
-               */
-              "function renderBrackets(struct) {".
-                "var num1,num2;".
-                "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;".
+                 */
+                "function renderBrackets(struct) {" .
+                "var num1,num2;" .
+                "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;" .
 
-                "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>'),".
-                  "grouped = _.groupBy(struct, function(s) { return s.roundNo; });".
+                "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>')," .
+                "grouped = _.groupBy(struct, function(s) { return s.roundNo; });" .
 
-                "for(g=1;g<=groupCount;g++) {".
-                    "var last;".
-                  "var round = $('<div class=\"r'+g+'\"></div>');".
-                  "_.each(grouped[g], function(gg) {".
-                    "if(gg.bye){".
-                      "round.append('<div></div>');}".
-                       "else if(g==1 || g<=groupCount/2){".
-                         "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
-                          "}".
-                       "else {".
-                      
-                        "num1 = gg.nameNum-last-2;".
-                        "num2 = gg.nameNum - last +1-2;".
-                        "last--;".
+                "for(g=1;g<=groupCount;g++) {" .
+                "var last;" .
+                "var round = $('<div class=\"r'+g+'\"></div>');" .
+                "_.each(grouped[g], function(gg) {" .
+                "if(gg.bye){" .
+                "round.append('<div></div>');}" .
+                "else if(g==1 || g<=groupCount/2){" .
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');" .
+                "}" .
+                "else {" .
 
+                "num1 = gg.nameNum-last-2;" .
+                "num2 = gg.nameNum - last +1-2;" .
+                "last--;" .
 
-                       "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'
                        +'<select name = \"tm' + num1 +'\" value=\"????\">'
-                       +'<option>- select - </option>'                
+                       +'<option>- select - </option>'
                         + '$nameS'
                        +'</select>'
                        +'</span><span class=\"teamb\">'
-                       +'<select name= \"tm' +num2+ '\"   value=\"????\" >' 
+                       +'<select name= \"tm' +num2+ '\"   value=\"????\" >'
                        +'<option>- select - </option>'
                        +'$nameS'
-                       +'</select>'+'</span></div></div>');".
-                       "}".
+                       +'</select>'+'</span></div></div>');" .
+                "}" .
 
-                      /*"else if(g<2){".
+                /*"else if(g<2){".
 
-                        //$('<div class="r'+(groupCount+1)+'"><div><divclass="bracketbox"><span class="info">'+gg.bracketNo+'</span><span class="teama">'+'df'+'</span><span class="teamb">'+'df'+'</span></div></div></div>');
-                            "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
-                      "}".
-                      "else if(g<3){".
-
-                      "if(gg.bracketNo== 3){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t3a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t3b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 4){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t4a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t4b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 5){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t5a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t5b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 6){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t6a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t6b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 9){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t9a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t9b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 10){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t10a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t10b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 11){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t11a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t11b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 12){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t12a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t12b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 17){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t17a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t17b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 18){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t18a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t18b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 19){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t19a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t19b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 20){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t20a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t20b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 21){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t21a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t21b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 22){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t22a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t22b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 23){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"23a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t23b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 24){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t24a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t24b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "}".
-                      "else if(g<4){".
-                        "if(gg.bracketNo== 7){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t7a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t7b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                        "if(gg.bracketNo== 13){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t13a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t13b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                        "if(gg.bracketNo== 14){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t14a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t14b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                        "if(gg.bracketNo== 25){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t25a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t25b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                      "if(gg.bracketNo== 26){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t26a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t26b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                    "if(gg.bracketNo== 27){".
-                      "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t27a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t27b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                    "}".
-                  "if(gg.bracketNo== 28){".
-                    "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t28a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t28b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                  "}".
+                //$('<div class="r'+(groupCount+1)+'"><div><divclass="bracketbox"><span class="info">'+gg.bracketNo+'</span><span class="teama">'+'df'+'</span><span class="teamb">'+'df'+'</span></div></div></div>');
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
                 "}".
-                      "else if(g<5){".
-                        "if(gg.bracketNo== 15){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t15a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t15b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "else if(g<3){".
 
-                        "}".
-                        "if(gg.bracketNo== 29){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t29a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t29b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "if(gg.bracketNo== 3){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t3a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t3b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 4){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t4a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t4b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 5){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t5a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t5b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 6){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t6a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t6b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 9){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t9a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t9b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 10){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t10a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t10b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 11){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t11a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t11b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 12){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t12a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t12b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 17){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t17a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t17b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 18){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t18a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t18b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 19){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t19a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t19b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 20){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t20a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t20b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 21){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t21a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t21b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 22){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t22a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t22b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 23){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"23a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t23b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 24){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t24a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t24b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "}".
+                "else if(g<4){".
+                "if(gg.bracketNo== 7){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t7a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t7b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 13){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t13a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t13b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 14){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t14a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t14b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 25){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t25a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t25b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 26){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t26a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t26b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 27){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t27a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t27b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 28){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t28a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t28b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "}".
+                "else if(g<5){".
+                "if(gg.bracketNo== 15){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t15a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t15b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
 
-                        "}".
+                "}".
+                "if(gg.bracketNo== 29){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t29a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t29b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
 
-                        "if(gg.bracketNo== 30){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t30a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t30b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                      "}".
-                      "else if(g<6){".
-                        "if(gg.bracketNo== 31){".
+                "}".
 
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t31a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t31b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                          "  }".
-                      "}".*/
+                "if(gg.bracketNo== 30){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t30a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t30b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "}".
+                "else if(g<6){".
+                "if(gg.bracketNo== 31){".
 
-                  "});".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t31a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t31b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "  }".
+                "}".*/
 
-                  "group.append(round);".
-              "}".
-              "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'
+                "});" .
+
+                    "group.append(round);" .
+                    "}" .
+                    "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'
               +'<select name=\"final\" value=\"????\">'
                +'<option>- select - </option>'
                +'$nameS'
-               +'</select></span></div></div></div>');".
-       "$('#$token').append(group);".
+               +'</select></span></div></div></div>');" .
+                    "$('#$token').append(group);" .
 
-                "bracketCount++;".
-                "$('html,body').animate({".
-                  "scrollTop: $(\"#b\"+(bracketCount-1)).offset().top })".
-              "}".
+                    "bracketCount++;" .
+                    "$('html,body').animate({" .
+                    "scrollTop: $(\"#b\"+(bracketCount-1)).offset().top })" .
+                    "}" .
 
+                    "var opts = ($row_count);" .
 
-                "var opts = ($row_count);".
+                    "if(!_.isNaN(opts) && opts <= _.last(knownBrackets))" .
+                    "getBracket(opts);" .
+                    "else
+                  alert('The bracket size you specified is not currently supported.');" .
 
-                "if(!_.isNaN(opts) && opts <= _.last(knownBrackets))".
-                  "getBracket(opts);".
-                "else
-                  alert('The bracket size you specified is not currently supported.');".
+                    "});" .
+                    "</script>";
+                echo
+                "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
+                "<div class=\"card-body\">" .
+                "<form  action= \"edit_tournament.php\" method=\"POST\">" .
+                "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
+                "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamp) . "</h6>" .
+                "<div class=\"brackets\" id=\"$token\">" .
+                "</div>" .
+                "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
+                /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
+                "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
+                "<button type=\"submit\" class=\"btn btn-secondary\" value = \"$touramentID\" id=\"Record$touramentID\" name=\"records\" style=\"margin-left: 10px; margin-right: 10px;\">Update</button>" .
+                    "</form>" .
+                    "</div>" .
+                    "</div>";
 
+            } else {
+                echo
 
-            "});".
-            "</script>";
-            echo
-                       "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
-                       "<div class=\"card-body\">".
-                       "<form  action= \"edit_tournament.php\" method=\"POST\">".
-                       "<h5 class=\"card-title\">".$row["Name"]."</h5>".
-                       "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
-                       "<div class=\"brackets\" id=\"$token\">".
-                       "</div>".
-                       "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                       /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
-                       "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
-                       "<button type=\"submit\" class=\"btn btn-secondary\" value = \"$touramentID\" id=\"Record$touramentID\" name=\"records\" style=\"margin-left: 10px; margin-right: 10px;\">Update</button>".
-                       "</form>".
-                       "</div>".
-                       "</div>";
+                "<script>" .
+                "$(document).on('ready', function() {" .
+                "var teams, i;" .
+                "teams = [\"\"];" .
+                "for (i = 0; i < $row_count; i++) {" .
+                "teams[i] = [\"Team\"+(i+1)];" .
+                "var knownBrackets = [2,4,8,16,32]," . // brackets with "perfect" proportions (full fields, no byes)
 
-          }else{
-            echo
+                "  exampleTeams  = (teams)," .
 
-            "<script>".
-            "$(document).on('ready', function() {".
-              "var teams, i;".
-              "teams = [\"\"];".
-              "for (i = 0; i < $row_count; i++) {".
-                "teams[i] = [\"Team\"+(i+1)];".
-              "var knownBrackets = [2,4,8,16,32],". // brackets with "perfect" proportions (full fields, no byes)
+                "  bracketCount = 0;" .
+                /*
+                 * Build our bracket "model"
+                 */
+                "}" .
+                "function getBracket(base) {" .
 
-              "  exampleTeams  = (teams),".
+                "  var closest 		= _.find(knownBrackets, function(k) { return k>=base; })," .
+                "  byes 			= closest-base;" .
 
-              "  bracketCount = 0;".
-              /*
-               * Build our bracket "model"
-               */
-             "}".
-              "function getBracket(base) {".
+                "  if(byes>0)	base = closest;" .
 
-              "  var closest 		= _.find(knownBrackets, function(k) { return k>=base; }),".
-                "  byes 			= closest-base;".
+                "var brackets 	= []," .
+                "round 		= 1," .
+                "baseT 		= base/2," .
+                "baseC 		= base/2," .
+                "teamMark	= 0," .
+                "nextInc		= base/2;" .
 
-              "  if(byes>0)	base = closest;".
+                "for(i=1;i<=(base-1);i++) {" .
+                " var k =i;" .
+                "var	baseR = i/baseT," .
+                "isBye = false;" .
 
-                "var brackets 	= [],".
-                  "round 		= 1,".
-                  "baseT 		= base/2,".
-                  "baseC 		= base/2,".
-                  "teamMark	= 0,".
-                  "nextInc		= base/2;".
+                "if(byes>0 && (i%2!=0 || byes>=(baseT-i))) {" .
+                "isBye = true;" .
+                "byes--;" .
+                "}" .
 
-                "for(i=1;i<=(base-1);i++) {".
-                    " var k =i;".
-                  "var	baseR = i/baseT,".
-                    "isBye = false;".
+                "var last = _.map(_.filter(brackets, function(b) { return b.nextGame == i; })," .
+                "function(b) { return {game:b.bracketNo,teams:b.teamnames}; });" .
 
-                  "if(byes>0 && (i%2!=0 || byes>=(baseT-i))) {".
-                    "isBye = true;".
-                    "byes--;".
-                  "}".
+                "brackets.push({" .
+                "lastGames:	round==1 ? null : [last[0].game,last[1].game]," .
+                "nextGame:	nextInc+i>base-1?null:nextInc+i," .
+                "teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]]," .
+                "bracketNo:	i," .
+                "nameNum: k," .
+                "roundNo:	round," .
+                "bye:		isBye });" .
+                "teamMark+=2;" .
+                "if(i%2!=0)	nextInc--;" .
+                "while(baseR>=1) {" .
+                "round++;" .
+                "baseC/= 2;" .
+                "baseT = baseT + baseC;" .
+                "baseR = i/baseT;" .
+                "}" .
+                "}" .
 
-                  "var last = _.map(_.filter(brackets, function(b) { return b.nextGame == i; }),".
-                   "function(b) { return {game:b.bracketNo,teams:b.teamnames}; });".
+                "renderBrackets(brackets);" .
+                "}" .
 
-                  "brackets.push({".
-                    "lastGames:	round==1 ? null : [last[0].game,last[1].game],".
-                    "nextGame:	nextInc+i>base-1?null:nextInc+i,".
-                    "teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]],".
-                    "bracketNo:	i,".
-                    "nameNum: k,".
-                    "roundNo:	round,".
-                    "bye:		isBye });".
-                  "teamMark+=2;".
-                  "if(i%2!=0)	nextInc--;".
-                  "while(baseR>=1) {".
-                    "round++;".
-                    "baseC/= 2;".
-                    "baseT = baseT + baseC;".
-                    "baseR = i/baseT;".
-                  "}".
-                "}".
-
-                "renderBrackets(brackets);".
-              "}".
-
-              /*
+                /*
                  * Inject our brackets
-               */
-              "function renderBrackets(struct) {".
-                "var last;".
-                "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;".
+                 */
+                "function renderBrackets(struct) {" .
+                "var last;" .
+                "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;" .
 
-                "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>'),".
-                  "grouped = _.groupBy(struct, function(s) { return s.roundNo; });".
+                "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>')," .
+                "grouped = _.groupBy(struct, function(s) { return s.roundNo; });" .
 
-                "for(g=1;g<=groupCount;g++) {".
-                  "var round = $('<div class=\"r'+g+'\"></div>');".
-                  "_.each(grouped[g], function(gg) {".
-                    "if(gg.bye){".
-                      "round.append('<div></div>');}".
-                       "else if(g==1 || g<=groupCount/2){".
-                         "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
-                          "}".
-                       "else {".
-                        "var num1 = (gg.nameNum-last);".
-                        "var num2 = num1+1;".
-                         "last--;".
-                       "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+' '+'</span><span class=\"teamb\">'+' '+'</span></div></div>');".
-                       //"num1++;".
-                       "}".
+                "for(g=1;g<=groupCount;g++) {" .
+                "var round = $('<div class=\"r'+g+'\"></div>');" .
+                "_.each(grouped[g], function(gg) {" .
+                "if(gg.bye){" .
+                "round.append('<div></div>');}" .
+                "else if(g==1 || g<=groupCount/2){" .
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');" .
+                "}" .
+                "else {" .
+                "var num1 = (gg.nameNum-last);" .
+                "var num2 = num1+1;" .
+                "last--;" .
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+' '+'</span><span class=\"teamb\">'+' '+'</span></div></div>');" .
+                //"num1++;".
+                "}" .
 
-                      /*"else if(g<2){".
+                /*"else if(g<2){".
 
-                        //$('<div class="r'+(groupCount+1)+'"><div><divclass="bracketbox"><span class="info">'+gg.bracketNo+'</span><span class="teama">'+'df'+'</span><span class="teamb">'+'df'+'</span></div></div></div>');
-                            "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
-                      "}".
-                      "else if(g<3){".
-
-                      "if(gg.bracketNo== 3){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t3a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t3b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 4){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t4a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t4b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 5){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t5a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t5b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 6){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t6a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t6b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 9){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t9a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t9b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 10){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t10a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t10b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 11){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t11a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t11b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 12){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t12a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t12b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 17){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t17a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t17b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 18){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t18a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t18b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 19){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t19a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t19b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 20){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t20a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t20b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 21){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t21a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t21b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 22){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t22a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t22b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 23){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"23a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t23b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "if(gg.bracketNo== 24){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t24a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t24b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                      "}".
-                      "else if(g<4){".
-                        "if(gg.bracketNo== 7){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t7a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t7b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                        "if(gg.bracketNo== 13){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t13a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t13b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                        "if(gg.bracketNo== 14){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t14a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t14b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                        "if(gg.bracketNo== 25){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t25a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t25b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                      "if(gg.bracketNo== 26){".
-                        "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t26a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t26b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                      "}".
-                    "if(gg.bracketNo== 27){".
-                      "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t27a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t27b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                    "}".
-                  "if(gg.bracketNo== 28){".
-                    "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t28a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t28b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                  "}".
+                //$('<div class="r'+(groupCount+1)+'"><div><divclass="bracketbox"><span class="info">'+gg.bracketNo+'</span><span class="teama">'+'df'+'</span><span class="teamb">'+'df'+'</span></div></div></div>');
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
                 "}".
-                      "else if(g<5){".
-                        "if(gg.bracketNo== 15){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t15a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t15b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "else if(g<3){".
 
-                        "}".
-                        "if(gg.bracketNo== 29){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t29a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t29b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "if(gg.bracketNo== 3){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t3a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t3b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 4){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t4a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t4b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 5){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t5a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t5b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 6){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t6a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t6b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 9){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t9a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t9b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 10){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t10a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t10b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 11){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t11a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t11b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 12){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t12a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t12b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 17){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t17a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t17b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 18){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t18a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t18b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 19){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t19a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t19b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 20){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t20a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t20b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 21){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t21a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t21b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 22){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t22a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t22b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 23){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"23a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t23b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 24){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t24a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t24b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "}".
+                "else if(g<4){".
+                "if(gg.bracketNo== 7){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t7a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t7b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 13){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t13a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t13b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 14){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t14a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t14b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 25){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t25a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t25b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 26){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t26a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t26b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 27){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t27a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t27b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "if(gg.bracketNo== 28){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t28a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t28b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "}".
+                "else if(g<5){".
+                "if(gg.bracketNo== 15){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t15a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t15b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
 
-                        "}".
+                "}".
+                "if(gg.bracketNo== 29){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t29a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t29b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
 
-                        "if(gg.bracketNo== 30){".
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t30a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t30b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                        "}".
-                      "}".
-                      "else if(g<6){".
-                        "if(gg.bracketNo== 31){".
+                "}".
 
-                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t31a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t31b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                          "  }".
-                      "}".*/
+                "if(gg.bracketNo== 30){".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t30a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t30b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "}".
+                "}".
+                "else if(g<6){".
+                "if(gg.bracketNo== 31){".
 
-                  "});".
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t31a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t31b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
+                "  }".
+                "}".*/
 
-                  "group.append(round);".
-              "}".
-                "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'+''+'</span></div></div></div>');".
-                "$('#$token').append(group);".
+                "});" .
 
-                "bracketCount++;".
-                "$('html,body').animate({".
-                  "scrollTop: $(\"#b\"+(bracketCount-1)).offset().top })".
-              "}".
+                    "group.append(round);" .
+                    "}" .
+                    "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'+''+'</span></div></div></div>');" .
+                    "$('#$token').append(group);" .
 
+                    "bracketCount++;" .
+                    "$('html,body').animate({" .
+                    "scrollTop: $(\"#b\"+(bracketCount-1)).offset().top })" .
+                    "}" .
 
-                "var opts = ($row_count);".
+                    "var opts = ($row_count);" .
 
-                "if(!_.isNaN(opts) && opts <= _.last(knownBrackets))".
-                  "getBracket(opts);".
-                "else
-                  alert('The bracket size you specified is not currently supported.');".
+                    "if(!_.isNaN(opts) && opts <= _.last(knownBrackets))" .
+                    "getBracket(opts);" .
+                    "else
+                  alert('The bracket size you specified is not currently supported.');" .
 
+                    "});" .
+                    "</script>";
+                echo
+                "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
+                "<div class=\"card-body\">" .
+                "<form  action= \"edit_tournament.php\" method=\"POST\">" .
+                "<div class=\"row justify-content-center\">" .
+                "<div class=\"col align-self-center\">" .
+                "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
+                "</div>" .
+                "<div class=\"col align-self-end\">" .
+                "Your Team: " . $user_TeamName .
 
-            "});".
-            "</script>";
-            echo
-            "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
-                "<div class=\"card-body\">".
-                "<form  action= \"edit_tournament.php\" method=\"POST\">".
-                "<div class=\"row justify-content-center\">".
-                "<div class=\"col align-self-center\">".
-                "<h5 class=\"card-title\">".$row["Name"]."</h5>".
-                "</div>".
-                "<div class=\"col align-self-end\">".
-                 "Your Team: ". $user_TeamName.
+                "</div>" .
 
-                "</div>".
+                "</div>" .
+                "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamp) . "</h6>" .
+                    "<div class=\"brackets\" id=\"$token\">" .
+                    "</div>" .
+                    "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
+                    "</div>" .
+                    "</div>";
 
-                "</div>".
-                    "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
-                    "<div class=\"brackets\" id=\"$token\">".
-                        "</div>".
-                    "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                "</div>".
-            "</div>";
+            }
 
+        }
+    } else {
+        echo "0 results";
+    }
+} else {
+    echo "0 results";
 }
-
-
-
-
-        }
-        } else {
-        echo "0 results";
-        }
-        }else{
-        echo "0 results";
-        }
-         ?>
+?>
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Profile</h3>
@@ -1001,7 +998,7 @@ if ($result->num_rows > 0) {
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title m-t-10"><?php echo $userArray["first"]." ".$userArray["last"]; ?></h4>
+                                <h4 class="card-title m-t-10"><?php echo $userArray["first"] . " " . $userArray["last"]; ?></h4>
                                 <h6 class="card-subtitle"><?php echo $userArray["email"]; ?></h6>
                                 <div class="row text-center justify-content-md-center">
                                 </div>
@@ -1059,102 +1056,102 @@ if ($result->num_rows > 0) {
     <div class="tab-pane fade " id="Pending" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Pending Tournament</h3>
         <?php
-        $sql2 = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 0";
-        $results2 = $conn->query($sql2);
+$sql2 = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 0";
+$results2 = $conn->query($sql2);
 
-        $id_numbers = 1;
-        if ($results2->num_rows > 0) {
-            while($row = $results2->fetch_assoc()) {
-                $strings = $row["StartDate"];
-                $timestamps = strtotime($strings);
-                $current_tms = $row["TournamentID"];
+$id_numbers = 1;
+if ($results2->num_rows > 0) {
+    while ($row = $results2->fetch_assoc()) {
+        $strings = $row["StartDate"];
+        $timestamps = strtotime($strings);
+        $current_tms = $row["TournamentID"];
 
-                  $query_file2 = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tms'";
-                  //$you= "18462-harden.png";
-                  $current_image_Pending = $db_handle_pending->getImage($query_file2);
+        $query_file2 = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tms'";
+        //$you= "18462-harden.png";
+        $current_image_Pending = $db_handle_pending->getImage($query_file2);
 
-                echo
-                    "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
-                        "<div class=\"card-body\">".
-                            "<h5 class=\"card-title\">".$row["Name"]."</h5>".
-                            "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamps)."</h6>".
-                            "<img src= \"../uploads/$current_image_Pending\" class=\"img-thumbnail\" style= \"border:none;\">".
-                            "<p class=\"card-text\">".$row["Descripton"]."</p>".
-                            "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#approveModal".$row["TournamentID"]."\">APPROVE</button>".
-                            "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#denyModal".$row["TournamentID"]."\">DENY</button>".
-                        "</div>".
-                    "</div>".
+        echo
+        "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
+        "<div class=\"card-body\">" .
+        "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
+        "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamps) . "</h6>" .
+        "<img src= \"../uploads/$current_image_Pending\" class=\"img-thumbnail\" style= \"border:none;\">" .
+        "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
+        "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#approveModal" . $row["TournamentID"] . "\">APPROVE</button>" .
+        "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#denyModal" . $row["TournamentID"] . "\">DENY</button>" .
+        "</div>" .
+        "</div>" .
 
-                    // Todo modal description.
-                    "<div class=\"modal fade\" id=\"approveModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"approveModal\" aria-hidden=\"true\">".
-                "<div class=\"modal-dialog\" role=\"document\">".
-                            "<div class=\"modal-content\">".
-                                "<div class=\"modal-header\">".
-                                    "<h5 class=\"modal-title\" id=\"approveModal\">Approve ".$row["Name"]."</h5>".
-                                    "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">".
-                                        "<span aria-hidden=\"true\">&times;</span>".
-                                    "</button>".
-                                "</div>".
+        // Todo modal description.
+        "<div class=\"modal fade\" id=\"approveModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"approveModal\" aria-hidden=\"true\">" .
+        "<div class=\"modal-dialog\" role=\"document\">" .
+        "<div class=\"modal-content\">" .
+        "<div class=\"modal-header\">" .
+        "<h5 class=\"modal-title\" id=\"approveModal\">Approve " . $row["Name"] . "</h5>" .
+        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+        "<span aria-hidden=\"true\">&times;</span>" .
+        "</button>" .
+        "</div>" .
 
-                                "<div class=\"modal-body\">".
-                                "<form method=\"POST\">".
-                                "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
-                                  "<p><strong>YOU ARE ABOUT TO APPROVE A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you approve this tournament.".
-                                "</div>".
-                            "</div>".
+        "<div class=\"modal-body\">" .
+        "<form method=\"POST\">" .
+        "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+        "<p><strong>YOU ARE ABOUT TO APPROVE A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you approve this tournament." .
+        "</div>" .
+        "</div>" .
 
-                            "<div class=\"modal-footer justify-content-center\">".
-                                "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
-                                "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Approve(this.value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
-                            "</div>".
-                            "</form>".
+        "<div class=\"modal-footer justify-content-center\">" .
+        "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+        "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Approve(this.value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+        "</div>" .
+        "</form>" .
 
-                            "</div>".
-                        "</div>".
-                    "</div>".
+        "</div>" .
+        "</div>" .
+        "</div>" .
 
-                    // Todo modal description.
-                    "<div class=\"modal fade\" id=\"denyModal".$row["TournamentID"]."\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"denyModal\" aria-hidden=\"true\">".
-                        "<div class=\"modal-dialog\" role=\"document\">".
-                            "<div class=\"modal-content\">".
+        // Todo modal description.
+        "<div class=\"modal fade\" id=\"denyModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"denyModal\" aria-hidden=\"true\">" .
+            "<div class=\"modal-dialog\" role=\"document\">" .
+            "<div class=\"modal-content\">" .
 
-                    "<div class=\"modal-header\">".
-                        "<h5 class=\"modal-title\" id=\"denyModal\">Deny ".$row["Name"]."</h5>".
-                        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">".
-                         "<span aria-hidden=\"true\">&times;</span>".
-                         "</button>".
-                    "</div>".
+            "<div class=\"modal-header\">" .
+            "<h5 class=\"modal-title\" id=\"denyModal\">Deny " . $row["Name"] . "</h5>" .
+            "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+            "<span aria-hidden=\"true\">&times;</span>" .
+            "</button>" .
+            "</div>" .
 
-                    "<div class=\"modal-body\">".
-                    "<form method=\"POST\">".
-                         "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">".
-                         "<p><strong>YOU ARE ABOUT TO DENY A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you deny this tournament.".
-                         "</div>".
-                         "<div class=\"md-form form-sm row\">".
-                         "<label for=\"denyReason\" class=\"col-sm-4 control-label right-align\">Deny Reason</label>".
-                         "<div class=\"col-sm-8\">".
-                         "<textarea class=\"form-control\" id=\"denyreason".$current_tms."\" name=\"denyReason\" rows=\"12\" placeholder=\"Enter Reason Why Deny\" required></textarea>".
-                         "</div>".
-                         "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
-                      "<br />".
-                      "</div>".
-                      "</div>".
+            "<div class=\"modal-body\">" .
+            "<form method=\"POST\">" .
+            "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+            "<p><strong>YOU ARE ABOUT TO DENY A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you deny this tournament." .
+            "</div>" .
+            "<div class=\"md-form form-sm row\">" .
+            "<label for=\"denyReason\" class=\"col-sm-4 control-label right-align\">Deny Reason</label>" .
+            "<div class=\"col-sm-8\">" .
+            "<textarea class=\"form-control\" id=\"denyreason" . $current_tms . "\" name=\"denyReason\" rows=\"12\" placeholder=\"Enter Reason Why Deny\" required></textarea>" .
+            "</div>" .
+            "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>" .
+            "<br />" .
+            "</div>" .
+            "</div>" .
 
-                    "<div class=\"modal-footer justify-content-center\">".
-                         "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>".
-                         "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>".
-                    "</div>".
-                    "</form>".
+            "<div class=\"modal-footer justify-content-center\">" .
+            "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+            "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+            "</div>" .
+            "</form>" .
 
-                            "</div>".
-                        "</div>".
-                    "</div>";
+            "</div>" .
+            "</div>" .
+            "</div>";
 
-            }
-        } else {
-            echo "0 results";
-        }
-        ?>
+    }
+} else {
+    echo "0 results";
+}
+?>
     </div>
 
 </div>
@@ -1179,19 +1176,19 @@ if ($result->num_rows > 0) {
                         <label for = "TMname"> Select A Tournament</label>
                         <select name = "TMname" id = "TMname" class="form-control" onchange="fetch_team(this.value);">
                             <?php
-                            echo '<option value="0" > - select -</option>';
-                            $dt = new DateTime();
-                            $current =  $dt->format('Y-m-d H:i:s');
-                            $result = $conn->query("select TournamentID,Name,StartDate from Tournament where Approved = '1' ");
-                            while ($row = $result->fetch_assoc()) {
-                                $teamID = $row["TournamentID"];
-                                $name = $row['Name'];
-                                $sDate = $row['StartDate'];
-                                if(strtotime($current) < strtotime($sDate)) {
-                                    echo '<option value="' . $teamID . '">' . $name . '</option>';
-                                }
-                            }
-                            ?>
+echo '<option value="0" > - select -</option>';
+$dt = new DateTime();
+$current = $dt->format('Y-m-d H:i:s');
+$result = $conn->query("select TournamentID,Name,StartDate from Tournament where Approved = '1' ");
+while ($row = $result->fetch_assoc()) {
+    $teamID = $row["TournamentID"];
+    $name = $row['Name'];
+    $sDate = $row['StartDate'];
+    if (strtotime($current) < strtotime($sDate)) {
+        echo '<option value="' . $teamID . '">' . $name . '</option>';
+    }
+}
+?>
                         </select>
 
                         <div id="new_select">
@@ -1240,25 +1237,20 @@ if ($result->num_rows > 0) {
                       <input type="file" name="file" / required>
                       <?php
 
-                    if(isset($_GET['success']))
-                    {
-                      ?>
+if (isset($_GET['success'])) {
+    ?>
                           <label>File Uploaded Successfully...  </label>
                           <?php
-                    }
-                    else if(isset($_GET['fail']))
-                    {
-                      ?>
+} else if (isset($_GET['fail'])) {
+    ?>
                           <label>Problem While File Uploading !</label>
                           <?php
-                    }
-                    else
-                    {
-                      ?>
+} else {
+    ?>
                           <label>Try to upload any files(PDF, DOC, EXE, VIDEO, MP3, ZIP,etc...)</label>
                           <?php
-                    }
-                    ?>
+}
+?>
                     </div>
         </div>
                 <br>
@@ -1383,18 +1375,7 @@ if ($result->num_rows > 0) {
 </div>
 <!--End Modal-->
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"> </script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="../js/createtournament.js"></script>
 
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-
-<script src="../js/moment.min.js"></script>
-<script src = "../js/tempusdominus-bootstrap-4.min.js"></script>
 
 </body>
 
@@ -1404,4 +1385,4 @@ if ($result->num_rows > 0) {
 
 </html>
 
-<?php $conn->close(); ?>
+<?php $conn->close();?>
