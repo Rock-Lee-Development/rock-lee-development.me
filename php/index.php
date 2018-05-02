@@ -186,14 +186,14 @@ if ($result->num_rows > 0) {
                                 "<div class=\"md-form form-sm row\">".
                                     "<label for=\"tmname\" class=\"col-sm-4 control-label right-align\">Tournament Name</label>".
                                     "<div class=\"col-sm-8\">".
-                                        "<input type=\"text\" class=\"form-control\" id=\"tmname$tm_id\" placeholder=\"".$row["Name"]."\" required>".
+                                    "<input type=\"text\" class=\"form-control\" id=\"tmname$tm_id\" value=\"".$row["Name"]."\" placeholder=\"".$row["Name"]."\" required>".
                                     "</div>".
                                 "</div>".
                                 "<br>".
                                 "<div class=\"md-form form-sm row\">".
                                     "<label for=\"description\" class=\"col-sm-4 control-label right-align\">Description</label>".
                                     "<div class=\"col-sm-8\">".
-                                        "<textarea class=\"form-control\" id=\"desc$tm_id\"  rows=\"12\" placeholder=\"".$row["Descripton"]."\" required></textarea>".
+                                    "<textarea class=\"form-control\" id=\"desc$tm_id\"  rows=\"12\" value =\"".$row["Descripton"]."\" placeholder=\"".$row["Descripton"]."\">".$row["Descripton"]."</textarea>".
                                     "</div>".
                                     "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>".
                                     "<br />".
