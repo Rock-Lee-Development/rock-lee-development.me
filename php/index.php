@@ -65,7 +65,7 @@ if ($result->num_rows > 0) {
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-     <!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
+    <!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
     <script src="http://underscorejs.org/underscore-min.js"></script>
     <script src="../js/createtournament.js"></script>
     <script src="../js/moment.min.js"></script>
@@ -109,7 +109,7 @@ $count_pending = $db_handle_pending->numRows($check_Admin_pending);
 if ($count_pending > 0) {
     echo
         "<li class=\"nav-item\">" .
-        "<a class=\"nav-link\" id=\"profile-tab\" data-toggle=\"tab\" href=\"#Pending\" role=\"tab\" aria-controls=\"profile\" aria-selected=\"false\" style=\"color: black; background-color: red;\">Pendings</a>" .
+        "<a class=\"nav-link\" id=\"profile-tab\" data-toggle=\"tab\" href=\"#Pending\" role=\"tab\" aria-controls=\"profile\" aria-selected=\"false\" style=\"color: black; background-color: red;\">Pending</a>" .
         "</li>";
 
 }
@@ -1375,7 +1375,19 @@ if (isset($_GET['success'])) {
 </div>
 <!--End Modal-->
 
-
+    <!--  JavaScript --> <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+     <!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="../js/createtournament.js"></script>
+    <script src="../js/moment.min.js"></script>
+    <script src = "../js/tempusdominus-bootstrap-4.min.js"></script>
 
 </body>
 
