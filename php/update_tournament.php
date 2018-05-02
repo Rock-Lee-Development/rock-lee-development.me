@@ -14,7 +14,7 @@ if(isset($_POST['get_id'])) {
     $name = $_POST['tm_name'];
     $des = $_POST['desc'];
     //delete tounament
-    $query = "UPDATE Tournament Set Name = '$name', Descripton = '$des' WHERE TournamentID = '$tmID' ";
+    $query = "UPDATE Tournament Set Name = \"$name\", Descripton = \"$des\" WHERE TournamentID = '$tmID' ";
 
     //
     //delete other table relate with this id
