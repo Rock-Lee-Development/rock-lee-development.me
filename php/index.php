@@ -563,6 +563,7 @@ if ($result->num_rows > 0) {
                   "grouped = _.groupBy(struct, function(s) { return s.roundNo; });".
 
                 "for(g=1;g<=groupCount;g++) {".
+                    "var last;".
                   "var round = $('<div class=\"r'+g+'\"></div>');".
                   "_.each(grouped[g], function(gg) {".
                     "if(gg.bye){".
@@ -947,8 +948,7 @@ if ($result->num_rows > 0) {
 
             "});".
             "</script>";
-}
-echo
+            echo
             "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
                 "<div class=\"card-body\">".
                 "<form  action= \"edit_tournament.php\" method=\"POST\">".
@@ -968,6 +968,8 @@ echo
                     "<p class=\"card-text\">".$row["Descripton"]."</p>".
                 "</div>".
             "</div>";
+
+}
 
 
 
