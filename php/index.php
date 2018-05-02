@@ -480,6 +480,11 @@ if ($result->num_rows > 0) {
                $token= $db_handle_pending->generateNewString();
                $check_Admin_Records = "select Creator from Tournament where Creator = \"$email\" and TournamentID = $touramentID ";
                $count_Records = $db_handle_pending->numRows($check_Admin_Records);
+               $nameS = "";
+               for($m = 1; $m<=$row_count;$m++)
+               {
+                   $nameS  = $nameS ."<option>Team".$m."</option>";
+               }
                if ($count_Records > 0){
 
             echo
@@ -551,7 +556,7 @@ if ($result->num_rows > 0) {
                  * Inject our brackets
                */
               "function renderBrackets(struct) {".
-                "var last;".
+                "var num1,num2;".
                 "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;".
 
                 "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>'),".
@@ -566,11 +571,22 @@ if ($result->num_rows > 0) {
                          "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
                           "}".
                        "else {".
-                        "var num1 = (gg.nameNum-last);".
-                        "var num2 = num1+1;".
-                         "last--;".
-                       "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input  type=\"text\"  name = \"t' + num1 +'\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name= \"t' +num2+ '\" type=\"text\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                       //"num1++;".
+                      
+                        "num1 = gg.nameNum-last-2;".
+                        "num2 = gg.nameNum - last +1-2;".
+                        "last--;".
+
+
+                       "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'
+                       +'<select name = \"tm' + num1 +'\" value=\"????\">'
+                       +'<option>- select - </option>'                
+                        + '$nameS'
+                       +'</select>'
+                       +'</span><span class=\"teamb\">'
+                       +'<select name= \"tm' +num2+ '\"   value=\"????\" >' 
+                       +'<option>- select - </option>'
+                       +'$nameS'
+                       +'</select>'+'</span></div></div>');".
                        "}".
 
                       /*"else if(g<2){".
@@ -677,8 +693,12 @@ if ($result->num_rows > 0) {
 
                   "group.append(round);".
               "}".
-                "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'+'<input name=\"final\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div></div>');".
-                "$('#$token').append(group);".
+              "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'
+              +'<select name=\"final\" value=\"????\">'
+               +'<option>- select - </option>'
+               +'$nameS'
+               +'</select></span></div></div></div>');".
+       "$('#$token').append(group);".
 
                 "bracketCount++;".
                 "$('html,body').animate({".
@@ -696,6 +716,22 @@ if ($result->num_rows > 0) {
 
             "});".
             "</script>";
+            echo
+                       "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">".
+                       "<div class=\"card-body\">".
+                       "<form  action= \"edit_tournament.php\" method=\"POST\">".
+                       "<h5 class=\"card-title\">".$row["Name"]."</h5>".
+                       "<h6 class=\"card-subtitle mb-2 text-muted\">".date("l jS \of F Y", $timestamp)."</h6>".
+                       "<div class=\"brackets\" id=\"$token\">".
+                       "</div>".
+                       "<p class=\"card-text\">".$row["Descripton"]."</p>".
+                       /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
+                       "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
+                       "<button type=\"submit\" class=\"btn btn-secondary\" value = \"$touramentID\" id=\"Record$touramentID\" name=\"records\" style=\"margin-left: 10px; margin-right: 10px;\">Update</button>".
+                       "</form>".
+                       "</div>".
+                       "</div>";
+
           }else{
             echo
 

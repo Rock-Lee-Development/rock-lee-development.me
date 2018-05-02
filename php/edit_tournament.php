@@ -29,6 +29,22 @@ for($i = 1;$i<=$matches;$i++)
     {
         echo "<script> alert('starting update record $win1 with tournament id $tm_id');
            </script>";
+           echo "<script> alert('starting update record $win1 with tournament id $tm_id and tm $i');
+           </script>";
+        //get team id
+        $getuser = "SELECT TeamID FROM Team Where TournamentID = $tm_id";
+        $teamid = $db_handle->getTeamID($getuser);
+
+        //get users id
+        $query3 = "SELECT UserID FROM TeamMembers Where TeamID = $teamid";
+        $user = $db_handle->getUserID($query3);
+
+        $query = "INSERT INTO Game(MatchesType,TournamentID,WinnerID)
+         VALUES('Team','$tm_id','$user') ";
+        $db_handle->insertQuery($query);
+
+        //update records
+
     }else{
         echo "<script> alert('game not recorded');
            </script>";
