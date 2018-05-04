@@ -127,7 +127,7 @@ if ($result->num_rows > 0) {
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <h3>HOME</h3>
 
-            <!-- Check Amin or not -->
+            <!-- Check Admin or not -->
         <?php
         $check_Admin1 = "select Email from User where Email = \"$email\" and Admin = 1";
         $count1 = $db_handle_pending->numRows($check_Admin1);
@@ -237,7 +237,7 @@ if ($result->num_rows > 0) {
 } //end admin home
 
 else {
-            //not admin
+            //not admin home page
         $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
         $current_ID = $db_handle_pending->getUserID($getUserID);
         $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
