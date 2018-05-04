@@ -82,6 +82,7 @@ if(!isset($message)){
 	    $file_type = $_FILES['file']['type'];
 	    $folder="../uploads/";
 
+
 	        // new file size in KB
 	    $new_size = $file_size/1024;
 	       
