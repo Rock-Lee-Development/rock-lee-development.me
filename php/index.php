@@ -161,7 +161,7 @@ if ($result->num_rows > 0) {
                 "</div>" .
                 "</div>" .
 
-                // Todo modal description.
+                // Todo modal Delete tournament.
                 "<div class=\"modal fade\" id=\"deleteModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">" .
                 "<div class=\"modal-dialog\" role=\"document\">" .
                 "<div class=\"modal-content\">" .
@@ -187,7 +187,7 @@ if ($result->num_rows > 0) {
                 "</div>" .
 
 
-                // Todo modal description.
+                // Todo modal Update tournament
                 "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
                 "<div class=\"modal-dialog\" role=\"document\">" .
 
@@ -266,7 +266,8 @@ else {
                     "</div>" .
                     "</div>" .
 
-                    // Todo modal description.
+                    /****Could be delete** */
+                    // Todo modal delet tournament.
                     "<div class=\"modal fade\" id=\"deleteModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">" .
                     "<div class=\"modal-dialog\" role=\"document\">" .
                     "<div class=\"modal-content\">" .
@@ -283,7 +284,7 @@ else {
                     "</div>" .
                     "</div>" .
 
-                    // Todo modal description.
+                    // Todo modal update tournameng.
                     "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
                     "<div class=\"modal-dialog\" role=\"document\">" .
 
@@ -320,10 +321,12 @@ else {
                     "<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\" style=\"margin-left: 10px; margin-right: 10px;\">Cancel</button>" .
                     "</div>" .
                     "</form>" .
+                    
                     "</div>" .
                     "</div>" .
                     "</div>" .
                     "</div>";
+                    /****Could be delete** */
 
                     $id_number += 1;
                 }
@@ -387,6 +390,7 @@ else {
                          } //end admin agenda
 
                          else { // not admin
+                                //just show enrolled tounrnament in aganda
                                 $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
                                 $current_ID = $db_handle_pending->getUserID($getUserID);
                                 $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
@@ -429,15 +433,16 @@ else {
         </div>
     </div> <!-- End Agenda -->
 
+<!-- Record Page -->
     <div class="tab-pane fade" id="records" role="tabpanel" aria-labelledby="records-tab">
         <h3>RECORDS</h3>
         <p>Below are your records for tournaments participated in.</p>
         <?php
 
-$getUserID = " SELECT UserID FROM User WHERE email = '$email'";
-$current_ID = $db_handle_pending->getUserID($getUserID);
-$check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
-$result1 = $db_handle_pending->getCount($check_join2);
+    $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+    $current_ID = $db_handle_pending->getUserID($getUserID);
+    $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+    $result1 = $db_handle_pending->getCount($check_join2);
 if ($result1 > 0) {
 
     $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
@@ -554,7 +559,7 @@ if ($result1 > 0) {
                 "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');" .
                 "}" .
                 "else {" .
-
+                    //get unique name for each matches
                 "num1 = gg.nameNum-lastm-2;" .
                 "num2 = gg.nameNum - lastm +1-2;" .
                 "lastm--;" .
@@ -605,6 +610,7 @@ if ($result1 > 0) {
             } else {
                 echo
                     //other members' record page
+                    //without select - option menu
                 "<script>" .
                 "$(document).on('ready', function() {" .
                 "var teams, i;" .
@@ -688,7 +694,7 @@ if ($result1 > 0) {
                 "else if(g==1 || g<=groupCount/2){" .
                 "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');" .
                 "}" .
-                "else {" .
+                "else {" . 
                 "num1 = (gg.nameNum-lastm-2);" .
                 "num2 = (gg.nameNum-lastm+1-2);" .
                 "lastm--;" .
@@ -701,7 +707,7 @@ if ($result1 > 0) {
                     "group.append(round);" .
                     "}" .
                     "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'+''+'</span></div></div></div>');" .
-                    "$('#$token').append(group);" .
+                    "$('#$token').append(group);" . //append to DOM
 
                     "bracketCount++;" .
                     "$('html,body').animate({" .
@@ -715,7 +721,7 @@ if ($result1 > 0) {
                     "else
                   alert('The bracket size you specified is not currently supported.');" .
 
-                    "});" .
+                    "});" . //end document on rady function
                     "</script>";
                 echo
                 "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
@@ -822,11 +828,11 @@ if ($result1 > 0) {
 
         </div>
     </div>
-<<<<<<< Updated upstream
+
     <!-- pending tournament section -->
-=======
+
      <!-- Only shoe Pending on Admin Page -->
->>>>>>> Stashed changes
+
     <div class="tab-pane fade " id="Pending" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Pending Tournament</h3>
         <?php
@@ -923,6 +929,7 @@ if ($result1 > 0) {
     </div>
 </div>
 <!-- end of pending tournament -->
+
 <!--Join Tournament Modal-->
 <!--Begin Modal-->
 <div class="modal fade" id="modalEnrollForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
