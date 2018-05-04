@@ -833,91 +833,84 @@ if ($result1 > 0) {
             $id_numbers = 1;
             /*if the values from the table*/
             if ($results2->num_rows > 0) {
-                /*repeat the same operation for every values*/
-                while ($row = $results2->fetch_assoc()) {
-                        $strings = $row["StartDate"];
-                        $timestamps = strtotime($strings);
-                        $current_tms = $row["TournamentID"];
-                        $query_file2 = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tms'";
-                        $current_image_Pending = $db_handle_pending->getImage($query_file2);
-                        /*Show every tournament that haven't been approved*/
-                         echo
-                        "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
-                        "<div class=\"card-body\">" .
-                        "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
-                        "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamps) . "</h6>" .
-                        "<img src= \"../uploads/$current_image_Pending\" class=\"img-thumbnail\" style= \"border:none;\">" .
-                        "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
-                        "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#approveModal" . $row["TournamentID"] . "\">APPROVE</button>" .
-                        "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#denyModal" . $row["TournamentID"] . "\">DENY</button>" .
-                        "</div>" .
-                         "</div>" .
+              /*repeat the same operation for every values*/
+              while ($row = $results2->fetch_assoc()) {
+                $strings = $row["StartDate"];
+                $timestamps = strtotime($strings);
+                $current_tms = $row["TournamentID"];
+                $query_file2 = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tms'";
+                $current_image_Pending = $db_handle_pending->getImage($query_file2);
+                /*Show every tournament that haven't been approved*/
+                 echo
+                  "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
+                  "<div class=\"card-body\">" .
+                  "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
+                  "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamps) . "</h6>" .
+                  "<img src= \"../uploads/$current_image_Pending\" class=\"img-thumbnail\" style= \"border:none;\">" .
+                  "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
+                  "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#approveModal" . $row["TournamentID"] . "\">APPROVE</button>" .
+                  "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#denyModal" . $row["TournamentID"] . "\">DENY</button>" .
+                  "</div>" .
+                  "</div>" .
 
-                         // Modal to Approve a tournament.
-                        "<div class=\"modal fade\" id=\"approveModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"approveModal\" aria-hidden=\"true\">" .
-                        "<div class=\"modal-dialog\" role=\"document\">" .
-                        "<div class=\"modal-content\">" .
-                        "<div class=\"modal-header\">" .
-                        "<h5 class=\"modal-title\" id=\"approveModal\">Approve " . $row["Name"] . "</h5>" .
-                        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
-                        "<span aria-hidden=\"true\">&times;</span>" .
-                        "</button>" .
-                        "</div>" .
+                  // Modal to Approve a tournament.
+                  "<div class=\"modal fade\" id=\"approveModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"approveModal\" aria-hidden=\"true\">" .
+                  "<div class=\"modal-dialog\" role=\"document\">" .
+                  "<div class=\"modal-content\">" .
+                  "<div class=\"modal-header\">" .
+                  "<h5 class=\"modal-title\" id=\"approveModal\">Approve " . $row["Name"] . "</h5>" .
+                  "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+                  "<span aria-hidden=\"true\">&times;</span>" .
+                  "</button>" .
+                  "</div>" .
 
-                        "<div class=\"modal-body\">" .
-                        "<form method=\"POST\">" .
-                        "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
-                        "<p><strong>YOU ARE ABOUT TO APPROVE A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you approve this tournament." .
-                        "</div>" .
-                        "</div>" .
+                  "<div class=\"modal-body\">" .
+                  "<form method=\"POST\">" .
+                  "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+                  "<p><strong>YOU ARE ABOUT TO APPROVE A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you approve this tournament." .
+                  "</div>" .
+                  "</div>" .
 
-                        "<div class=\"modal-footer justify-content-center\">" .
-                        "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
-                        "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Approve(this.value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
-                        "</div>" .
-                        "</form>" .
-
-                         "</div>" .
-                        "</div>" .
-                        "</div>" .
-
-                        // Modal to Deny a tournament.
-                         "<div class=\"modal fade\" id=\"denyModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"denyModal\" aria-hidden=\"true\">" .
-                        "<div class=\"modal-dialog\" role=\"document\">" .
-                        "<div class=\"modal-content\">" .
-
-                        "<div class=\"modal-header\">" .
-                        "<h5 class=\"modal-title\" id=\"denyModal\">Deny " . $row["Name"] . "</h5>" .
-                        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
-                        "<span aria-hidden=\"true\">&times;</span>" .
-                        "</button>" .
-                        "</div>" .
-
-                         "<div class=\"modal-body\">" .
-                        "<form method=\"POST\">" .
-                        "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
-                        "<p><strong>YOU ARE ABOUT TO DENY A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you deny this tournament." .
-                        "</div>" .
-                        "<div class=\"md-form form-sm row\">" .
-                        "<label for=\"denyReason\" class=\"col-sm-4 control-label right-align\">Deny Reason</label>" .
-                        "<div class=\"col-sm-8\">" .
-                        "<textarea class=\"form-control\" id=\"denyreason" . $current_tms . "\" name=\"denyReason\" rows=\"12\" placeholder=\"Enter Reason Why Deny\" required></textarea>" .
-                        "</div>" .
-                        "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>" .
-                        "<br />" .
-                        "</div>" .
-                        "</div>" .
-
-                        "<div class=\"modal-footer justify-content-center\">" .
-                        "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
-                        "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
-                        "</div>".
-                        "</form>".
-
-                        "</div>".
-                        "</div>".
-                        "</div>";
-
+                  "<div class=\"modal-footer justify-content-center\">" .
+                  "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+                  "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Approve(this.value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+                  "</div>" .
+                  "</form>" .
+                  "</div>" .
+                  "</div>" .
+                  "</div>" .
+                  // Modal to Deny a tournament.
+                  "<div class=\"modal fade\" id=\"denyModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"denyModal\" aria-hidden=\"true\">" .
+                  "<div class=\"modal-dialog\" role=\"document\">" .
+                  "<div class=\"modal-content\">" .
+                  "<div class=\"modal-header\">" .
+                  "<h5 class=\"modal-title\" id=\"denyModal\">Deny " . $row["Name"] . "</h5>" .
+                  "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+                  "<span aria-hidden=\"true\">&times;</span>" .
+                  "</button>" .
+                  "</div>" .
+                  "<div class=\"modal-body\">" .
+                  "<form method=\"POST\">" .
+                  "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+                  "<p><strong>YOU ARE ABOUT TO DENY A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you deny this tournament." .
+                  "</div>" .
+                  "<div class=\"md-form form-sm row\">" .
+                  "<label for=\"denyReason\" class=\"col-sm-4 control-label right-align\">Deny Reason</label>" .
+                  "<div class=\"col-sm-8\">" .
+                  "<textarea class=\"form-control\" id=\"denyreason" . $current_tms . "\" name=\"denyReason\" rows=\"12\" placeholder=\"Enter Reason Why Deny\" required></textarea>" .
+                  "</div>" .
+                  "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>" .
+                  "<br />" .
+                  "</div>" .
+                  "</div>" .
+                  "<div class=\"modal-footer justify-content-center\">" .
+                  "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+                  "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+                  "</div>".
+                  "</form>".
+                  "</div>".
+                   "</div>".
+                    "</div>";
                 }
             } else {
                          echo "0 results";
