@@ -133,21 +133,18 @@ if ($result->num_rows > 0) {
         $count1 = $db_handle_pending->numRows($check_Admin1);
         if ($count1 > 0) { //if is an Admin
                 //get all tournament information
-            $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
-            $result = $conn->query($sql);
-
-            $id_number = 1;
-
-                /*** ********* Amin Home Page ******** */
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                $string = $row["StartDate"];
-                $timestamp = strtotime($string);
-                $tm_id = $row["TournamentID"];
-
-                $query = "SELECT file FROM tbl_uploads WHERE TournamentId='$tm_id'";
-                $current_image = $db_handle_pending->getImage($query);
-                echo
+          $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
+          $result = $conn->query($sql);
+          $id_number = 1;
+          /*** ********* Amin Home Page ******** */
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $string = $row["StartDate"];
+              $timestamp = strtotime($string);
+              $tm_id = $row["TournamentID"];
+              $query = "SELECT file FROM tbl_uploads WHERE TournamentId='$tm_id'";
+              $current_image = $db_handle_pending->getImage($query);
+              echo
                 "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
                 "<div class=\"card-body\">" .
                 "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
@@ -185,21 +182,16 @@ if ($result->num_rows > 0) {
                 "</div>" .
                 "</div>" .
                 "</div>" .
-           
-
                 // Todo modal description.
                 "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
                 "<div class=\"modal-dialog\" role=\"document\">" .
-
                 "<div class=\"modal-content\">" .
-
                 "<div class=\"modal-header light-blue darken-3 white-text\">" .
                 "<h4 class=\"title col-sm-9\" id=\"updateTournament\">Update Tournament</h4>" .
                 "<button type=\"button\" class=\"close waves-effect waves-light\" data-dismiss=\"modal\" aria-label=\"Close\">" .
                 "<span aria-hidden=\"true\">&times;</span>" .
                 "</button>" .
                 "</div>" .
-
                 "<div class=\"modal-body mb-0 mx-3\">" .
                 "<form  method = \"POST\">" .
                 "<div class=\"md-form form-sm row\">" .
@@ -217,7 +209,6 @@ if ($result->num_rows > 0) {
                 "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>" .
                 "<br />" .
                 "</div>" .
-
                 "<div class=\"text-center mt-1-half\">" .
                 "<br />" .
                 "<button type=\"submit\" class=\"btn btn-secondary\" id=\"submit$id_number\" value = \"$tm_id\" onclick=\"updateTM(this.value);\" style=\"margin-left: 10px; margin-right: 10px;\">Create</button>" .
@@ -228,15 +219,13 @@ if ($result->num_rows > 0) {
                 "</div>" .
                 "</div>" .
                 "</div>";
-
                 $id_number += 1;
-            }
-        } else {
-                echo "0 results";
-        }
-} //end admin home
-
-else {
+              }
+            } else {
+              echo "0 results";
+          }
+        } //end admin home
+        else {
             //not admin
         $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
         $current_ID = $db_handle_pending->getUserID($getUserID);
@@ -245,9 +234,7 @@ else {
         if ($result1 > 0) {
             $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
             $result = $conn->query($sql);
-
             $id_number = 1;
-
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_array()) {
                     $string = $row["StartDate"];
@@ -265,7 +252,6 @@ else {
                     "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
                     "</div>" .
                     "</div>" .
-
                     // Todo modal description.
                     "<div class=\"modal fade\" id=\"deleteModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">" .
                     "<div class=\"modal-dialog\" role=\"document\">" .
@@ -282,19 +268,15 @@ else {
                     "</div>" .
                     "</div>" .
                     "</div>" .
-
                     // Todo modal description.
                     "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
                     "<div class=\"modal-dialog\" role=\"document\">" .
-
                     "<div class=\"modal-content\">" .
-
                     "<div class=\"modal-header light-blue darken-3 white-text\">" .
                     "<h4 class=\"title col-sm-9\" id=\"updateTournament\">Update Tournament</h4>" .
                     "<button type=\"button\" class=\"close waves-effect waves-light\" data-dismiss=\"modal\" aria-label=\"Close\">" .
                     "<span aria-hidden=\"true\">&times;</span>" .
                     "</button>" .
-
                     "</div>" .
                     "<div class=\"modal-body mb-0 mx-3\">" .
                     "<form action = \"createTM.php\" method = \"POST\">" .
@@ -333,7 +315,8 @@ else {
         } else {
                 echo "0 results";
         }
-} //End Home Page For Non Admin
+}
+/***************End Home Page For Non Admin****************/
 ?>
     <!-- Agenda-->
     </div>
@@ -545,7 +528,7 @@ if ($result1 > 0) {
                 "grouped = _.groupBy(struct, function(s) { return s.roundNo; });" .
 
                 "for(g=1;g<=groupCount;g++) {" .
-                
+
                 "var round = $('<div class=\"r'+g+'\"></div>');" .
                 "_.each(grouped[g], function(gg) {" .
                 "if(gg.bye){" .
@@ -673,14 +656,14 @@ if ($result1 > 0) {
                  */
                 "function renderBrackets(struct) {" .
                     "var num1,num2;".
-               
+
                 "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;" .
                  "var lastm = (groupCount +1)/2;".
                 "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>')," .
                 "grouped = _.groupBy(struct, function(s) { return s.roundNo; });" .
 
                 "for(g=1;g<=groupCount;g++) {" .
-                 
+
                 "var round = $('<div class=\"r'+g+'\"></div>');" .
                 "_.each(grouped[g], function(gg) {" .
                 "if(gg.bye){" .
