@@ -185,7 +185,7 @@ if ($result->num_rows > 0) {
                 "</div>" .
                 "</div>" .
                 "</div>" .
-           
+
 
                 // Todo modal description.
                 "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
@@ -545,7 +545,7 @@ if ($result1 > 0) {
                 "grouped = _.groupBy(struct, function(s) { return s.roundNo; });" .
 
                 "for(g=1;g<=groupCount;g++) {" .
-                
+
                 "var round = $('<div class=\"r'+g+'\"></div>');" .
                 "_.each(grouped[g], function(gg) {" .
                 "if(gg.bye){" .
@@ -673,14 +673,14 @@ if ($result1 > 0) {
                  */
                 "function renderBrackets(struct) {" .
                     "var num1,num2;".
-               
+
                 "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;" .
                  "var lastm = (groupCount +1)/2;".
                 "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>')," .
                 "grouped = _.groupBy(struct, function(s) { return s.roundNo; });" .
 
                 "for(g=1;g<=groupCount;g++) {" .
-                 
+
                 "var round = $('<div class=\"r'+g+'\"></div>');" .
                 "_.each(grouped[g], function(gg) {" .
                 "if(gg.bye){" .
@@ -822,23 +822,25 @@ if ($result1 > 0) {
 
         </div>
     </div>
-
+    <!-- pending tournament section -->
     <div class="tab-pane fade " id="Pending" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Pending Tournament</h3>
         <?php
+            /*get values from tables*/
             $sql2 = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 0";
             $results2 = $conn->query($sql2);
 
             $id_numbers = 1;
+            /*if the values from the table*/
             if ($results2->num_rows > 0) {
+                /*repeat the same operation for every values*/
                 while ($row = $results2->fetch_assoc()) {
                         $strings = $row["StartDate"];
                         $timestamps = strtotime($strings);
                         $current_tms = $row["TournamentID"];
-
                         $query_file2 = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tms'";
                         $current_image_Pending = $db_handle_pending->getImage($query_file2);
-
+                        /*Show every tournament that haven't been approved*/
                          echo
                         "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
                         "<div class=\"card-body\">" .
@@ -909,11 +911,11 @@ if ($result1 > 0) {
                         "<div class=\"modal-footer justify-content-center\">" .
                         "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
                         "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
-                        "</div>" .
-                        "</form>" .
+                        "</div>".
+                        "</form>".
 
-                        "</div>" .
-                        "</div>" .
+                        "</div>".
+                        "</div>".
                         "</div>";
 
                 }
@@ -921,9 +923,9 @@ if ($result1 > 0) {
                          echo "0 results";
                     }
         ?>
-    </div> <!-- End Pending -->
+    </div>
 </div>
-
+<!-- end of pending tournament -->
 <!--Join Tournament Modal-->
 <!--Begin Modal-->
 <div class="modal fade" id="modalEnrollForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
