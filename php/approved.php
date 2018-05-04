@@ -33,8 +33,11 @@ if(!empty($email)) {
 
         //prepare the email information
         
-            //the link in the email, when click, will run code in the 'approved.php' file
-        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."approved.php?TournamentID=" . $currentTMid."&email=".$email;
+           
+        /*this link can be sent within the email, and click this link will run the code 
+             in this file, which will approve this tournament. Can be used to test during developing.
+        */
+        //$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"."approved.php?TournamentID=" . $currentTMid."&email=".$email;
         $toEmail = $email; //the email address of tournament creator
         $subject = "Tournament status"; //email subject
         $content = "Tounrmanet is approved. <a href ='" . $actual_link ."'> </a>"; //email content
