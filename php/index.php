@@ -49,6 +49,7 @@ if ($result->num_rows > 0) {
     <link rel="icon" href="../images/Logo.svg">
 
     <!-- CSS -->
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel = "stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
@@ -56,6 +57,7 @@ if ($result->num_rows > 0) {
     <link href = "../css/tempusdominus-bootstrap-4.min.css" rel = "stylesheet">
     <link href = "../css/bracketgenerator.css" rel = "stylesheet">
     <link href = "../css/_card.scss" rel = "stylesheet">
+
 
     <!--  JavaScript --> <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -384,79 +386,42 @@ else {
 
                          } //end admin agenda
 
-                else { // not admin
-                        $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
-                        $current_ID = $db_handle_pending->getUserID($getUserID);
-                        $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
-                        $result_agenda2 = $db_handle_pending->getCount($check_join2);
+                         else { // not admin
+                                $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+                                $current_ID = $db_handle_pending->getUserID($getUserID);
+                                $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+                                $result_agenda2 = $db_handle_pending->getCount($check_join2);
 
-                        if ($result_agenda2 > 0) {
-                            $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
-                            $result = $conn->query($sql);
+                            if ($result_agenda2 > 0) {
+                                $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
+                                $result = $conn->query($sql);
 
                                 //ordered by start date
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                $string = $row["StartDate"];
-                                $timestamp = strtotime($string);
-                                echo
-                                "<tr>" .
-                                "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
-                                "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
-                                "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
-                                "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
-                                "</td>" .
-                                "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
-                                "<td class=\"agenda-events\">" .
-                                "<div class=\"agenda-event\"> " .
-                                $row["Name"] . " " . $row["Descripton"] .
-                                "</div>" .
-                                "</td>" .
-                                "</tr>";
-                            }
-                        } else {
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                    $string = $row["StartDate"];
+                                    $timestamp = strtotime($string);
+                                    echo
+                                    "<tr>" .
+                                    "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
+                                    "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
+                                    "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
+                                    "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
+                                    "</td>" .
+                                    "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
+                                     "<td class=\"agenda-events\">" .
+                                    "<div class=\"agenda-event\"> " .
+                                    $row["Name"] . " " . $row["Descripton"] .
+                                    "</div>" .
+                                    "</td>" .
+                                    "</tr>";
+                                }
+                            } else {
                                  echo "0 results";
-                    }
-                 }
-            } // End Non Adim Agenda
-
-/*$getUserID = " SELECT UserID FROM User WHERE email = '$email'";
-$current_ID2 = $db_handle_pending->getUserID($getUserID);
-$check_join_Agenda = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID2'";
-$result = $db_handle_pending->getCount($check_join_Agenda);
-
-if ($result > 0) {
-    $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID2' ORDER BY StartDate";
-    $result = $conn->query($sql);
-
-    //ordered by start date
-    //$result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $string = $row["StartDate"];
-            $timestamp = strtotime($string);
-            echo
-            "<tr>" .
-            "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
-            "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
-            "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
-            "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
-            "</td>" .
-            "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
-                "<td class=\"agenda-events\">" .
-                "<div class=\"agenda-event\"> " .
-                $row["Name"] . " " . $row["Descripton"] .
-                "</div>" .
-                "</td>" .
-                "</tr>";
-
-        }
-    } else {
-        echo "no agenda";
-    }
-} //end not admin agenda*/
-                        ?> 
+                            }
+                            }
+                    } // End Non Adim Agenda
+                        ?>
                         </tbody>
                     </table>
                 </div>
@@ -496,7 +461,7 @@ if ($result1 > 0) {
             $check_Admin_Records = "select Creator from Tournament where Creator = \"$email\" and TournamentID = $touramentID ";
             $count_Records = $db_handle_pending->numRows($check_Admin_Records);
             $nameS = "";
-            for ($m = 1; $m <= $row_count; $m++) {
+            for ($m = 1; $m < $row_count; $m++) {
                 $nameS = $nameS . "<option>Team" . $m . "</option>";
             }
             if ($count_Records > 0) {
@@ -518,53 +483,56 @@ if ($result1 > 0) {
                  * Build our bracket "model"
                  */
                 "}" .
+
                 "function getBracket(base) {" .
 
-                "  var closest 		= _.find(knownBrackets, function(k) { return k>=base; })," .
-                "  byes 			= closest-base;" .
+                "  var closest 	= _.find(knownBrackets, function(k) { return k>=base; })," .
+                "  byes 		= closest-base;" .
 
                 "  if(byes>0)	base = closest;" .
 
                 "var brackets 	= []," .
-                "round 		= 1," .
-                "baseT 		= base/2," .
-                "baseC 		= base/2," .
-                "teamMark	= 0," .
-                "nextInc		= base/2;" .
+                    "round 		= 1," .
+                    "baseT 		= base/2," .
+                    "baseC 		= base/2," .
+                    "teamMark	= 0," .
+                    "nextInc		= base/2;" .
 
                 "for(i=1;i<=(base-1);i++) {" .
-                " var k =i;" .
-                "var	baseR = i/baseT," .
-                "isBye = false;" .
+                    " var k =i;" .
+                    "var	baseR = i/baseT," .
+                    "isBye = false;" .
 
-                "if(byes>0 && (i%2!=0 || byes>=(baseT-i))) {" .
-                "isBye = true;" .
-                "byes--;" .
-                "}" .
+                    "if(byes>0 && (i%2!=0 || byes>=(baseT-i))) {" .
+                        "isBye = true;" .
+                         "byes--;" .
+                     "}" .
 
-                "var last = _.map(_.filter(brackets, function(b) { return b.nextGame == i; })," .
-                "function(b) { return {game:b.bracketNo,teams:b.teamnames}; });" .
+                    "var last = _.map(_.filter(brackets, function(b) { return b.nextGame == i; })," .
+                     "function(b) { return {game:b.bracketNo,teams:b.teamnames}; });" .
 
-                "brackets.push({" .
-                "lastGames:	round==1 ? null : [last[0].game,last[1].game]," .
-                "nextGame:	nextInc+i>base-1?null:nextInc+i," .
-                "teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]]," .
-                "bracketNo:	i," .
-                "nameNum: k," .
-                "roundNo:	round," .
-                "bye:		isBye });" .
-                "teamMark+=2;" .
-                "if(i%2!=0)	nextInc--;" .
-                "while(baseR>=1) {" .
-                "round++;" .
-                "baseC/= 2;" .
-                "baseT = baseT + baseC;" .
-                "baseR = i/baseT;" .
-                "}" .
+                    "brackets.push({" .
+                        "lastGames:	round==1 ? null : [last[0].game,last[1].game]," .
+                        "nextGame:	nextInc+i>base-1?null:nextInc+i," .
+                        "teamnames:	round==1 ? [exampleTeams[teamMark],exampleTeams[teamMark+1]] : [last[0].teams[_.random(1)],last[1].teams[_.random(1)]]," .
+                        "bracketNo:	i," .
+                        "nameNum: k," .
+                         "roundNo:	round," .
+                         "bye:		isBye });" .
+
+                    "teamMark+=2;" .
+                        "if(i%2!=0)	nextInc--;" .
+                            "while(baseR>=1) {" .
+                            "round++;" .
+                            "baseC/= 2;" .
+                            "baseT = baseT + baseC;" .
+                            "baseR = i/baseT;" .
+                        "}" .
+
                 "}" .
 
                 "renderBrackets(brackets);" .
-                "}" .
+                "}" . // End GetBracket Function
 
                 /*
                  * Inject our brackets
@@ -591,27 +559,14 @@ if ($result1 > 0) {
                 "num2 = gg.nameNum - lastm +1-2;" .
                 "lastm--;" .
 
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'
-                       +'<select name = \"tm' + num1 +'\" value=\"????\">'
-                       +'<option>- select - </option>'
-                        + '$nameS'
-                       +'</select>'
-                       +'</span><span class=\"teamb\">'
-                       +'<select name= \"tm' +num2+ '\"   value=\"????\" >'
-                       +'<option>- select - </option>'
-                       +'$nameS'
-                       +'</select>'+'</span></div></div>');" .
+                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<select name = \"tm' + num1 +'\" value=\"????\">' +'<option>- select - </option>' + '$nameS'+'</select>'+'</span><span class=\"teamb\">'+'<select name= \"tm' +num2+ '\"   value=\"????\" >'+'<option>- select - </option>'+'$nameS'+'</select>'+'</span></div></div>');" .
                 "}" .
 
                 "});" .
 
                     "group.append(round);" .
                     "}" .
-                    "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'
-              +'<select name=\"final\" value=\"????\">'
-               +'<option>- select - </option>'
-               +'$nameS'
-               +'</select></span></div></div></div>');" .
+                    "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'+'<select name=\"final\" value=\"????\">'+'<option>- select - </option>'+'$nameS' +'</select></span></div></div></div>');" .
                     "$('#$token').append(group);" .
 
                     "bracketCount++;" .
@@ -626,8 +581,11 @@ if ($result1 > 0) {
                     "else
                   alert('The bracket size you specified is not currently supported.');" .
 
-                    "});" .
-                    "</script>";
+                    "});" . //End Document.on.Ready Function
+
+                    "</script>"; // End JS
+
+                  // Show Brackets with Team Name and Select menue
                 echo
                 "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
                 "<div class=\"card-body\">" .
@@ -637,8 +595,6 @@ if ($result1 > 0) {
                 "<div class=\"brackets\" id=\"$token\">" .
                 "</div>" .
                 "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
-                /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
-                "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
                 "<input  name=\"GameID\" type=\"hidden\" value = \"$touramentID\">".
                 "<input type=\"submit\" class=\"btn btn-secondary\" value = \"Update\" name=\"GameRecord\' style=\"margin-left: 10px; margin-right: 10px;\" />".
                 "</form>".
@@ -1049,6 +1005,7 @@ if ($result1 > 0) {
                     <label for="tmname" class="col-sm-4 control-label right-align">Upload Tournament Picture</label>
                     <div class="col-sm-8">
                       <input type="file" name="file" / required>
+
                         <?php
 
                         if (isset($_GET['success'])) {
