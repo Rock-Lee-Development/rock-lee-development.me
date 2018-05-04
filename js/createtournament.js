@@ -84,15 +84,17 @@
 
 
 
-
+        //function to fetch team in select menue
+        //function to send information about the tournament
     function fetch_team(val){
             $.ajax({
                 type: 'post',
-                url: 'fetch_team.php',
+                url: 'fetch_team.php', //link to php file
                 data: {
-                    get_option:val
+                    get_option: val 
                 },
                 success: function (response) {
+                    //find the palce to insert select tag
                 document.getElementById("new_select").innerHTML=response;
            }
         });
@@ -100,14 +102,13 @@
     }
 
 
-    
+        //function to send information about the tournament
     function deleteTM(val){
-
       $.ajax({
           type: 'post',
           url: 'deleteTM.php',
           data: {
-              get_id:val,
+              get_id: val,
           },
           success: function (data) {
               $(".status").html(data);
@@ -115,26 +116,26 @@
       });
     }
 
-
+        //function to send information about the tournament
     function updateTM(val){
     var name = document.getElementById('tmname'+val).value;
     var des =  document.getElementById('desc'+val).value;
     $.ajax({
       type: 'post',
       url: 'update_tournament.php',
-      data: {get_id:val,
+      data: {
+          get_id:val,
           tm_name:name,
           desc:des
       },
       success: function (response) {
-          // process on data
-          alert("got response as "+"'"+response+"'");
+         // alert("got response as "+"'"+response+"'");
       }
     });
   
     }
 
-
+        //function to send information about the tournament
     function trans_Approve(val) {
     $.ajax({
         type: 'post',
@@ -142,25 +143,24 @@
         data: {get_id: val,
         },
         success: function (response) {
-            // process on data
-            alert("got response as "+"'"+ response + "'");
+           // alert("got response as "+"'"+ response + "'");
         }
     });
     }
 
 
-
+        //function to send information about the tournament
     function trans_Deny(val){
     var reason = document.getElementById('denyreason'+val).value;
     $.ajax({
         type: 'post',
         url: 'deny.php',
-        data: {get_id:val,
+        data: {
+            get_id:val,
             get_reason:reason,
         },
         success: function (response) {
-            // process on data
-            alert("got response as "+"'"+response+"'");
+           // alert("got response as "+"'"+response+"'");
         }
     });
 
