@@ -40,7 +40,7 @@ if(!empty($email)) {
 
     if (mail($toEmail, $subject, $content, $mailHeaders)) {
         echo "<script> alert('The tounrmanet is denied. ');
-        window.location.href='../php/index.php'; </script>";
+        window.location.href='../index.php'; </script>";
         exit;
     }
     unset($_POST);

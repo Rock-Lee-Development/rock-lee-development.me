@@ -46,7 +46,7 @@ if(!empty($email)) {
             //if sucessfuly send the email
         if (mail($toEmail, $subject, $content, $mailHeaders)) {
             echo "<script> alert('The tounrmanet is approved.');
-                  window.location.href='../php/index.php'; </script>";
+                  window.location.href='../index.php'; </script>";
             exit;
          }
         unset($_POST);

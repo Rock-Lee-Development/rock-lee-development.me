@@ -1,7 +1,23 @@
 
-  $(function () {
+ /*
+ Author: Zhuocheng Shang
+ Description:
+        This fle contain all Javascript and Jquery function needed in the foolowing files:
+        - When create tournament ivoving with 'DatePcker' in ' index.php '
+        - fetch_team.php
+        - deleteTM.php
+        - deny.php
+        - approved.php
+        - update_tournament.php
+ */
+ 
+ 
+ 
+    //function used for PDatetimePicker
+    /* For more information, check ' tempus dominus-bootstrap-4 '*/
+ $(function () {
 
-      //$(function () {
+                //function for the start date
           $('#StartDate').datetimepicker({
               useCurrent: false,
               minDate: moment(),
@@ -11,6 +27,7 @@
                   vertical: 'bottom'
               }
           });
+                //function for the end date
           $('#EndDate').datetimepicker({
               useCurrent: false,
               minDate: moment(),
@@ -20,6 +37,7 @@
                   vertical: 'bottom'
               }
           });
+                //set linked date time picker, make sure end date later than start date
           $("#StartDate").on("change.datetimepicker", function (e) {
               $('#EndDate').datetimepicker('minDate', e.date);
 
@@ -27,30 +45,11 @@
           $("#EndDate").on("change.datetimepicker", function (e) {
               $('#StartDate').datetimepicker('maxDate', e.date);
           });
-      //});
-        /*$('#StartDate').datetimepicker(
-            {
-                useCurrent: false,
-                minDate: moment(),
-                allowInputToggle: true,
-                widgetPositioning:{
-                    horizontal: 'auto',
-                    vertical: 'bottom'
-                }
-            }
-        );
-
-        $('#EndDate').datetimepicker(
-            {
-                useCurrent: false,
-                minDate: moment(),
-                allowInputToggle: true,
-                startDate:  new Date(),
-            }
-        );*/
 
     });
 
+
+        //function for check limit characters in the description text area
     $(document).ready(function(){
         $('#gType').on('change', function() {
             if ( this.value == 'Team')
@@ -85,6 +84,7 @@
 
 
 
+
     function fetch_team(val){
             $.ajax({
                 type: 'post',
@@ -99,7 +99,9 @@
 
     }
 
-  function deleteTM(val){
+
+    
+    function deleteTM(val){
 
       $.ajax({
           type: 'post',
@@ -111,12 +113,13 @@
               $(".status").html(data);
           }
       });
-  }
+    }
 
-  function updateTM(val){
+
+    function updateTM(val){
     var name = document.getElementById('tmname'+val).value;
     var des =  document.getElementById('desc'+val).value;
-  $.ajax({
+    $.ajax({
       type: 'post',
       url: 'update_tournament.php',
       data: {get_id:val,
@@ -127,14 +130,12 @@
           // process on data
           alert("got response as "+"'"+response+"'");
       }
-  });
+    });
   
-}
+    }
 
-function trans_Approve(val) {
-    //get tm id
-    // get creator email
-    // send to deny. php
+
+    function trans_Approve(val) {
     $.ajax({
         type: 'post',
         url: 'approved.php',
@@ -145,13 +146,11 @@ function trans_Approve(val) {
             alert("got response as "+"'"+ response + "'");
         }
     });
-}
+    }
 
 
-function trans_Deny(val){
-    //get tm id
-    // get creator email
-    // send to deny. php
+
+    function trans_Deny(val){
     var reason = document.getElementById('denyreason'+val).value;
     $.ajax({
         type: 'post',
