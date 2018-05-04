@@ -730,8 +730,10 @@ if ($result1 > 0) {
                 "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
                 /*"<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal".$row["TournamentID"]."\">DELETE</button>".
                 "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal".$row["TournamentID"]."\">UPDATE</button>".*/
-                "<button type=\"submit\" class=\"btn btn-secondary\" value = \"$touramentID\" id=\"Record$touramentID\" name=\"records\" style=\"margin-left: 10px; margin-right: 10px;\">Update</button>" .
-                    "</form>" .
+                "<input  name=\"GameID\" type=\"hidden\" value = \"$touramentID\">".
+                "<input type=\"submit\" class=\"btn btn-secondary\" value = \"Update\" name=\"GameRecord\' style=\"margin-left: 10px; margin-right: 10px;\" />".
+                "</form>".
+
                     "</div>" .
                     "</div>";
 
