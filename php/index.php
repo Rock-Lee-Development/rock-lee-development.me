@@ -102,18 +102,21 @@ if ($result->num_rows > 0) {
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" style="color: black;">Profile</a>
         </li>
         <?php
-require_once "DBController.php";
-$db_handle_pending = new DBController();
-$check_Admin_pending = "select Email from User where Email = \"$email\" and Admin = 1";
-$count_pending = $db_handle_pending->numRows($check_Admin_pending);
-if ($count_pending > 0) {
-    echo
-        "<li class=\"nav-item\">" .
-        "<a class=\"nav-link\" id=\"profile-tab\" data-toggle=\"tab\" href=\"#Pending\" role=\"tab\" aria-controls=\"profile\" aria-selected=\"false\" style=\"color: black; background-color: red;\">Pending</a>" .
-        "</li>";
+                //connect database
+            require_once "DBController.php";
+            $db_handle_pending = new DBController();
+                //check if the person is an Administrator or not
+            $check_Admin_pending = "select Email from User where Email = \"$email\" and Admin = 1";
+            $count_pending = $db_handle_pending->numRows($check_Admin_pending);
+            if ($count_pending > 0) {
+                //if it is an Admin, will show another 'Pending' button on the nav-bar
+            echo
+                "<li class=\"nav-item\">" .
+                "<a class=\"nav-link\" id=\"profile-tab\" data-toggle=\"tab\" href=\"#Pending\" role=\"tab\" aria-controls=\"profile\" aria-selected=\"false\" style=\"color: black; background-color: red;\">Pending</a>" .
+                "</li>";
 
-}
-?>
+            }
+        ?>
     </ul>
 </head>
 
@@ -121,65 +124,69 @@ if ($count_pending > 0) {
 <div class="tab-content text-center" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <h3>HOME</h3>
+
+            <!-- Check Amin or not -->
         <?php
+        $check_Admin1 = "select Email from User where Email = \"$email\" and Admin = 1";
+        $count1 = $db_handle_pending->numRows($check_Admin1);
+        if ($count1 > 0) { //if is an Admin
+                //get all tournament information
+            $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
+            $result = $conn->query($sql);
 
-$check_Admin1 = "select Email from User where Email = \"$email\" and Admin = 1";
-$count1 = $db_handle_pending->numRows($check_Admin1);
-if ($count1 > 0) {
-    $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 1";
-    $result = $conn->query($sql);
+            $id_number = 1;
 
-    $id_number = 1;
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $string = $row["StartDate"];
-            $timestamp = strtotime($string);
-            $tm_id = $row["TournamentID"];
+                /*** ********* Amin Home Page ******** */
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                $string = $row["StartDate"];
+                $timestamp = strtotime($string);
+                $tm_id = $row["TournamentID"];
 
-            $query = "SELECT file FROM tbl_uploads WHERE TournamentId='$tm_id'";
-            $current_image = $db_handle_pending->getImage($query);
-            echo
-            "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
-            "<div class=\"card-body\">" .
-            "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
-            "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamp) . "</h6>" .
+                $query = "SELECT file FROM tbl_uploads WHERE TournamentId='$tm_id'";
+                $current_image = $db_handle_pending->getImage($query);
+                echo
+                "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
+                "<div class=\"card-body\">" .
+                "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
+                "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamp) . "</h6>" .
 
-            "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">" .
+                "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">" .
 
-            "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
-            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal" . $row["TournamentID"] . "\">DELETE</button>" .
-            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal" . $row["TournamentID"] . "\">UPDATE</button>" .
-            "</div>" .
-            "</div>" .
+                "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
+                "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#deleteModal" . $row["TournamentID"] . "\">DELETE</button>" .
+                "<button type=\"button\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#updateModal" . $row["TournamentID"] . "\">UPDATE</button>" .
+                "</div>" .
+                "</div>" .
 
-            // Todo modal description.
-            "<div class=\"modal fade\" id=\"deleteModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">" .
-            "<div class=\"modal-dialog\" role=\"document\">" .
-            "<div class=\"modal-content\">" .
-            "<div class=\"modal-header\">" .
-            "<h5 class=\"modal-title\" id=\"deleteModal\">Delete " . $row["Name"] . "</h5>" .
-            "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
-            "<span aria-hidden=\"true\">&times;</span>" .
-            "</button>" .
-            "</div>" .
-            "<div class=\"modal-body\">" .
-            "<form  method = \"POST\">" .
-            "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
-            "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament." .
-            "</div>" .
-            "</div>" .
-            "<div class=\"modal-footer justify-content-center\">" .
-            "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
-            "<button type=\"submit\" value = \"$tm_id\"  onclick=\"deleteTM(this.value);\"  class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
-            "</div>" .
-            "</form>" .
-            "</div>" .
-            "</div>" .
-            "</div>" .
-            //"</form>".
+                // Todo modal description.
+                "<div class=\"modal fade\" id=\"deleteModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">" .
+                "<div class=\"modal-dialog\" role=\"document\">" .
+                "<div class=\"modal-content\">" .
+                "<div class=\"modal-header\">" .
+                "<h5 class=\"modal-title\" id=\"deleteModal\">Delete " . $row["Name"] . "</h5>" .
+                "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+                "<span aria-hidden=\"true\">&times;</span>" .
+                "</button>" .
+                "</div>" .
+                "<div class=\"modal-body\">" .
+                "<form  method = \"POST\">" .
+                "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+                "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament." .
+                "</div>" .
+                "</div>" .
+                "<div class=\"modal-footer justify-content-center\">" .
+                "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+                "<button type=\"submit\" value = \"$tm_id\"  onclick=\"deleteTM(this.value);\"  class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+                "</div>" .
+                "</form>" .
+                "</div>" .
+                "</div>" .
+                "</div>" .
+           
 
-            // Todo modal description.
-            "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
+                // Todo modal description.
+                "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
                 "<div class=\"modal-dialog\" role=\"document\">" .
 
                 "<div class=\"modal-content\">" .
@@ -220,61 +227,62 @@ if ($count1 > 0) {
                 "</div>" .
                 "</div>";
 
-            $id_number += 1;
+                $id_number += 1;
+            }
+        } else {
+                echo "0 results";
         }
-    } else {
-        echo "0 results";
-    }
 } //end admin home
+
 else {
-    //not admin
-    $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
-    $current_ID = $db_handle_pending->getUserID($getUserID);
-    $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
-    $result1 = $db_handle_pending->getCount($check_join);
-    if ($result1 > 0) {
-        $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
-        $result = $conn->query($sql);
+            //not admin
+        $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+        $current_ID = $db_handle_pending->getUserID($getUserID);
+        $check_join = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+        $result1 = $db_handle_pending->getCount($check_join);
+        if ($result1 > 0) {
+            $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID'";
+            $result = $conn->query($sql);
 
-        $id_number = 1;
+            $id_number = 1;
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_array()) {
-                $string = $row["StartDate"];
-                $timestamp = strtotime($string);
-                $tournamID = $row["TournamentID"];
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_array()) {
+                    $string = $row["StartDate"];
+                    $timestamp = strtotime($string);
+                    $tournamID = $row["TournamentID"];
 
-                $query_files = "SELECT file FROM tbl_uploads WHERE TournamentId='$tournamID'";
-                $current_image = $db_handle_pending->getImage($query_files);
-                echo
-                "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
-                "<div class=\"card-body\">" .
-                "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
-                "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamp) . "</h6>" .
-                "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">" .
-                "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
-                "</div>" .
-                "</div>" .
+                    $query_files = "SELECT file FROM tbl_uploads WHERE TournamentId='$tournamID'";
+                    $current_image = $db_handle_pending->getImage($query_files);
+                    echo
+                    "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
+                    "<div class=\"card-body\">" .
+                    "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
+                    "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamp) . "</h6>" .
+                    "<img src= \"../uploads/$current_image\" class=\"img-thumbnail\" height=\"60%\" width=\"50%\" style= \"border:none\">" .
+                    "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
+                    "</div>" .
+                    "</div>" .
 
-                // Todo modal description.
-                "<div class=\"modal fade\" id=\"deleteModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">" .
-                "<div class=\"modal-dialog\" role=\"document\">" .
-                "<div class=\"modal-content\">" .
-                "<div class=\"modal-body\">" .
-                "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
-                "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament." .
-                "</div>" .
-                "</div>" .
-                "<div class=\"modal-footer justify-content-center\">" .
-                "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
-                "<button type=\"button\" class=\"btn btn-primary\"  style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
-                "</div>" .
-                "</div>" .
-                "</div>" .
-                "</div>" .
+                    // Todo modal description.
+                    "<div class=\"modal fade\" id=\"deleteModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal\" aria-hidden=\"true\">" .
+                    "<div class=\"modal-dialog\" role=\"document\">" .
+                    "<div class=\"modal-content\">" .
+                    "<div class=\"modal-body\">" .
+                    "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+                    "<p><strong>YOU ARE ABOUT TO DELETE AN ENTIRE TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you delete this tournament." .
+                    "</div>" .
+                    "</div>" .
+                    "<div class=\"modal-footer justify-content-center\">" .
+                    "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+                    "<button type=\"button\" class=\"btn btn-primary\"  style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+                    "</div>" .
+                    "</div>" .
+                    "</div>" .
+                    "</div>" .
 
-                // Todo modal description.
-                "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
+                    // Todo modal description.
+                    "<div class=\"modal fade\" id=\"updateModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"updateTournament\" aria-hidden=\"true\">" .
                     "<div class=\"modal-dialog\" role=\"document\">" .
 
                     "<div class=\"modal-content\">" .
@@ -315,24 +323,23 @@ else {
                     "</div>" .
                     "</div>";
 
-                $id_number += 1;
+                    $id_number += 1;
+                }
+            } else {
+                 echo "0 results";
             }
         } else {
-            echo "0 results";
+                echo "0 results";
         }
-    } else {
-        echo "0 results";
-    }
-}
+} //End Home Page For Non Admin
 ?>
+    <!-- Agenda-->
     </div>
     <div class="tab-pane fade" id="agenda" role="tabpanel" aria-labelledby="agenda-tab">
         <h3>UPCOMING MATCHES</h3>
         <div class="container">
             <p class="lead">Below are your upcoming matches!</p>
-
             <hr />
-
             <div class="agenda">
                 <div class="table-responsive">
                     <table class="table table-condensed table-bordered">
@@ -345,74 +352,75 @@ else {
                         </thead>
                         <tbody>
                         <?php
-$check_Admin_agenda = "select Email from User where Email = \"$email\" and Admin = 1";
-$count = $db_handle_pending->numRows($check_Admin_agenda);
-if ($count > 0) {
-    $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament ORDER BY StartDate";
-    $result = $conn->query($sql);
-    //show all tounament approved & not approved
-    //ordered by start date
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $string = $row["StartDate"];
-            $timestamp = strtotime($string);
-            echo
-            "<tr>" .
-            "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
-            "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
-            "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
-            "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
-            "</td>" .
-            "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
-                "<td class=\"agenda-events\">" .
-                "<div class=\"agenda-event\"> " .
-                $row["Name"] . " " . $row["Descripton"] .
-                "</div>" .
-                "</td>" .
-                "</tr>";
-        }
-    } else {
-        echo "0 results";
-    }
+                        $check_Admin_agenda = "select Email from User where Email = \"$email\" and Admin = 1";
+                        $count = $db_handle_pending->numRows($check_Admin_agenda);
+                        if ($count > 0) {
+                            $sql = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament ORDER BY StartDate";
+                            $result = $conn->query($sql);
+                                //show all tounament approved & not approved
+                                //ordered by start date
+                            if ($result->num_rows > 0) {
+                                 while ($row = $result->fetch_assoc()) {
+                                            $string = $row["StartDate"];
+                                            $timestamp = strtotime($string);
+                                            echo
+                                            "<tr>" .
+                                             "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
+                                            "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
+                                            "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
+                                            "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
+                                            "</td>" .
+                                            "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
+                                            "<td class=\"agenda-events\">" .
+                                            "<div class=\"agenda-event\"> " .
+                                            $row["Name"] . " " . $row["Descripton"] .
+                                            "</div>" .
+                                            "</td>" .
+                                            "</tr>";
+                                }
+                            } else {
+                                     echo "0 results";
+                            }
 
-} //end admin agenda
-else {
-    $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
-    $current_ID = $db_handle_pending->getUserID($getUserID);
-    $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
-    $result_agenda2 = $db_handle_pending->getCount($check_join2);
+                         } //end admin agenda
 
-    if ($result_agenda2 > 0) {
-        $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
-        $result = $conn->query($sql);
+                else { // not admin
+                        $getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+                        $current_ID = $db_handle_pending->getUserID($getUserID);
+                        $check_join2 = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID'";
+                        $result_agenda2 = $db_handle_pending->getCount($check_join2);
 
-        //ordered by start date
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $string = $row["StartDate"];
-                $timestamp = strtotime($string);
-                echo
-                "<tr>" .
-                "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
-                "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
-                "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
-                "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
-                "</td>" .
-                "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
-                    "<td class=\"agenda-events\">" .
-                    "<div class=\"agenda-event\"> " .
-                    $row["Name"] . " " . $row["Descripton"] .
-                    "</div>" .
-                    "</td>" .
-                    "</tr>";
-            }
-        } else {
-            echo "0 results";
-        }
-    }
-}
+                        if ($result_agenda2 > 0) {
+                            $sql = "SELECT UserTournaments.TournamentID ,Name, Descripton, StartDate, EndDate FROM Tournament INNER JOIN UserTournaments ON UserTournaments.TournamentID = Tournament.TournamentID  WHERE UserTournaments.UserID = '$current_ID' ORDER BY StartDate";
+                            $result = $conn->query($sql);
 
-$getUserID = " SELECT UserID FROM User WHERE email = '$email'";
+                                //ordered by start date
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                $string = $row["StartDate"];
+                                $timestamp = strtotime($string);
+                                echo
+                                "<tr>" .
+                                "<td class=\"agenda-date\" class=\"active\" rowspan=\"1\">" .
+                                "<div class=\"dayofmonth\">" . date("d", $timestamp) . "</div>" .
+                                "<div class=\"dayofweek\">" . date("D", $timestamp) . "</div>" .
+                                "<div class=\"shortdate text-muted\">" . date("F", $timestamp) . "," . date("Y", $timestamp) . "</div>" .
+                                "</td>" .
+                                "<td class=\"agenda-time\">" . date("h:i A", $timestamp) . "</td>" .
+                                "<td class=\"agenda-events\">" .
+                                "<div class=\"agenda-event\"> " .
+                                $row["Name"] . " " . $row["Descripton"] .
+                                "</div>" .
+                                "</td>" .
+                                "</tr>";
+                            }
+                        } else {
+                                 echo "0 results";
+                    }
+                 }
+            } // End Non Adim Agenda
+
+/*$getUserID = " SELECT UserID FROM User WHERE email = '$email'";
 $current_ID2 = $db_handle_pending->getUserID($getUserID);
 $check_join_Agenda = "SELECT COUNT(*) FROM UserTournaments WHERE UserID = '$current_ID2'";
 $result = $db_handle_pending->getCount($check_join_Agenda);
@@ -447,14 +455,15 @@ if ($result > 0) {
     } else {
         echo "no agenda";
     }
-} //end not admin agenda
-?>
+} //end not admin agenda*/
+                        ?> 
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
+    </div> <!-- End Agenda -->
+
     <div class="tab-pane fade" id="records" role="tabpanel" aria-labelledby="records-tab">
         <h3>RECORDS</h3>
         <p>Below are your records for tournaments participated in.</p>
