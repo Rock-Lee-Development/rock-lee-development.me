@@ -594,106 +594,6 @@ if ($result1 > 0) {
                        +'</select>'+'</span></div></div>');" .
                 "}" .
 
-                /*"else if(g<2){".
-
-                //$('<div class="r'+(groupCount+1)+'"><div><divclass="bracketbox"><span class="info">'+gg.bracketNo+'</span><span class="teama">'+'df'+'</span><span class="teamb">'+'df'+'</span></div></div></div>');
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
-                "}".
-                "else if(g<3){".
-
-                "if(gg.bracketNo== 3){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t3a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t3b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 4){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t4a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t4b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 5){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t5a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t5b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 6){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t6a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t6b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 9){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t9a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t9b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 10){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t10a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t10b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 11){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t11a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t11b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 12){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t12a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t12b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 17){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t17a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t17b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 18){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t18a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t18b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 19){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t19a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t19b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 20){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t20a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t20b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 21){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t21a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t21b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 22){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t22a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t22b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 23){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"23a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t23b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 24){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t24a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t24b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "}".
-                "else if(g<4){".
-                "if(gg.bracketNo== 7){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t7a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t7b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 13){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t13a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t13b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 14){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t14a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t14b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 25){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t25a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t25b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 26){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t26a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t26b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 27){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t27a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t27b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 28){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t28a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t28b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "}".
-                "else if(g<5){".
-                "if(gg.bracketNo== 15){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t15a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t15b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-
-                "}".
-                "if(gg.bracketNo== 29){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t29a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t29b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-
-                "}".
-
-                "if(gg.bracketNo== 30){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t30a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t30b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "}".
-                "else if(g<6){".
-                "if(gg.bracketNo== 31){".
-
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t31a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t31b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "  }".
-                "}".*/
-
                 "});" .
 
                     "group.append(round);" .
@@ -831,106 +731,6 @@ if ($result1 > 0) {
                 //"num1++;".
                 "}" .
 
-                /*"else if(g<2){".
-
-                //$('<div class="r'+(groupCount+1)+'"><div><divclass="bracketbox"><span class="info">'+gg.bracketNo+'</span><span class="teama">'+'df'+'</span><span class="teamb">'+'df'+'</span></div></div></div>');
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');".
-                "}".
-                "else if(g<3){".
-
-                "if(gg.bracketNo== 3){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t3a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t3b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 4){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t4a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t4b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 5){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t5a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t5b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 6){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t6a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t6b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 9){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t9a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t9b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 10){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t10a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t10b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 11){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t11a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t11b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 12){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t12a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t12b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 17){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t17a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t17b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 18){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t18a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t18b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 19){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t19a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t19b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 20){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t20a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t20b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 21){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t21a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t21b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 22){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t22a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t22b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 23){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"23a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t23b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 24){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t24a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t24b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "}".
-                "else if(g<4){".
-                "if(gg.bracketNo== 7){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t7a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t7b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 13){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t13a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t13b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 14){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t14a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t14b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 25){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t25a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t25b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 26){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t26a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t26b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 27){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t27a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t27b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "if(gg.bracketNo== 28){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t28a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t28b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "}".
-                "else if(g<5){".
-                "if(gg.bracketNo== 15){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t15a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t15b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-
-                "}".
-                "if(gg.bracketNo== 29){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t29a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t29b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-
-                "}".
-
-                "if(gg.bracketNo== 30){".
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t30a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t30b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "}".
-                "}".
-                "else if(g<6){".
-                "if(gg.bracketNo== 31){".
-
-                "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<input name=\"t31a\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span><span class=\"teamb\">'+'<input name=\"t31b\" type=\"text\" id=\"myText\" style =\"border: none;\" value=\"????\">'+'</span></div></div>');".
-                "  }".
-                "}".*/
-
                 "});" .
 
                     "group.append(round);" .
@@ -1057,107 +857,106 @@ if ($result1 > 0) {
 
         </div>
     </div>
+
     <div class="tab-pane fade " id="Pending" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Pending Tournament</h3>
         <?php
-$sql2 = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 0";
-$results2 = $conn->query($sql2);
+            $sql2 = "SELECT TournamentID, Name, Descripton, StartDate, EndDate FROM Tournament WHERE Approved = 0";
+            $results2 = $conn->query($sql2);
 
-$id_numbers = 1;
-if ($results2->num_rows > 0) {
-    while ($row = $results2->fetch_assoc()) {
-        $strings = $row["StartDate"];
-        $timestamps = strtotime($strings);
-        $current_tms = $row["TournamentID"];
+            $id_numbers = 1;
+            if ($results2->num_rows > 0) {
+                while ($row = $results2->fetch_assoc()) {
+                        $strings = $row["StartDate"];
+                        $timestamps = strtotime($strings);
+                        $current_tms = $row["TournamentID"];
 
-        $query_file2 = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tms'";
-        //$you= "18462-harden.png";
-        $current_image_Pending = $db_handle_pending->getImage($query_file2);
+                        $query_file2 = "SELECT file FROM tbl_uploads WHERE TournamentId='$current_tms'";
+                        $current_image_Pending = $db_handle_pending->getImage($query_file2);
 
-        echo
-        "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
-        "<div class=\"card-body\">" .
-        "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
-        "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamps) . "</h6>" .
-        "<img src= \"../uploads/$current_image_Pending\" class=\"img-thumbnail\" style= \"border:none;\">" .
-        "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
-        "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#approveModal" . $row["TournamentID"] . "\">APPROVE</button>" .
-        "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#denyModal" . $row["TournamentID"] . "\">DENY</button>" .
-        "</div>" .
-        "</div>" .
+                         echo
+                        "<div class=\"card top-buffer mx-auto\" style=\"width: 55vmax;\">" .
+                        "<div class=\"card-body\">" .
+                        "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
+                        "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamps) . "</h6>" .
+                        "<img src= \"../uploads/$current_image_Pending\" class=\"img-thumbnail\" style= \"border:none;\">" .
+                        "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
+                        "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: green; border-color: transparent; margin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#approveModal" . $row["TournamentID"] . "\">APPROVE</button>" .
+                        "<button type=\"button\" class=\"btn btn-primary\" style=\"background-color: red; border-color: transparent; amargin-left: 10px; margin-right: 10px;\" data-toggle=\"modal\" data-target=\"#denyModal" . $row["TournamentID"] . "\">DENY</button>" .
+                        "</div>" .
+                         "</div>" .
 
-        // Todo modal description.
-        "<div class=\"modal fade\" id=\"approveModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"approveModal\" aria-hidden=\"true\">" .
-        "<div class=\"modal-dialog\" role=\"document\">" .
-        "<div class=\"modal-content\">" .
-        "<div class=\"modal-header\">" .
-        "<h5 class=\"modal-title\" id=\"approveModal\">Approve " . $row["Name"] . "</h5>" .
-        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
-        "<span aria-hidden=\"true\">&times;</span>" .
-        "</button>" .
-        "</div>" .
+                         // Modal to Approve a tournament.
+                        "<div class=\"modal fade\" id=\"approveModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"approveModal\" aria-hidden=\"true\">" .
+                        "<div class=\"modal-dialog\" role=\"document\">" .
+                        "<div class=\"modal-content\">" .
+                        "<div class=\"modal-header\">" .
+                        "<h5 class=\"modal-title\" id=\"approveModal\">Approve " . $row["Name"] . "</h5>" .
+                        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+                        "<span aria-hidden=\"true\">&times;</span>" .
+                        "</button>" .
+                        "</div>" .
 
-        "<div class=\"modal-body\">" .
-        "<form method=\"POST\">" .
-        "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
-        "<p><strong>YOU ARE ABOUT TO APPROVE A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you approve this tournament." .
-        "</div>" .
-        "</div>" .
+                        "<div class=\"modal-body\">" .
+                        "<form method=\"POST\">" .
+                        "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+                        "<p><strong>YOU ARE ABOUT TO APPROVE A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you approve this tournament." .
+                        "</div>" .
+                        "</div>" .
 
-        "<div class=\"modal-footer justify-content-center\">" .
-        "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
-        "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Approve(this.value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
-        "</div>" .
-        "</form>" .
+                        "<div class=\"modal-footer justify-content-center\">" .
+                        "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+                        "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Approve(this.value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+                        "</div>" .
+                        "</form>" .
 
-        "</div>" .
-        "</div>" .
-        "</div>" .
+                         "</div>" .
+                        "</div>" .
+                        "</div>" .
 
-        // Todo modal description.
-        "<div class=\"modal fade\" id=\"denyModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"denyModal\" aria-hidden=\"true\">" .
-            "<div class=\"modal-dialog\" role=\"document\">" .
-            "<div class=\"modal-content\">" .
+                        // Modal to Deny a tournament.
+                         "<div class=\"modal fade\" id=\"denyModal" . $row["TournamentID"] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"denyModal\" aria-hidden=\"true\">" .
+                        "<div class=\"modal-dialog\" role=\"document\">" .
+                        "<div class=\"modal-content\">" .
 
-            "<div class=\"modal-header\">" .
-            "<h5 class=\"modal-title\" id=\"denyModal\">Deny " . $row["Name"] . "</h5>" .
-            "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
-            "<span aria-hidden=\"true\">&times;</span>" .
-            "</button>" .
-            "</div>" .
+                        "<div class=\"modal-header\">" .
+                        "<h5 class=\"modal-title\" id=\"denyModal\">Deny " . $row["Name"] . "</h5>" .
+                        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" .
+                        "<span aria-hidden=\"true\">&times;</span>" .
+                        "</button>" .
+                        "</div>" .
 
-            "<div class=\"modal-body\">" .
-            "<form method=\"POST\">" .
-            "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
-            "<p><strong>YOU ARE ABOUT TO DENY A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you deny this tournament." .
-            "</div>" .
-            "<div class=\"md-form form-sm row\">" .
-            "<label for=\"denyReason\" class=\"col-sm-4 control-label right-align\">Deny Reason</label>" .
-            "<div class=\"col-sm-8\">" .
-            "<textarea class=\"form-control\" id=\"denyreason" . $current_tms . "\" name=\"denyReason\" rows=\"12\" placeholder=\"Enter Reason Why Deny\" required></textarea>" .
-            "</div>" .
-            "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>" .
-            "<br />" .
-            "</div>" .
-            "</div>" .
+                         "<div class=\"modal-body\">" .
+                        "<form method=\"POST\">" .
+                        "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">" .
+                        "<p><strong>YOU ARE ABOUT TO DENY A TOURNAMENT!</strong></p> Please be certain this is the course of action you wish to take before you deny this tournament." .
+                        "</div>" .
+                        "<div class=\"md-form form-sm row\">" .
+                        "<label for=\"denyReason\" class=\"col-sm-4 control-label right-align\">Deny Reason</label>" .
+                        "<div class=\"col-sm-8\">" .
+                        "<textarea class=\"form-control\" id=\"denyreason" . $current_tms . "\" name=\"denyReason\" rows=\"12\" placeholder=\"Enter Reason Why Deny\" required></textarea>" .
+                        "</div>" .
+                        "<span class =\"offset-md-8\" id=\"spnCharLeft\"></span>" .
+                        "<br />" .
+                        "</div>" .
+                        "</div>" .
 
-            "<div class=\"modal-footer justify-content-center\">" .
-            "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
-            "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
-            "</div>" .
-            "</form>" .
+                        "<div class=\"modal-footer justify-content-center\">" .
+                        "<button type=\"button\" class=\"btn btn-secondary\" style=\"margin-left: 10px; margin-right: 10px;\" data-dismiss=\"modal\">Close</button>" .
+                        "<button type=\"submit\" value = \"$current_tms\" onclick=\"trans_Deny(this . value);\" class=\"btn btn-primary\" style=\"margin-left: 10px; margin-right: 10px;\">Save changes</button>" .
+                        "</div>" .
+                        "</form>" .
 
-            "</div>" .
-            "</div>" .
-            "</div>";
+                        "</div>" .
+                        "</div>" .
+                        "</div>";
 
-    }
-} else {
-    echo "0 results";
-}
-?>
-    </div>
-
+                }
+            } else {
+                         echo "0 results";
+                    }
+        ?>
+    </div> <!-- End Pending -->
 </div>
 
 <!--Join Tournament Modal-->
@@ -1175,24 +974,24 @@ if ($results2->num_rows > 0) {
             <div class="modal-body mx-3">
 
             <form action="joinTournament.php" method = "POST">
-
                     <div class="form-group">
                         <label for = "TMname"> Select A Tournament</label>
                         <select name = "TMname" id = "TMname" class="form-control" onchange="fetch_team(this.value);">
+                            <!-- Fetch Approved Tournaments -->
                             <?php
-echo '<option value="0" > - select -</option>';
-$dt = new DateTime();
-$current = $dt->format('Y-m-d H:i:s');
-$result = $conn->query("select TournamentID,Name,StartDate from Tournament where Approved = '1' ");
-while ($row = $result->fetch_assoc()) {
-    $teamID = $row["TournamentID"];
-    $name = $row['Name'];
-    $sDate = $row['StartDate'];
-    if (strtotime($current) < strtotime($sDate)) {
-        echo '<option value="' . $teamID . '">' . $name . '</option>';
-    }
-}
-?>
+                                    echo '<option value="0" > - select -</option>';
+                                    $dt = new DateTime();
+                                    $current = $dt->format('Y-m-d H:i:s');
+                                    $result = $conn->query("select TournamentID,Name,StartDate from Tournament where Approved = '1' ");
+                                    while ($row = $result->fetch_assoc()) {
+                                        $teamID = $row["TournamentID"];
+                                        $name = $row['Name'];
+                                        $sDate = $row['StartDate'];
+                                    if (strtotime($current) < strtotime($sDate)) {
+                                        echo '<option value="' . $teamID . '">' . $name . '</option>';
+                                     }
+                                    }
+                            ?>
                         </select>
 
                         <div id="new_select">
@@ -1229,35 +1028,39 @@ while ($row = $result->fetch_assoc()) {
             <div class="modal-body mb-0 mx-3">
                 <form action = "createTM.php" method = "POST" enctype="multipart/form-data">
                 <div class="md-form form-sm row">
+                        <!-- Tournament Name -->
                     <label for="tmname" class="col-sm-4 control-label right-align">Tournament Name</label>
                     </br>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="tmname" name="tmname" placeholder="Enter Tounrnament Name" required>
                     </div>
                 </div>
+                        <!-- Tournament Picture -->
                 <div class="md-form form-sm row">
                     <label for="tmname" class="col-sm-4 control-label right-align">Upload Tournament Picture</label>
                     <div class="col-sm-8">
                       <input type="file" name="file" / required>
-                      <?php
+                        <?php
 
-if (isset($_GET['success'])) {
-    ?>
+                        if (isset($_GET['success'])) {
+                        ?>
                           <label>File Uploaded Successfully...  </label>
                           <?php
-} else if (isset($_GET['fail'])) {
-    ?>
+                        } else if (isset($_GET['fail'])) {
+                        ?>
                           <label>Problem While File Uploading !</label>
                           <?php
-} else {
-    ?>
+                        } else {
+                        ?>
                           <label>Try to upload any files(PDF, DOC, EXE, VIDEO, MP3, ZIP,etc...)</label>
                           <?php
-}
-?>
+                        }
+                        ?>
                     </div>
-        </div>
+                </div>
+
                 <br>
+                         <!-- Start Date -->
                 <div class="md-form form-sm row">
                     <label for="StartDate" class="col-sm-4 control-label right-align">Start Date</label>
                     <div class="col-sm-8">
@@ -1271,7 +1074,7 @@ if (isset($_GET['success'])) {
                         </div>
                     </div>
                 </div>
-
+                                <!-- End Date -->
                 <div class="md-form form-sm row">
                     <label for="EndDate" class="col-sm-4 control-label right-align">End Date</label>
                     <div class="col-sm-8">
@@ -1285,7 +1088,7 @@ if (isset($_GET['success'])) {
                         </div>
                     </div>
                 </div>
-
+                            <!-- Game Type -->
                 <div class="md-form form-sm row">
                     <label for="gType" class="col-sm-4 control-label">Game Type</label>
                     <div class="col-sm-8">
@@ -1294,7 +1097,7 @@ if (isset($_GET['success'])) {
                             <option value = "Team">Team</option>
                             <br />
                         </select>
-
+                                <!--Team Type, only show when choose Team Type -->
                          <div class ="teamType">
                             <div id="selectteam" style="display:none">
                                 <div class="md-form form-sm row">
@@ -1326,6 +1129,7 @@ if (isset($_GET['success'])) {
                     </div>
                 </div>
 
+                                <!-- Description -->
                 <div class="md-form form-sm row">
                     <label for="description" class="col-sm-4 control-label right-align">Description</label>
                     <div class="col-sm-8">
@@ -1335,6 +1139,7 @@ if (isset($_GET['success'])) {
                     <br />
                 </div>
 
+                            <!-- Buttons-->
 
                 <div class="text-center mt-1-half">
                     <br />
