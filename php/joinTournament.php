@@ -64,7 +64,7 @@ if(!isset($message)) {
 }
 
 }else{
-  echo "<script> alert('something wrong2');
+  echo "<script> alert('You already in the tournament!');
            window.location.href='../index.html'; </script>";
 }
 ?>

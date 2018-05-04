@@ -460,9 +460,9 @@ if ($result1 > 0) {
             $token = $db_handle_pending->generateNewString();
             $check_Admin_Records = "select Creator from Tournament where Creator = \"$email\" and TournamentID = $touramentID ";
             $count_Records = $db_handle_pending->numRows($check_Admin_Records);
-            $nameS = "";
+            $nameS = ""; //start to generate the select - option menu on each bracket 
             for ($m = 1; $m < $row_count; $m++) {
-                $nameS = $nameS . "<option>Team" . $m . "</option>";
+                $nameS = $nameS . "<option>Team" . $m . "</option>"; //set up as a string
             }
             if ($count_Records > 0) {
 
@@ -550,7 +550,7 @@ if ($result1 > 0) {
                 "_.each(grouped[g], function(gg) {" .
                 "if(gg.bye){" .
                 "round.append('<div></div>');}" .
-                "else if(g==1 || g<=groupCount/2){" .
+                "else if(g==1 || g<=groupCount/2){" . //append the matches - first round
                 "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');" .
                 "}" .
                 "else {" .
@@ -558,7 +558,7 @@ if ($result1 > 0) {
                 "num1 = gg.nameNum-lastm-2;" .
                 "num2 = gg.nameNum - lastm +1-2;" .
                 "lastm--;" .
-
+                         //append other rounds based on  hoe many teams
                 "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+'<select name = \"tm' + num1 +'\" value=\"????\">' +'<option>- select - </option>' + '$nameS'+'</select>'+'</span><span class=\"teamb\">'+'<select name= \"tm' +num2+ '\"   value=\"????\" >'+'<option>- select - </option>'+'$nameS'+'</select>'+'</span></div></div>');" .
                 "}" .
 
@@ -567,7 +567,7 @@ if ($result1 > 0) {
                     "group.append(round);" .
                     "}" .
                     "group.append('<div class=\"r'+(groupCount+1)+'\"><div class=\"final\"><div class=\"bracketbox\"><span class=\"teamc\">'+'<select name=\"final\" value=\"????\">'+'<option>- select - </option>'+'$nameS' +'</select></span></div></div></div>');" .
-                    "$('#$token').append(group);" .
+                    "$('#$token').append(group);" . //append to DOM
 
                     "bracketCount++;" .
                     "$('html,body').animate({" .
@@ -592,7 +592,7 @@ if ($result1 > 0) {
                 "<form  action= \"edit_tournament.php\" method=\"POST\">" .
                 "<h5 class=\"card-title\">" . $row["Name"] . "</h5>" .
                 "<h6 class=\"card-subtitle mb-2 text-muted\">" . date("l jS \of F Y", $timestamp) . "</h6>" .
-                "<div class=\"brackets\" id=\"$token\">" .
+                "<div class=\"brackets\" id=\"$token\">" .//place to insert each bracket
                 "</div>" .
                 "<p class=\"card-text\">" . $row["Descripton"] . "</p>" .
                 "<input  name=\"GameID\" type=\"hidden\" value = \"$touramentID\">".
@@ -601,10 +601,10 @@ if ($result1 > 0) {
 
                     "</div>" .
                     "</div>";
-
+                    //end tournament creator record page
             } else {
                 echo
-
+                    //other members' record page
                 "<script>" .
                 "$(document).on('ready', function() {" .
                 "var teams, i;" .
@@ -822,7 +822,11 @@ if ($result1 > 0) {
 
         </div>
     </div>
+<<<<<<< Updated upstream
     <!-- pending tournament section -->
+=======
+     <!-- Only shoe Pending on Admin Page -->
+>>>>>>> Stashed changes
     <div class="tab-pane fade " id="Pending" role="tabpanel" aria-labelledby="profile-tab">
         <h3>Pending Tournament</h3>
         <?php
