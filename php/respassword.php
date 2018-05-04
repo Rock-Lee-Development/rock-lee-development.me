@@ -23,38 +23,34 @@
 				break;
 			}
 		}
-		/* Password Matching Validation */
-		if($_POST['resPassword'] != $_POST['confirm_password']){
-			$error_message = 'Passwords should be same<br>';
-		}
-		/* If no error message*/
-		if(!isset($message)) {
-			/*Call DBController class*/
-			require_once("DBController.php");
-			$db_handle = new DBController();
-			/*check token and user ID*/
-			$query1 = "SELECT * FROM UserToken WHERE UserID='$id' AND Token = '$token'";
-			$count = $db_handle->numRows($query1);
-			/*If USer ID and Token matches in database*/
-			if($count>0) {
-    		$token = $db_handle->generateNewString();// generate new random strings
-    		$newPassword = $_POST["resPassword"];
-    		$newPasswordEncrypted = password_hash($newPassword, PASSWORD_BCRYPT);
-				/* update passwor and token*/
-    		$query2 = "UPDATE User set PasswordHash = '$newPasswordEncrypted' WHERE UserID='$id'";
-    		$query3 = "UPDATE UserToken set Token = '$token' WHERE UserID='$id'";
-	  		$result2 = $db_handle->updateQuery($query2);
-    		$result3 = $db_handle->updateQuery($query3);
-				/*If password ans token have been updaate successfuly*/
-				if((!empty($result2)) && (!empty($result3))) {
-					echo "<script> alert('your account is activate');
-	    		window.location.href='../index.html'; </script>";
-				} else {
-					echo "<script> alert('problem registration');
-					window.location.href='../index.html'; </script>";
-				}
-			}
-		}
+
+	/* Password Matching Validation */
+if($_POST['resPassword'] != $_POST['confirm_password']){
+$error_message = 'Passwords should be same<br>';
+}
+
+/* Encrypt new password */
+if(!isset($message)) {
+	require_once("DBController.php");
+	$db_handle = new DBController();
+
+	$query1 = "SELECT * FROM UserToken WHERE UserID='$id' AND Token = '$token'";
+	$count = $db_handle->numRows($query1);
+	if($count>0) {
+
+    $token = $db_handle->generateNewString();
+    $newPassword = $_POST["resPassword"];
+    $newPasswordEncrypted = password_hash($newPassword, PASSWORD_BCRYPT);
+    $query2 = "UPDATE User set PasswordHash = '$newPasswordEncrypted' WHERE UserID='$id'";
+    $query3 = "UPDATE UserToken set Token = '$token' WHERE UserID='$id'";
+	  $result2 = $db_handle->updateQuery($query2);
+    $result3 = $db_handle->updateQuery($query3);
+		if((!empty($result2)) && (!empty($result3))) {
+			echo "<script> alert('your account is activate');
+	    window.location.href='../index.html'; </script>";
+		} else {
+			echo "<script> alert('problem registration');
+			window.location.href='../index.html'; </script>";
 		}
 	}else{
   	echo "<script> alert('link has expired');
@@ -79,6 +75,7 @@
  		<link href="../css/bootstrap.min.css" rel="stylesheet">
  		<link href="../css/style.css" rel="stylesheet">
  		<link href="../css/Footer-with-button-logo.css" rel="stylesheet">
+
  </head>
  <body>
  		<div class="container">
