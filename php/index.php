@@ -563,12 +563,12 @@ if ($result1 > 0) {
                 "function renderBrackets(struct) {" .
                 "var num1,num2;" .
                 "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;" .
-
+                "var lastm = (groupCount +1)/2;" .
                 "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>')," .
                 "grouped = _.groupBy(struct, function(s) { return s.roundNo; });" .
 
                 "for(g=1;g<=groupCount;g++) {" .
-                "var last;" .
+                
                 "var round = $('<div class=\"r'+g+'\"></div>');" .
                 "_.each(grouped[g], function(gg) {" .
                 "if(gg.bye){" .
@@ -578,9 +578,9 @@ if ($result1 > 0) {
                 "}" .
                 "else {" .
 
-                "num1 = gg.nameNum-last-2;" .
-                "num2 = gg.nameNum - last +1-2;" .
-                "last--;" .
+                "num1 = gg.nameNum-lastm-2;" .
+                "num2 = gg.nameNum - lastm +1-2;" .
+                "lastm--;" .
 
                 "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'
                        +'<select name = \"tm' + num1 +'\" value=\"????\">'
