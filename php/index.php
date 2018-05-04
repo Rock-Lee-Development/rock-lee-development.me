@@ -807,13 +807,15 @@ if ($result1 > 0) {
                  * Inject our brackets
                  */
                 "function renderBrackets(struct) {" .
-                "var last;" .
+                    "var num1,num2;".
+               
                 "var groupCount	= _.uniq(_.map(struct, function(s) { return s.roundNo; })).length;" .
-
+                 "var lastm = (groupCount +1)/2;".
                 "var group	= $('<div class=\"group'+(groupCount+1)+'\" id=\"b'+bracketCount+'\"></div>')," .
                 "grouped = _.groupBy(struct, function(s) { return s.roundNo; });" .
 
                 "for(g=1;g<=groupCount;g++) {" .
+                 
                 "var round = $('<div class=\"r'+g+'\"></div>');" .
                 "_.each(grouped[g], function(gg) {" .
                 "if(gg.bye){" .
@@ -822,9 +824,9 @@ if ($result1 > 0) {
                 "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+gg.teamnames[0]+'</span><span class=\"teamb\">'+gg.teamnames[1]+'</span></div></div>');" .
                 "}" .
                 "else {" .
-                "var num1 = (gg.nameNum-last);" .
-                "var num2 = num1+1;" .
-                "last--;" .
+                "num1 = (gg.nameNum-lastm-2);" .
+                "num2 = (gg.nameNum-lastm+1-2);" .
+                "lastm--;" .
                 "round.append('<div><div class=\"bracketbox\"><span class=\"info\">'+gg.bracketNo+'</span><span class=\"teama\">'+' '+'</span><span class=\"teamb\">'+' '+'</span></div></div>');" .
                 //"num1++;".
                 "}" .
