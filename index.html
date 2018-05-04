@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title> Login </title>
+
+    <!-- CSS -->
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="css/bootstrap-grid.css" rel="stylesheet">
     <link href="css/bootstrap-grid.min.css" rel="stylesheet">
@@ -39,7 +41,7 @@
                         <div class="row">
                             <div class="col-lg-12">
 
-                                <!-- *************************** Form 1 ***************************************************** -->
+                                <!-- *************************** Login Form ***************************************************** -->
                                 <form id="login-form" action="php/login.php" method="post" role="form" style="display: block;">
                                     <h2>LOGIN</h2>
                                     <div class="form-group">
@@ -58,10 +60,11 @@
                                 <!-- ********************************************************************************************************************-->
 
 
-                                <!-- *************************** Registration Form ***************************************************** -->
+                                <!-- *************************** Register Form ***************************************************** -->
 
                                 <form name="myForm" id="register-form" action="php/register.php" method="post" role="form" onsubmit="return validatemyForm();" style="display: none;">
                                     <h2>REGISTER</h2>
+
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col">
@@ -89,12 +92,12 @@
                                         </div>
                                     </div>
                                 </form>
+                                <!-- ********************************************************************************************************************-->
+
+
                             </div>
                         </div>
                     </div>
-                    <!-- *************************** END of Registration Form ***************************************************** -->
-
-                    <!-- *************************** Login And Logout Button ***************************************************** -->
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6 tabs" style="width:50%">
@@ -113,7 +116,9 @@
             </div>
         </div>
     </div>
-            <!-- *************************** Forgot Password Form ***************************************************** -->
+
+    <!--Forgot Password Modal-->
+    <!--Begin Modal-->
     <div class="modal fade" id="forgotmodal" tabindex="-1" role="dialog" aria-labelledby="forgotmodal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -142,14 +147,14 @@
             </div>
         </div>
     </div>
-    <!-- *************************** End Forgot Password Form ***************************************************** -->
+<!--End Modal-->
 </body>
-<!-- *************************** Footer ***************************************************** -->
+
 <footer id="footer" class="footer navbar-fixed-bottom">
     <div> &copy; Rock Lee Development @ Lindenwood Library Services: Media Library </div>
 </footer>
-<!-- *************************** End footer ***************************************************** -->
-<!--  JavaScript --> <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<!--JS scripts here -->
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/tether.min.js"></script>
@@ -157,7 +162,5 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/index.js"></script>
 <script src="js/registration.js"></script>
-
-
 
 </html>

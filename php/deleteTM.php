@@ -1,13 +1,13 @@
 <?php
 /*
 Author: Zhuocheng Shang
-Description: This file if set to delete a tournament which is already approved
+Description: This file is set to delete a tournament which is already approved
 */
 
     //connect to database
 require_once("DBController.php");
 $db_handle = new DBController();
- 
+
         //get current tournament ID
     $tmID = $_POST['get_id'];
         //delete tournament from database

@@ -57,7 +57,9 @@
        			echo "<script> alert('Your user account has been succesfully registered. Please check your Lindenwood email address for an activation email.');
                 window.location.href='../index.html'; </script>";
          		exit;
-     			}else {
+     			}
+          /* Error message */
+					else {
       		$message = "Problem in registration. Try Again!";
      			}
       		unset($_POST);

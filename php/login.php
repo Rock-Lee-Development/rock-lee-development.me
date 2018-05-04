@@ -9,7 +9,6 @@ session_start();
   $_SESSION["servername"]
   $_SESSION["databasename"]
   $_SESSION["password"]
-  $_SESSION["email"]
   $_SESSION["logged_in"]
 */
 
@@ -22,9 +21,10 @@ $_SESSION["databasename"] = $databaseName ;
 $_SESSION["password"] = $databasePassword;
 $_SESSION["logged_in"] = true;
 
-// Building the connection. Database name and user name for us are the same "rocklee".
+// Building the connection.
 $conn = mysqli_connect($servername, $databaseName, $databasePassword, $databaseName);
 
+//Check the connection
 if (!$conn) {
     die("Connection to server failed. Contact your Lindenwood University system adminstrator: " . mysqli_connect_error());
     header('Location: ./error.html');
@@ -48,8 +48,7 @@ if (!$conn) {
               window.location.href='../index.html'; </script>";
         } else if (mysqli_num_rows($result) == 1) {
 
-           // $check_status_query = "DD";
-
+            //Retrieve user password info
             $get_password_query = "select PasswordHash from User where Email = \"$email\"";
             $result2 = mysqli_query($conn, $get_password_query);
 
@@ -60,6 +59,7 @@ if (!$conn) {
                 $row = mysqli_fetch_assoc($result2);
                 $hashed_password = $row["PasswordHash"];
 
+                //Verify the submitted password
                 if (password_verify($password, $hashed_password)) {
 
                     // Session variable for Email Address;
