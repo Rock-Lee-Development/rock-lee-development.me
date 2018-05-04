@@ -1,18 +1,26 @@
 <?php
+/*
+Author: Zhuocheng Shang, Marlon Djouba
+Description: This file if set to dealing with enrolling a player           
+*/
+
 session_start();
-//user id
-//tournament id
+
+  //if no error message
 if(!isset($message)) {
+
+    //connect to database
   require_once("DBController.php");
   $db_handle = new DBController();
+
+    //get current users' email and user id
   $email = $_SESSION["email"];
   $query = "SELECT UserID FROM User WHERE email='$email'";
-  //$UserID_Tournament= "SELECT From "
-$current_id = $db_handle->getUserID($query);
+  $current_id = $db_handle->getUserID($query);
 
-
- $TMname =  $_POST["TMname"];
- $TeamName= $_POST["TeamName"];
+    //get tournament name and team name the user want to join
+  $TMname =  $_POST["TMname"];
+  $TeamName= $_POST["TeamName"];
 
 
     $result1 = "SELECT COUNT(*) FROM TeamMembers WHERE TeamID = '$TeamName'";
