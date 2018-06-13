@@ -1,9 +1,7 @@
 
 ## Lindenwood University's Tournament Management System. 
 
-
-http://www.gamertree.org 
-
+[I'm an inline-style link](gamertree.org)
 
 ## Developers: 
 - Ian Fitzpatrick 
