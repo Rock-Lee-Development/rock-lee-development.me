@@ -2,7 +2,7 @@
 ## Lindenwood University's Tournament Management System. 
 
 
-gamertree.org 
+https:/www.gamertree.org 
 
 
 ## Developers: 
